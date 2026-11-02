@@ -16,6 +16,7 @@ import { FlirtBubble } from '@/components/FlirtBubble';
 import { PressableScale } from '@/components/PressableScale';
 import { Txt } from '@/components/Txt';
 import { appInfo, appOrder } from '@/data/catalog';
+import { coverOf } from '@/data/covers';
 import { others, personById, postsOf, shared } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { categories, categoryOrder, colors, gutter, radius, space, type CategoryId } from '@/theme';
@@ -79,15 +80,44 @@ export default function PersonProfile() {
   const common = isMe ? profile.interests : shared(me.interests, profile.interests);
   const rest = isMe ? [] : others(me.interests, profile.interests);
   const cat = categories[profile.color];
+  const cover = coverOf(isMe ? 'me' : id);
   const write = (quote?: string) =>
     router.push({ pathname: '/chat/[id]', params: quote ? { id, quote } : { id } });
 
   return (
     <View style={styles.root}>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 + insets.bottom }}>
-        <View style={[styles.cover, { backgroundColor: cat.solid, height: 150 + insets.top }]}>
+        <View style={[styles.cover, { backgroundColor: cat.solid, height: (cover ? 210 : 150) + insets.top }]}>
           <View style={[styles.coverCircle, { backgroundColor: cat.soft }]} />
           <View style={[styles.coverPill, { backgroundColor: cat.ink }]} />
+          {cover ? (
+            <View
+              style={[styles.coverContent, { top: insets.top + 56 }]}
+              accessible
+              accessibilityLabel={`${cover.tagline}. ${cover.stickers.map((s) => s.label).join(', ')}`}
+            >
+              {cover.stickers.map((s, i) => (
+                <View
+                  key={s.label}
+                  style={[
+                    styles.sticker,
+                    stickerSpots[i],
+                    { backgroundColor: categories[s.cat].solid },
+                  ]}
+                >
+                  <Txt variant="subheadStrong">{s.emoji}</Txt>
+                  <Txt variant="subheadStrong" color={colors.ink}>
+                    {s.label}
+                  </Txt>
+                </View>
+              ))}
+              <View style={styles.tagline}>
+                <Txt variant="footnoteStrong" color={colors.white} numberOfLines={1}>
+                  {cover.tagline}
+                </Txt>
+              </View>
+            </View>
+          ) : null}
         </View>
         <View style={styles.avatar}>
           <Avatar photoId={id} name={profile.name} color={profile.color} size={88} verified={profile.verified} badge bordered />
@@ -245,11 +275,20 @@ export default function PersonProfile() {
   );
 }
 
+const stickerSpots = [
+  { left: '4%', top: 0, transform: [{ rotate: '-8deg' }] },
+  { right: '4%', top: 12, transform: [{ rotate: '7deg' }] },
+  { left: '30%', top: 58, transform: [{ rotate: '-3deg' }] },
+] as const;
+
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   cover: { overflow: 'hidden' },
   coverCircle: { position: 'absolute', width: 240, height: 240, borderRadius: 120, right: -60, top: -40, opacity: 0.7 },
   coverPill: { position: 'absolute', width: 200, height: 60, borderRadius: 999, left: 90, bottom: 0, opacity: 0.16, transform: [{ rotate: '-14deg' }] },
+  coverContent: { position: 'absolute', left: 0, right: 0, bottom: 0 },
+  sticker: { position: 'absolute', flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 999, borderWidth: 2, borderColor: colors.white },
+  tagline: { position: 'absolute', right: gutter, bottom: space.md, maxWidth: '58%', backgroundColor: 'rgba(0,0,0,0.55)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 999 },
   avatar: { marginTop: -44, marginLeft: gutter },
   body: { paddingHorizontal: gutter, paddingTop: space.md, gap: space.md },
   preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.primarySoft, padding: space.md, borderRadius: radius.button },
