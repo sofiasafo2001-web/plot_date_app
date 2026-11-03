@@ -17,7 +17,7 @@ const meta: Record<string, { label: string; icon: LucideIcon }> = {
   profile: { label: 'Perfil', icon: User },
 };
 
-/** Barra de pestañas flotante en negro. La pestaña activa va en rojo (la acción de marca). */
+/** Barra de pestañas flotante en negro. La pestaña activa va en frambuesa (la acción de marca). */
 export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const badge = useChatBadge();
@@ -49,7 +49,7 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
                 <Icon size={21} color={focused ? colors.white : tabMuted} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.white : 'none'} />
                 {showBadge ? (
                   <View style={styles.badge}>
-                    <Txt variant="caption" color={colors.ink} maxFontSizeMultiplier={1.1}>
+                    <Txt variant="caption" color={colors.white} maxFontSizeMultiplier={1.1}>
                       {badge > 99 ? '99+' : badge}
                     </Txt>
                   </View>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     paddingHorizontal: 5,
-    backgroundColor: colors.flirt,
+    backgroundColor: colors.brandRed,
     borderWidth: 2,
     borderColor: colors.ink,
     alignItems: 'center',

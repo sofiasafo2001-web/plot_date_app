@@ -101,7 +101,7 @@ export function PersonCard({ person, myInterests, posts }: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderRadius: radius.cardLg, overflow: 'hidden' },
+  card: { backgroundColor: colors.surface, borderRadius: radius.cardLg, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
   cover: { height: 120, overflow: 'hidden' },
   avatar: { position: 'absolute', top: 72, left: space.lg },
   body: { paddingHorizontal: space.lg, paddingBottom: space.lg, paddingTop: 44, gap: space.md },

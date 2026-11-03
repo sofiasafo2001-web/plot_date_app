@@ -124,5 +124,5 @@ const styles = StyleSheet.create({
   status: { padding: space.lg, borderRadius: radius.tile },
   stack: { gap: space.sm },
   footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm, flexWrap: 'wrap' },
-  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: radius.button, backgroundColor: colors.surface },
+  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: radius.button, backgroundColor: colors.fill },
 });

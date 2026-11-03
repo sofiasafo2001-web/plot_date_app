@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   list: { paddingBottom: space.xxl },
   sep: { height: space.md },
-  card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.surface, overflow: 'hidden' },
+  card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, overflow: 'hidden' },
   flex: { flex: 1 },
   save: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },

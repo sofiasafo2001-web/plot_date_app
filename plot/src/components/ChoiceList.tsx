@@ -46,7 +46,7 @@ export function ChoiceList<T extends string>({ options, value, onChange, accessi
 
 const styles = StyleSheet.create({
   list: { gap: 6 },
-  row: { flexDirection: 'row', alignItems: 'center', minHeight: hit + 6, paddingHorizontal: space.lg, borderRadius: radius.button, backgroundColor: colors.surface, gap: space.md },
+  row: { flexDirection: 'row', alignItems: 'center', minHeight: hit + 6, paddingHorizontal: space.lg, borderRadius: radius.button, backgroundColor: colors.fill, gap: space.md },
   on: { backgroundColor: colors.pink },
   flex: { flex: 1 },
   mark: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, borderColor: colors.text3, alignItems: 'center', justifyContent: 'center' },

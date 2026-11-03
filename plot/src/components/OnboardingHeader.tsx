@@ -41,7 +41,7 @@ export function OnboardingHeader({ step }: { step: 1 | 2 | 3 }) {
 
 const styles = StyleSheet.create({
   wrap: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingHorizontal: gutter, paddingVertical: space.sm },
-  track: { flex: 1, height: 8, borderRadius: 4, backgroundColor: colors.surface, overflow: 'hidden' },
+  track: { flex: 1, height: 8, borderRadius: 4, backgroundColor: colors.fill, overflow: 'hidden' },
   fill: { height: 8, borderRadius: 4, backgroundColor: colors.primary },
   count: { minWidth: 28, textAlign: 'right' },
 });

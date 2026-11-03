@@ -18,7 +18,7 @@ type Props = TextInputProps & {
 /** Campo de texto sobre crema, foco en negro y error con icono y texto (no solo color). */
 export function Input({ label, error, hint, right, left, style, onFocus, onBlur, multiline, ref, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
-  const borderColor = error ? colors.danger : focused ? colors.ink : colors.surface;
+  const borderColor = error ? colors.danger : focused ? colors.ink : colors.fill;
   return (
     <View style={styles.wrap}>
       {label ? (
@@ -29,7 +29,7 @@ export function Input({ label, error, hint, right, left, style, onFocus, onBlur,
       <View
         style={[
           styles.field,
-          { borderColor, backgroundColor: focused ? colors.bg : colors.surface },
+          { borderColor, backgroundColor: focused ? colors.bg : colors.fill },
           multiline && styles.multiline,
         ]}
       >

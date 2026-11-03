@@ -38,7 +38,7 @@ export function Chip({ label, solid, category, onPress, size = 'md', showCheck }
     styles.base,
     size === 'sm' ? styles.sm : styles.md,
     onPress
-      ? { backgroundColor: solid ? colors.pink : colors.surface }
+      ? { backgroundColor: solid ? colors.pink : colors.fill }
       : solid
         ? { backgroundColor: cat.solid }
         : styles.outline,

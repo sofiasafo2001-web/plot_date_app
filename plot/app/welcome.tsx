@@ -12,8 +12,8 @@ import { brand, colors, gutter, space } from '@/theme';
 /** Lo que la gente comparte en PLOT, en grande, como un cartel. */
 const words = ['Vinilos', 'Montaña', 'Vermut', 'Cine', 'Ramen'];
 
-/** Aura de bienvenida: rosa de marca con luz roja, rosa fuerte y amarillo. */
-const welcomeAura: AuraPalette = { base: brand.pink, blobs: [brand.hotPink, brand.red, brand.yellow] };
+/** Aura de bienvenida: rosa de marca con luz rosa fuerte, amarillo y frambuesa. */
+const welcomeAura: AuraPalette = { base: brand.pink, blobs: [brand.hotPink, brand.yellow, brand.raspberry] };
 
 export default function Welcome() {
   return (
@@ -21,7 +21,7 @@ export default function Welcome() {
       <StatusBar style="dark" />
       <Aura palette={welcomeAura} />
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <Txt variant="brand" color={colors.primary} style={styles.logo} accessibilityRole="header" accessibilityLabel="PLOT">
+        <Txt variant="brand" color={colors.brandRed} style={styles.logo} accessibilityRole="header" accessibilityLabel="PLOT">
           PLOT
         </Txt>
         <View style={styles.words} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
@@ -34,7 +34,7 @@ export default function Welcome() {
           ))}
         </View>
         <Animated.View entering={FadeInDown.delay(150).duration(300)} style={styles.copy}>
-          <Txt variant="largeTitle" color={colors.primary} style={styles.hero} maxFontSizeMultiplier={1.3}>
+          <Txt variant="largeTitle" color={colors.primaryInk} style={styles.hero} maxFontSizeMultiplier={1.3}>
             Anti-swipe.
           </Txt>
           <Txt variant="body" color={colors.ink}>

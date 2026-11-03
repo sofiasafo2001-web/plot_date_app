@@ -28,7 +28,7 @@ export function PhotoBlock({ category, label, uri, source, aspect = 4 / 3, style
     return (
       <Image
         source={uri ? { uri } : (source as never)}
-        style={[{ aspectRatio: aspect, borderRadius: rounded, backgroundColor: colors.surface }, style as object]}
+        style={[{ aspectRatio: aspect, borderRadius: rounded, backgroundColor: colors.fill }, style as object]}
         contentFit="cover"
         transition={200}
         onError={() => setFailed(true)}

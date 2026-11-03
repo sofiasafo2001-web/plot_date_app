@@ -133,7 +133,7 @@ export default function Compose() {
                 accessibilityState={{ selected: on }}
                 accessibilityLabel={t.label}
                 onPress={() => changeType(t.value)}
-                style={[styles.type, { backgroundColor: on ? cat.solid : colors.surface }]}
+                style={[styles.type, { backgroundColor: on ? cat.solid : colors.fill }]}
               >
                 <Icon size={22} color={colors.ink} />
                 <Txt variant="footnoteStrong" color={colors.ink}>

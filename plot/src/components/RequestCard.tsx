@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   flex: { flex: 1 },
   quote: { flexDirection: 'row', gap: space.sm, alignItems: 'flex-start' },
-  bubble: { backgroundColor: colors.surface, borderRadius: radius.tile, borderTopLeftRadius: 6, padding: space.md },
+  bubble: { backgroundColor: colors.fill, borderRadius: radius.tile, borderTopLeftRadius: 6, padding: space.md },
   actions: { flexDirection: 'row', gap: space.sm },
   block: { alignSelf: 'center' },
 });

@@ -13,7 +13,7 @@ export type AuraPalette = { base: string; blobs: [string, string, string] };
  */
 const palettes: Record<CategoryId, [AuraPalette, AuraPalette]> = {
   music: [
-    { base: brand.pink, blobs: [brand.hotPink, brand.red, brand.yellow] },
+    { base: brand.pink, blobs: [brand.hotPink, brand.yellow, brand.sky] },
     { base: brand.cream, blobs: [brand.hotPink, brand.blue, brand.pink] },
   ],
   sport: [
@@ -21,7 +21,7 @@ const palettes: Record<CategoryId, [AuraPalette, AuraPalette]> = {
     { base: brand.lime, blobs: [brand.yellow, brand.sky, brand.cream] },
   ],
   food: [
-    { base: brand.cream, blobs: [brand.yellow, brand.red, brand.pink] },
+    { base: brand.cream, blobs: [brand.yellow, brand.hotPink, brand.pink] },
     { base: brand.yellow, blobs: [brand.hotPink, brand.lime, brand.cream] },
   ],
   places: [
@@ -30,7 +30,7 @@ const palettes: Record<CategoryId, [AuraPalette, AuraPalette]> = {
   ],
   culture: [
     { base: brand.pink, blobs: [brand.blue, brand.sky, brand.cream] },
-    { base: brand.cream, blobs: [brand.pink, brand.red, brand.sky] },
+    { base: brand.cream, blobs: [brand.pink, brand.hotPink, brand.sky] },
   ],
 };
 

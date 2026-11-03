@@ -48,7 +48,7 @@ type RowProps = {
   right?: ReactNode;
 };
 
-export function Row({ label, detail, value, icon: Icon, iconBg = colors.surface, onPress, chevron, checked, destructive, right }: RowProps) {
+export function Row({ label, detail, value, icon: Icon, iconBg = colors.fill, onPress, chevron, checked, destructive, right }: RowProps) {
   const content = (
     <>
       {Icon ? (

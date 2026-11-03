@@ -39,5 +39,5 @@ export function SaveButton({ personId, name }: Props) {
 const styles = StyleSheet.create({
   base: { width: hit, height: hit, borderRadius: hit / 2, alignItems: 'center', justifyContent: 'center' },
   on: { backgroundColor: colors.ink },
-  off: { backgroundColor: colors.surface },
+  off: { backgroundColor: colors.fill },
 });

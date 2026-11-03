@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   listPad: { paddingBottom: space.xxl },
   requests: { paddingHorizontal: gutter, gap: space.md, paddingTop: space.sm },
   flex: { flex: 1 },
-  hidden: { backgroundColor: colors.surface, borderRadius: radius.card, padding: space.md, gap: space.md },
+  hidden: { backgroundColor: colors.surface, borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.md, gap: space.md },
   hiddenRow: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   hiddenIcon: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.bg, alignItems: 'center', justifyContent: 'center' },
   see: { minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: space.sm },

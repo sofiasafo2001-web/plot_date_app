@@ -1,21 +1,23 @@
 /**
  * Paleta de marca PLOT.
  *
- * - Rojo #E0070F: la acción principal (botones, pestaña activa, cursor). Texto blanco encima.
- * - Rosa claro #FFB7EF: segundo color de marca en superficie (burbujas propias, seleccionados,
- *   bienvenida). Texto negro o rojo oscuro encima.
- * - Rosa fuerte #FF4987: todo lo que tiene carga de ligoteo (flirt, corazón, avisos de mensajes).
- * - Azul #0043D8: confianza e información (enlaces, verificado, seguridad). Se usa poco.
- * - Crema #F9F3DB: el «gris» de la app. Fondos de tarjetas, campos, hojas. Nunca como borde fino.
- * - Acentos lima, amarillo y celeste: solo como color de categoría, siempre con texto negro.
+ * - Frambuesa #E01F66 (añadido): la acción principal. Botones, pestaña activa, cursor, interruptores.
+ *   Es el rosa fuerte oscurecido lo justo para llevar texto blanco (4,6:1) y suena a app de citas.
+ * - Rosa claro #FFB7EF: superficie de marca. Burbujas propias, opciones marcadas, bienvenida.
+ * - Rosa fuerte #FF4987: ligoteo. Burbuja de flirt, primer mensaje, corazón de «qué busca».
+ * - Rojo #E0070F: el del logotipo y lo que reclama atención (avisos de no leídos, errores).
+ * - Azul #0043D8: confianza e información (verificado, enlaces, seguridad). Se usa poco.
+ * - Crema #F9F7F0: el «gris» cálido. Tarjetas, campos y hojas, siempre con borde suave.
+ * - Lima, amarillo y celeste: solo como color de categoría y en las auras, con texto negro.
  */
 export const brand = {
   red: '#E0070F',
+  raspberry: '#E01F66',
   pink: '#FFB7EF',
   hotPink: '#FF4987',
   blue: '#0043D8',
   lime: '#D5E400',
-  cream: '#F9F3DB',
+  cream: '#F9F7F0',
   yellow: '#FFD900',
   sky: '#9CDCF8',
 } as const;
@@ -24,15 +26,19 @@ export const colors = {
   ink: '#121110',
   text2: '#4B4740',
   text3: '#6E6A60',
-  line: '#E4DDC8',
+  line: '#E8E3D6',
   surface: brand.cream,
+  /** Crema un punto más intenso para controles pequeños que deben leerse sobre blanco. */
+  fill: '#F1EEE4',
   bg: '#FFFFFF',
   white: '#FFFFFF',
 
-  /** Acción principal. */
-  primary: brand.red,
-  /** Rojo oscuro para texto sobre blanco o rosa (4,6:1 sobre rosa). */
-  primaryInk: '#B0000A',
+  /** Acción principal (frambuesa). Texto blanco encima. */
+  primary: brand.raspberry,
+  /** Frambuesa oscuro para texto sobre blanco o rosa claro. */
+  primaryInk: '#A8104B',
+  /** Rojo del logotipo y de los avisos (no leídos). */
+  brandRed: brand.red,
   /** Rosa de marca: seleccionados, burbujas propias, bienvenida. */
   pink: brand.pink,
   /** Rosa muy suave para bloques informativos grandes. */

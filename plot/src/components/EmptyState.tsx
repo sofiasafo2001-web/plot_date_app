@@ -27,5 +27,5 @@ export function EmptyState({ icon: Icon, title, text, actionLabel, onAction }: P
 
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center', gap: space.md, paddingVertical: space.xxxl, paddingHorizontal: space.xl },
-  icon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
+  icon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.fill, alignItems: 'center', justifyContent: 'center' },
 });

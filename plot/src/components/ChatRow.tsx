@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 1 },
   shrink: { flexShrink: 1 },
   bold: { fontFamily: fonts.semibold },
-  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.flirt },
+  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.brandRed },
   actions: { flexDirection: 'row' },
   action: { width: 84, alignItems: 'center', justifyContent: 'center', gap: 4 },
 });

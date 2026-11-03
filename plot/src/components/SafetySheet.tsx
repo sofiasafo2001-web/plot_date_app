@@ -83,7 +83,7 @@ function Option({ icon: Icon, label, onPress, danger, muted }: { icon: LucideIco
         tapLight();
         onPress();
       }}
-      style={[styles.option, { backgroundColor: danger ? colors.dangerSoft : colors.surface }]}
+      style={[styles.option, { backgroundColor: danger ? colors.dangerSoft : colors.fill }]}
     >
       <Icon size={20} color={danger ? colors.dangerInk : muted ? colors.text2 : colors.ink} />
       <Txt variant="headline" color={danger ? colors.dangerInk : muted ? colors.text2 : colors.ink}>
