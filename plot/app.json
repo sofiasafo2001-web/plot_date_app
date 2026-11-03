@@ -19,7 +19,7 @@
     "android": {
       "package": "com.plot.demo",
       "adaptiveIcon": {
-        "backgroundColor": "#6B3CF5",
+        "backgroundColor": "#E0070F",
         "foregroundImage": "./assets/images/android-icon-foreground.png"
       }
     },
@@ -33,7 +33,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#6B3CF5",
+          "backgroundColor": "#E0070F",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 120
         }

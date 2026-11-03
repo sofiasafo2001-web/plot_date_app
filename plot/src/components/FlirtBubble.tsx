@@ -77,7 +77,7 @@ export function FlirtBubble({ visible, person, topic, onClose, onSend, onWriteOw
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityRole="button" accessibilityLabel="Cerrar pregunta" />
         <View style={styles.content} pointerEvents="box-none">
           <View style={styles.top}>
-            <View style={[styles.tag, { backgroundColor: cat ? cat.solid : colors.primarySoft }]}>
+            <View style={[styles.tag, { backgroundColor: cat ? cat.solid : colors.pink }]}>
               <Sparkles size={14} color={colors.ink} />
               <Txt variant="footnoteStrong" color={colors.ink}>
                 {cat ? cat.label : 'Para romper el hielo'}
@@ -91,7 +91,7 @@ export function FlirtBubble({ visible, person, topic, onClose, onSend, onWriteOw
               <Txt variant="caption" color={colors.onPrimaryMuted}>
                 PREGÚNTALE A {person.name.toUpperCase()}
               </Txt>
-              <Txt variant="title2" color={colors.white} accessibilityRole="header">
+              <Txt variant="title2" color={colors.ink} accessibilityRole="header">
                 {q.question}
               </Txt>
             </View>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   bubbleWrap: { alignItems: 'flex-end' },
   bubble: {
     alignSelf: 'stretch',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.flirt,
     borderRadius: radius.cardLg,
     borderBottomRightRadius: 8,
     padding: space.xl,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     shadowOffset: { width: 0, height: 10 },
   },
-  tail: { width: 22, height: 22, backgroundColor: colors.primary, marginTop: -12, marginRight: 18, transform: [{ rotate: '45deg' }], borderRadius: 4 },
+  tail: { width: 22, height: 22, backgroundColor: colors.flirt, marginTop: -12, marginRight: 18, transform: [{ rotate: '45deg' }], borderRadius: 4 },
   to: { flexDirection: 'row', alignItems: 'center', gap: space.sm, alignSelf: 'flex-end' },
   actions: { gap: space.sm, marginTop: space.sm },
   row: { flexDirection: 'row', gap: space.sm },

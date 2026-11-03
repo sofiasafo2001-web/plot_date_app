@@ -4,10 +4,10 @@ import Animated, { FadeInDown, ZoomIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppGlyph } from '@/components/AppGlyph';
+import { Aura, auraFor } from '@/components/Aura';
 import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { Chip, ChipRow } from '@/components/Chip';
-import { Decor } from '@/components/Decor';
 import { OnboardingHeader } from '@/components/OnboardingHeader';
 import { Txt } from '@/components/Txt';
 import { appInfo, appOrder } from '@/data/catalog';
@@ -43,14 +43,6 @@ export default function Ready() {
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom']}>
-      <Decor
-        shapes={[
-          { kind: 'circle', cat: 'music', size: 180, top: -40, right: -60 },
-          { kind: 'pill', cat: 'places', size: 54, top: 150, left: -40, rotate: -20 },
-          { kind: 'circle', cat: 'food', size: 90, bottom: 210, right: -24 },
-          { kind: 'pill', cat: 'culture', size: 40, bottom: 160, left: 30, rotate: 18, soft: true },
-        ]}
-      />
       <OnboardingHeader step={3} />
       <ScrollView contentContainerStyle={styles.body}>
         <Txt variant="largeTitle" accessibilityRole="header">
@@ -58,16 +50,18 @@ export default function Ready() {
         </Txt>
         <Animated.View entering={ZoomIn.duration(280)} style={styles.card}>
           <View style={styles.head}>
-            <Avatar photoId="me" name={me.name} color={me.color} size={56} />
+            <Aura palette={auraFor('me', me.color)} />
+            <Avatar photoId="me" name={me.name} color={me.color} size={56} bordered />
             <View style={styles.flex}>
               <Txt variant="title2">
                 {me.name}, {me.age}
               </Txt>
-              <Txt variant="subhead" color={colors.text2}>
+              <Txt variant="subhead" color={colors.ink}>
                 {me.hood}, Barcelona
               </Txt>
             </View>
           </View>
+          <View style={styles.inner}>
           <ChipRow>
             {me.interests.map((i) => (
               <Chip key={i} label={i} solid size="sm" />
@@ -87,6 +81,7 @@ export default function Ready() {
               </Txt>
             )}
           </View>
+          </View>
         </Animated.View>
         <Animated.View entering={FadeInDown.delay(160).duration(260)} style={styles.banner}>
           <Txt variant="headline" color={colors.white}>
@@ -105,11 +100,12 @@ export default function Ready() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg, overflow: 'hidden' },
   body: { paddingHorizontal: gutter, paddingTop: space.md, gap: space.lg, paddingBottom: space.xl },
-  card: { backgroundColor: colors.bg, borderRadius: radius.cardLg, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.lg, shadowColor: colors.ink, shadowOpacity: 0.08, shadowRadius: 20, shadowOffset: { width: 0, height: 8 } },
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.md },
+  card: { backgroundColor: colors.surface, borderRadius: radius.cardLg, overflow: 'hidden' },
+  inner: { padding: space.lg, gap: space.lg },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, overflow: 'hidden' },
   flex: { flex: 1 },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.md },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  banner: { backgroundColor: colors.primary, borderRadius: radius.card, padding: space.lg },
+  banner: { backgroundColor: colors.ink, borderRadius: radius.card, padding: space.lg },
   footer: { paddingHorizontal: gutter, paddingBottom: space.sm, gap: space.sm },
 });

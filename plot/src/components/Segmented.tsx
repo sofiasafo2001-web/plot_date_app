@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
-import { colors, motion, radius } from '@/theme';
+import { colors, motion } from '@/theme';
 import { tapLight } from '@/utils/haptics';
 
 import { PressableScale } from './PressableScale';
@@ -55,7 +55,7 @@ export function Segmented<T extends string>({ options, value, onChange, accessib
               {o.label}
             </Txt>
             {o.badge ? (
-              <View style={[styles.badge, { backgroundColor: active ? colors.primary : colors.text3 }]}>
+              <View style={[styles.badge, { backgroundColor: active ? colors.flirt : colors.text3 }]}>
                 <Txt variant="caption" color={colors.white} maxFontSizeMultiplier={1.2}>
                   {o.badge}
                 </Txt>
@@ -69,14 +69,14 @@ export function Segmented<T extends string>({ options, value, onChange, accessib
 }
 
 const styles = StyleSheet.create({
-  track: { flexDirection: 'row', backgroundColor: colors.surface, borderRadius: radius.button - 3, padding: 2, minHeight: 44 },
+  track: { flexDirection: 'row', backgroundColor: colors.surface, borderRadius: 13, padding: 2, minHeight: 44 },
   indicator: {
     position: 'absolute',
     top: 2,
     bottom: 2,
     left: 2,
     backgroundColor: colors.bg,
-    borderRadius: radius.button - 5,
+    borderRadius: 11,
     shadowColor: colors.ink,
     shadowOpacity: 0.08,
     shadowRadius: 6,

@@ -60,7 +60,7 @@ export default function SafetyCenter() {
 
 const styles = StyleSheet.create({
   scroll: { padding: gutter, gap: space.md, paddingBottom: space.xxxl },
-  hero: { backgroundColor: colors.primary, borderRadius: radius.card, padding: space.lg, gap: space.sm },
+  hero: { backgroundColor: colors.info, borderRadius: radius.card, padding: space.lg, gap: space.sm },
   tip: { flexDirection: 'row', gap: space.md, backgroundColor: colors.bg, borderRadius: radius.card, padding: space.lg },
   icon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   flex: { flex: 1, gap: 2 },

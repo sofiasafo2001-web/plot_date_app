@@ -88,8 +88,8 @@ export function PostCard({ post, onReply, replyLabel = 'Responder a esto', share
               onPress={onReply}
               style={styles.reply}
             >
-              <CornerDownRight size={16} color={colors.primaryInk} />
-              <Txt variant="subheadStrong" color={colors.primaryInk}>{replyLabel}</Txt>
+              <CornerDownRight size={16} color={colors.ink} />
+              <Txt variant="subheadStrong" color={colors.ink}>{replyLabel}</Txt>
             </PressableScale>
           ) : null}
         </View>
@@ -124,5 +124,5 @@ const styles = StyleSheet.create({
   status: { padding: space.lg, borderRadius: radius.tile },
   stack: { gap: space.sm },
   footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm, flexWrap: 'wrap' },
-  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: 999, backgroundColor: colors.primarySoft },
+  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: radius.button, backgroundColor: colors.surface },
 });

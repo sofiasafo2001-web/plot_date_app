@@ -8,7 +8,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AttachSheet } from '@/components/AttachSheet';
 import { Avatar } from '@/components/Avatar';
 import { Bubble } from '@/components/Bubble';
-import { Chip, ChipRow } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
 import { PostBody, postSummary, postTypeLabel } from '@/components/PostCard';
@@ -150,24 +149,19 @@ export default function Conversation() {
     <View style={styles.first}>
       <View style={styles.firstCard}>
         <View style={styles.firstHead}>
-          <Sparkles size={18} color={colors.white} />
-          <Txt variant="title2" color={colors.white}>
+          <Sparkles size={18} color={colors.ink} />
+          <Txt variant="title2" color={colors.ink} style={styles.flex}>
             Sin match, sin swipe. Escríbele tú primero
           </Txt>
         </View>
         {common.length ? (
           <>
-            <Txt variant="subhead" color={colors.white}>
-              Tenéis en común:
+            <Txt variant="subhead" color={colors.ink}>
+              Tenéis en común <Txt variant="subheadStrong">{common.join(' · ')}</Txt>
             </Txt>
-            <ChipRow>
-              {common.map((i) => (
-                <Chip key={i} label={i} solid size="sm" />
-              ))}
-            </ChipRow>
           </>
         ) : (
-          <Txt variant="subhead" color={colors.white}>
+          <Txt variant="subhead" color={colors.ink}>
             Aún no compartís intereses. Pregúntale por lo que publica.
           </Txt>
         )}
@@ -176,7 +170,7 @@ export default function Conversation() {
       <Txt variant="footnoteStrong" color={colors.text2}>
         PARA ROMPER EL HIELO
       </Txt>
-      <ChipRow>
+      <View style={styles.iceList}>
         {person.icebreakers.map((q) => (
           <PressableScale
             key={q}
@@ -188,12 +182,12 @@ export default function Conversation() {
             }}
             style={[styles.ice, text === q && styles.iceOn]}
           >
-            <Txt variant="subheadStrong" color={text === q ? colors.white : colors.primaryInk}>
+            <Txt variant="subheadStrong" color={colors.ink}>
               {q}
             </Txt>
           </PressableScale>
         ))}
-      </ChipRow>
+      </View>
 
       {theirPosts.length ? (
         <>
@@ -212,14 +206,14 @@ export default function Conversation() {
                   tapLight();
                   setQuoted(on ? undefined : p.id);
                 }}
-                style={[styles.postPick, { borderColor: on ? colors.primary : colors.line }]}
+                style={[styles.postPick, { borderColor: on ? colors.ink : colors.line }]}
                 scaleTo={0.99}
               >
                 <View style={styles.postPickHead}>
                   <Txt variant="caption" color={categories[p.category].ink}>
                     {postTypeLabel[p.type].toUpperCase()}
                   </Txt>
-                  <Txt variant="footnoteStrong" color={on ? colors.primaryInk : colors.text3}>
+                  <Txt variant="footnoteStrong" color={on ? colors.ink : colors.text3}>
                     {on ? 'Citada' : 'Citar'}
                   </Txt>
                 </View>
@@ -246,7 +240,7 @@ export default function Conversation() {
             <Txt variant="headline" numberOfLines={1}>
               {person.name}
             </Txt>
-            <Txt variant="footnote" color={typing ? colors.primaryInk : colors.text2} numberOfLines={1}>
+            <Txt variant="footnote" color={typing ? colors.flirtInk : colors.text2} numberOfLines={1}>
               {typing ? 'escribiendo…' : `${person.hood} · a ${person.km.toLocaleString('es-ES')} km`}
             </Txt>
           </View>
@@ -322,7 +316,7 @@ export default function Conversation() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.surface },
+  root: { flex: 1, backgroundColor: colors.bg },
   flex: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', gap: space.xs, paddingHorizontal: space.sm, paddingBottom: space.sm, backgroundColor: colors.bg, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.line },
   who: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: space.sm, minHeight: hit },
@@ -331,11 +325,12 @@ const styles = StyleSheet.create({
   day: { paddingVertical: space.sm },
   startCard: { flexDirection: 'row', gap: space.sm, backgroundColor: colors.primarySoft, borderRadius: radius.tile, padding: space.md, marginBottom: space.sm },
   first: { gap: space.md, paddingBottom: space.lg },
-  firstCard: { backgroundColor: colors.primary, borderRadius: radius.card, padding: space.lg, gap: space.md },
+  firstCard: { backgroundColor: colors.flirt, borderRadius: radius.card, padding: space.lg, gap: space.md },
   firstHead: { flexDirection: 'row', gap: space.sm, alignItems: 'flex-start' },
-  ice: { minHeight: 40, paddingHorizontal: 14, paddingVertical: 9, borderRadius: radius.chip, backgroundColor: colors.primarySoft, justifyContent: 'center' },
-  iceOn: { backgroundColor: colors.primary },
-  postPick: { backgroundColor: colors.bg, borderRadius: radius.card, borderWidth: 2, padding: space.md, gap: space.sm },
+  iceList: { gap: 6 },
+  ice: { minHeight: hit, paddingHorizontal: space.lg, paddingVertical: 10, borderRadius: radius.button, backgroundColor: colors.surface, justifyContent: 'center' },
+  iceOn: { backgroundColor: colors.flirt },
+  postPick: { backgroundColor: colors.bg, borderRadius: radius.card, borderWidth: 1.5, padding: space.md, gap: space.sm },
   postPickHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   composer: { backgroundColor: colors.bg, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line, paddingHorizontal: space.sm, paddingTop: space.sm, gap: space.xs },
   quoteBar: { flexDirection: 'row', alignItems: 'center', gap: space.sm, paddingLeft: space.md, backgroundColor: colors.primarySoft, borderRadius: radius.button },

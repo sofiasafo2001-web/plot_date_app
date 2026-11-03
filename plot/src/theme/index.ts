@@ -18,8 +18,10 @@ export const cardGap = 12;
 
 export const radius = {
   chip: 999,
-  button: 15,
-  input: 14,
+  button: 16,
+  /** Botones de acción: forma de cápsula. */
+  pill: 999,
+  input: 16,
   card: 24,
   cardLg: 28,
   tile: 16,

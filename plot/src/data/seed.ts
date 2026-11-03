@@ -4,6 +4,9 @@ export const ME_ID = 'me';
 
 export const seedMe: Me = {
   name: 'Marc',
+  origin: 'Lleida',
+  job: 'Diseñador de producto',
+  lookingFor: 'slow',
   age: 31,
   hood: 'Gràcia',
   bio: 'Corro antes de trabajar, cocino los domingos y siempre tengo un disco nuevo que recomendar.',
@@ -15,6 +18,9 @@ export const people: Person[] = [
   {
     id: 'laia',
     name: 'Laia',
+    origin: 'Girona',
+    job: 'Fisioterapeuta',
+    lookingFor: 'flow',
     age: 29,
     hood: 'Poblenou',
     km: 2.4,
@@ -41,6 +47,9 @@ export const people: Person[] = [
   {
     id: 'nerea',
     name: 'Nerea',
+    origin: 'Bilbao',
+    job: 'Ilustradora',
+    lookingFor: 'serious',
     age: 27,
     hood: 'Sant Antoni',
     km: 1.8,
@@ -65,6 +74,9 @@ export const people: Person[] = [
   {
     id: 'alex',
     name: 'Álex',
+    origin: 'Valencia',
+    job: 'Técnico de sonido y DJ',
+    lookingFor: 'noExpectations',
     age: 30,
     hood: 'Sants',
     km: 3.1,
@@ -91,6 +103,9 @@ export const people: Person[] = [
   {
     id: 'clara',
     name: 'Clara',
+    origin: 'Barcelona',
+    job: 'Arquitecta',
+    lookingFor: 'slow',
     age: 28,
     hood: 'Eixample',
     km: 1.2,
@@ -115,6 +130,9 @@ export const people: Person[] = [
   {
     id: 'jordi',
     name: 'Jordi',
+    origin: 'Vic',
+    job: 'Profesor de matemáticas',
+    lookingFor: 'serious',
     age: 32,
     hood: 'Horta',
     km: 4.6,
@@ -139,6 +157,9 @@ export const people: Person[] = [
   {
     id: 'paula',
     name: 'Paula',
+    origin: 'Buenos Aires',
+    job: 'Barista',
+    lookingFor: 'flow',
     age: 26,
     hood: 'Gràcia',
     km: 0.6,
@@ -163,6 +184,9 @@ export const people: Person[] = [
   {
     id: 'sergi',
     name: 'Sergi',
+    origin: 'Barcelona',
+    job: 'Cocinero',
+    lookingFor: 'casual',
     age: 30,
     hood: 'Raval',
     km: 2.0,
@@ -187,6 +211,9 @@ export const people: Person[] = [
   {
     id: 'irene',
     name: 'Irene',
+    origin: 'Sevilla',
+    job: 'Estudiante de cine',
+    lookingFor: 'noExpectations',
     age: 25,
     hood: 'Sant Andreu',
     km: 5.3,
@@ -213,6 +240,9 @@ export const people: Person[] = [
   {
     id: 'dani',
     name: 'Dani',
+    origin: 'Badalona',
+    job: 'Comercial',
+    lookingFor: 'oneOff',
     age: 33,
     hood: 'Badalona',
     km: 9.8,
@@ -387,5 +417,10 @@ export function createSeed() {
     me: { ...seedMe, interests: [...seedMe.interests] },
     posts: buildPosts(),
     conversations: buildConversations(),
+    // Dos perfiles ya guardados para que la pestaña Guardados no salga vacía en la demo.
+    saved: [
+      { id: 'nerea', at: days(4) },
+      { id: 'irene', at: days(9) },
+    ],
   };
 }

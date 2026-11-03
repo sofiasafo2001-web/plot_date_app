@@ -4,13 +4,15 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 're
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Chip, ChipRow } from '@/components/Chip';
+import { ChoiceList } from '@/components/ChoiceList';
 import { Input } from '@/components/Input';
 import { TextAction } from '@/components/TextAction';
 import { Txt } from '@/components/Txt';
-import { interestCatalog } from '@/data/catalog';
+import { interestCatalog, lookingForOptions } from '@/data/catalog';
 import { useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
 import { categories, categoryOrder, colors, gutter, space } from '@/theme';
+import type { LookingFor } from '@/types';
 import { confirm } from '@/utils/confirm';
 import { notifySuccess } from '@/utils/haptics';
 
@@ -24,9 +26,18 @@ export default function EditProfile() {
   const [name, setName] = useState(me.name);
   const [bio, setBio] = useState(me.bio);
   const [interests, setInterests] = useState<string[]>(me.interests);
+  const [origin, setOrigin] = useState(me.origin);
+  const [job, setJob] = useState(me.job);
+  const [lookingFor, setLookingFor] = useState<LookingFor>(me.lookingFor);
   const [saved, setSaved] = useState(false);
 
-  const dirty = name !== me.name || bio !== me.bio || interests.join('|') !== me.interests.join('|');
+  const dirty =
+    name !== me.name ||
+    bio !== me.bio ||
+    origin !== me.origin ||
+    job !== me.job ||
+    lookingFor !== me.lookingFor ||
+    interests.join('|') !== me.interests.join('|');
   const nameError = name.trim().length === 0 ? 'Escribe tu nombre' : undefined;
   const interestsError = interests.length < MIN_INTERESTS ? `Elige al menos ${MIN_INTERESTS} intereses` : undefined;
   const valid = !nameError && !interestsError;
@@ -48,7 +59,7 @@ export default function EditProfile() {
   const save = () => {
     if (!valid) return;
     notifySuccess();
-    updateMe({ name: name.trim(), bio: bio.trim(), interests });
+    updateMe({ name: name.trim(), bio: bio.trim(), interests, origin: origin.trim(), job: job.trim(), lookingFor });
     setSaved(true);
     disablePrevention();
     router.back();
@@ -68,6 +79,15 @@ export default function EditProfile() {
       <ScrollView contentContainerStyle={[styles.body, { paddingBottom: insets.bottom + space.xxl }]} keyboardShouldPersistTaps="handled">
         <Input label="Nombre" value={name} onChangeText={setName} error={nameError} maxLength={30} autoCapitalize="words" returnKeyType="next" />
         <Input label="Bio" value={bio} onChangeText={(t) => setBio(t.slice(0, BIO_MAX))} multiline hint={`${bio.length}/${BIO_MAX}`} placeholder="Cuéntale a la gente qué te gusta" />
+        <Input label="¿De dónde eres?" value={origin} onChangeText={setOrigin} maxLength={40} autoCapitalize="words" placeholder="Tu ciudad o pueblo" returnKeyType="next" />
+        <Input label="¿De qué trabajas?" value={job} onChangeText={setJob} maxLength={50} placeholder="Lo que haces, a tu manera" returnKeyType="done" />
+        <View style={styles.section}>
+          <Txt variant="headline">¿Qué te gustaría encontrar aquí?</Txt>
+          <Txt variant="footnote" color={colors.text2}>
+            Se muestra en tu perfil, bajo la bio.
+          </Txt>
+        </View>
+        <ChoiceList options={lookingForOptions} value={lookingFor} onChange={setLookingFor} accessibilityLabel="¿Qué te gustaría encontrar aquí?" />
         <View style={styles.section}>
           <Txt variant="headline">Intereses</Txt>
           <Txt variant="footnote" color={interestsError ? colors.dangerInk : colors.text2}>

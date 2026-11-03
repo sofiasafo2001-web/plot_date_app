@@ -31,7 +31,7 @@ export default function Filters() {
         <View style={styles.section}>
           <View style={styles.rowBetween}>
             <Txt variant="headline">Distancia máxima</Txt>
-            <Txt variant="headline" color={colors.primaryInk}>
+            <Txt variant="headline" color={colors.ink}>
               {draft.maxKm} km
             </Txt>
           </View>

@@ -4,7 +4,9 @@ import { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AboutList } from '@/components/AboutList';
 import { AppGlyph } from '@/components/AppGlyph';
+import { Aura, auraFor } from '@/components/Aura';
 import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { Chip, ChipRow } from '@/components/Chip';
@@ -13,15 +15,14 @@ import { IconButton } from '@/components/IconButton';
 import { PostCard } from '@/components/PostCard';
 import { SafetySheet } from '@/components/SafetySheet';
 import { FlirtBubble } from '@/components/FlirtBubble';
-import { PressableScale } from '@/components/PressableScale';
+import { SaveButton } from '@/components/SaveButton';
+import { TextTabs } from '@/components/TextTabs';
 import { Txt } from '@/components/Txt';
 import { appInfo, appOrder } from '@/data/catalog';
-import { coverOf } from '@/data/covers';
 import { others, personById, postsOf, shared } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { categories, categoryOrder, colors, gutter, radius, space, type CategoryId } from '@/theme';
 import type { AppId, Post } from '@/types';
-import { tapLight } from '@/utils/haptics';
 
 type Filter = 'all' | CategoryId;
 
@@ -60,6 +61,9 @@ export default function PersonProfile() {
         interests: me.interests,
         apps: appOrder.filter((a) => myApps[a]) as AppId[],
         color: me.color,
+        origin: me.origin,
+        job: me.job,
+        lookingFor: me.lookingFor,
       };
     }
     if (!person) return undefined;
@@ -79,45 +83,14 @@ export default function PersonProfile() {
 
   const common = isMe ? profile.interests : shared(me.interests, profile.interests);
   const rest = isMe ? [] : others(me.interests, profile.interests);
-  const cat = categories[profile.color];
-  const cover = coverOf(isMe ? 'me' : id);
   const write = (quote?: string) =>
     router.push({ pathname: '/chat/[id]', params: quote ? { id, quote } : { id } });
 
   return (
     <View style={styles.root}>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 + insets.bottom }}>
-        <View style={[styles.cover, { backgroundColor: cat.solid, height: (cover ? 210 : 150) + insets.top }]}>
-          <View style={[styles.coverCircle, { backgroundColor: cat.soft }]} />
-          <View style={[styles.coverPill, { backgroundColor: cat.ink }]} />
-          {cover ? (
-            <View
-              style={[styles.coverContent, { top: insets.top + 56 }]}
-              accessible
-              accessibilityLabel={`${cover.tagline}. ${cover.stickers.map((s) => s.label).join(', ')}`}
-            >
-              {cover.stickers.map((s, i) => (
-                <View
-                  key={s.label}
-                  style={[
-                    styles.sticker,
-                    stickerSpots[i],
-                    { backgroundColor: categories[s.cat].solid },
-                  ]}
-                >
-                  <Txt variant="subheadStrong">{s.emoji}</Txt>
-                  <Txt variant="subheadStrong" color={colors.ink}>
-                    {s.label}
-                  </Txt>
-                </View>
-              ))}
-              <View style={styles.tagline}>
-                <Txt variant="footnoteStrong" color={colors.white} numberOfLines={1}>
-                  {cover.tagline}
-                </Txt>
-              </View>
-            </View>
-          ) : null}
+        <View style={[styles.cover, { height: 200 + insets.top }]}>
+          <Aura palette={auraFor(isMe ? 'me' : id, profile.color)} />
         </View>
         <View style={styles.avatar}>
           <Avatar photoId={id} name={profile.name} color={profile.color} size={88} verified={profile.verified} badge bordered />
@@ -126,17 +99,20 @@ export default function PersonProfile() {
         <View style={styles.body}>
           {isMe ? (
             <View style={styles.preview}>
-              <Eye size={16} color={colors.primaryInk} />
-              <Txt variant="footnoteStrong" color={colors.primaryInk} style={styles.flex}>
+              <Eye size={16} color={colors.ink} />
+              <Txt variant="footnoteStrong" color={colors.ink} style={styles.flex}>
                 Así ven tu perfil los demás
               </Txt>
             </View>
           ) : null}
           <View style={styles.titleRow}>
-            <Txt variant="title1" accessibilityRole="header">
-              {profile.name}, {profile.age}
-            </Txt>
-            {profile.verified ? <BadgeCheck size={22} color={colors.white} fill={colors.primary} accessibilityLabel="Perfil verificado" /> : null}
+            <View style={styles.nameRow}>
+              <Txt variant="title1" accessibilityRole="header" style={styles.shrink}>
+                {profile.name}, {profile.age}
+              </Txt>
+              {profile.verified ? <BadgeCheck size={22} color={colors.white} fill={colors.info} accessibilityLabel="Perfil verificado" /> : null}
+            </View>
+            {!isMe ? <SaveButton personId={id} name={profile.name} /> : null}
           </View>
           <View style={styles.meta}>
             <MapPin size={15} color={colors.text2} />
@@ -147,6 +123,7 @@ export default function PersonProfile() {
             </Txt>
           </View>
           <Txt variant="body">{profile.bio}</Txt>
+          <AboutList about={profile} own={isMe} />
 
           <View style={styles.common}>
             <Txt variant="headline">{isMe ? 'Tus intereses' : 'En común contigo'}</Txt>
@@ -191,30 +168,16 @@ export default function PersonProfile() {
 
           <View style={styles.section}>
             <Txt variant="headline">Publicaciones</Txt>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs} accessibilityRole="tablist" style={styles.tabsScroll}>
-              {filterTabs.map((t) => {
-                const on = t.value === filter;
-                const c = t.value === 'all' ? null : categories[t.value];
-                const count = t.value === 'all' ? theirPosts.length : theirPosts.filter((p) => p.category === t.value).length;
-                return (
-                  <PressableScale
-                    key={t.value}
-                    accessibilityRole="tab"
-                    accessibilityState={{ selected: on }}
-                    accessibilityLabel={`${t.label}, ${count} publicaciones`}
-                    onPress={() => {
-                      tapLight();
-                      setFilter(t.value);
-                    }}
-                    style={[styles.tab, { backgroundColor: on ? (c ? c.solid : colors.ink) : c ? c.soft : colors.surface }]}
-                  >
-                    <Txt variant="subheadStrong" color={on ? (c ? colors.ink : colors.white) : c ? c.ink : colors.ink}>
-                      {t.label} · {count}
-                    </Txt>
-                  </PressableScale>
-                );
-              })}
-            </ScrollView>
+            <View style={styles.tabsScroll}>
+              <TextTabs
+                tabs={filterTabs.map((t) => ({
+                  ...t,
+                  count: t.value === 'all' ? theirPosts.length : theirPosts.filter((p) => p.category === t.value).length,
+                }))}
+                value={filter}
+                onChange={setFilter}
+              />
+            </View>
             {visible.length ? (
               visible.map((p) => (
                 <PostCard
@@ -275,34 +238,23 @@ export default function PersonProfile() {
   );
 }
 
-const stickerSpots = [
-  { left: '4%', top: 0, transform: [{ rotate: '-8deg' }] },
-  { right: '4%', top: 12, transform: [{ rotate: '7deg' }] },
-  { left: '30%', top: 58, transform: [{ rotate: '-3deg' }] },
-] as const;
-
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   cover: { overflow: 'hidden' },
-  coverCircle: { position: 'absolute', width: 240, height: 240, borderRadius: 120, right: -60, top: -40, opacity: 0.7 },
-  coverPill: { position: 'absolute', width: 200, height: 60, borderRadius: 999, left: 90, bottom: 0, opacity: 0.16, transform: [{ rotate: '-14deg' }] },
-  coverContent: { position: 'absolute', left: 0, right: 0, bottom: 0 },
-  sticker: { position: 'absolute', flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 14, paddingVertical: 8, borderRadius: 999, borderWidth: 2, borderColor: colors.white },
-  tagline: { position: 'absolute', right: gutter, bottom: space.md, maxWidth: '58%', backgroundColor: 'rgba(0,0,0,0.55)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 999 },
   avatar: { marginTop: -44, marginLeft: gutter },
   body: { paddingHorizontal: gutter, paddingTop: space.md, gap: space.md },
-  preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.primarySoft, padding: space.md, borderRadius: radius.button },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.pink, padding: space.md, borderRadius: radius.button },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: space.md },
+  nameRow: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  shrink: { flexShrink: 1 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: -space.sm },
-  common: { backgroundColor: colors.surface, borderRadius: radius.card, padding: space.lg, gap: space.md, marginTop: space.sm },
+  common: { gap: space.md, marginTop: space.sm },
   also: { marginTop: space.xs },
   section: { gap: space.md, marginTop: space.md },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.lg },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   emptyPosts: { paddingVertical: space.lg },
   tabsScroll: { marginHorizontal: -gutter },
-  tabs: { paddingHorizontal: gutter, gap: space.sm },
-  tab: { minHeight: 40, paddingHorizontal: 14, borderRadius: radius.chip, justifyContent: 'center' },
   flex: { flex: 1 },
   topBar: { position: 'absolute', left: gutter, right: gutter, flexDirection: 'row', justifyContent: 'space-between' },
   sticky: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: gutter, paddingTop: space.md, backgroundColor: colors.bg, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },

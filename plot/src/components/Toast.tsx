@@ -44,7 +44,7 @@ export function ToastHost() {
             }}
             style={styles.undo}
           >
-            <Txt variant="subheadStrong" color={colors.primarySoft}>
+            <Txt variant="subheadStrong" color={colors.pink}>
               Deshacer
             </Txt>
           </PressableScale>

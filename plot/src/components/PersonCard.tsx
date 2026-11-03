@@ -7,6 +7,7 @@ import { categories, colors, radius, space } from '@/theme';
 import type { Person, Post } from '@/types';
 import { relative } from '@/utils/time';
 
+import { Aura, auraFor } from './Aura';
 import { Avatar } from './Avatar';
 import { Button } from './Button';
 import { Chip, ChipRow } from './Chip';
@@ -20,7 +21,6 @@ type Props = { person: Person; myInterests: string[]; posts: Post[] };
 export function PersonCard({ person, myInterests, posts }: Props) {
   const common = shared(myInterests, person.interests);
   const last = postsOf(posts, person.id)[0];
-  const cat = categories[person.color];
   const openProfile = () => router.push({ pathname: '/person/[id]', params: { id: person.id } });
   const write = () => router.push({ pathname: '/chat/[id]', params: { id: person.id } });
 
@@ -32,9 +32,8 @@ export function PersonCard({ person, myInterests, posts }: Props) {
       scaleTo={0.985}
       style={styles.card}
     >
-      <View style={[styles.cover, { backgroundColor: cat.solid }]}>
-        <View style={[styles.coverCircle, { backgroundColor: cat.soft }]} />
-        <View style={[styles.coverPill, { backgroundColor: cat.ink }]} />
+      <View style={styles.cover}>
+        <Aura palette={auraFor(person.id, person.color)} />
       </View>
       <View style={styles.avatar}>
         <Avatar photoId={person.id} name={person.name} color={person.color} size={88} verified={person.verified} badge bordered />
@@ -44,7 +43,7 @@ export function PersonCard({ person, myInterests, posts }: Props) {
           <Txt variant="title2">
             {person.name}, {person.age}
           </Txt>
-          {person.verified ? <BadgeCheck size={20} color={colors.white} fill={colors.primary} accessibilityLabel="Verificado" /> : null}
+          {person.verified ? <BadgeCheck size={20} color={colors.white} fill={colors.info} accessibilityLabel="Verificado" /> : null}
         </View>
         <View style={styles.meta}>
           <MapPin size={14} color={colors.text2} />
@@ -55,9 +54,9 @@ export function PersonCard({ person, myInterests, posts }: Props) {
 
         <View style={styles.why}>
           <View style={styles.whyHead}>
-            <Sparkles size={16} color={colors.primaryInk} />
-            <Txt variant="footnoteStrong" color={colors.primaryInk}>
-              Por qué {person.name}
+            <Sparkles size={15} color={colors.ink} />
+            <Txt variant="caption" color={colors.text2}>
+              POR QUÉ {person.name.toUpperCase()}
             </Txt>
           </View>
           <Txt variant="subhead" color={colors.ink}>
@@ -93,7 +92,7 @@ export function PersonCard({ person, myInterests, posts }: Props) {
         ) : null}
 
         <View style={styles.actions}>
-          <Button label="Ver perfil" variant="secondary" size="md" onPress={openProfile} flex />
+          <Button label="Ver perfil" variant="light" size="md" onPress={openProfile} flex />
           <Button label="Escribir" size="md" onPress={write} flex />
         </View>
       </View>
@@ -102,18 +101,16 @@ export function PersonCard({ person, myInterests, posts }: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.bg, borderRadius: radius.cardLg, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
-  cover: { height: 104, overflow: 'hidden' },
-  coverCircle: { position: 'absolute', width: 160, height: 160, borderRadius: 80, right: -30, top: -60, opacity: 0.7 },
-  coverPill: { position: 'absolute', width: 150, height: 44, borderRadius: 999, left: 120, bottom: -10, opacity: 0.16, transform: [{ rotate: '-16deg' }] },
-  avatar: { position: 'absolute', top: 56, left: space.lg },
+  card: { backgroundColor: colors.surface, borderRadius: radius.cardLg, overflow: 'hidden' },
+  cover: { height: 120, overflow: 'hidden' },
+  avatar: { position: 'absolute', top: 72, left: space.lg },
   body: { paddingHorizontal: space.lg, paddingBottom: space.lg, paddingTop: 44, gap: space.md },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: -space.sm },
-  why: { backgroundColor: colors.primarySoft, borderRadius: radius.tile, padding: space.md, gap: 4 },
+  why: { backgroundColor: colors.bg, borderRadius: radius.tile, padding: space.md, gap: 6 },
   whyHead: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   block: { gap: space.sm },
-  last: { flexDirection: 'row', gap: space.md, backgroundColor: colors.surface, borderRadius: radius.tile, padding: space.md },
+  last: { flexDirection: 'row', gap: space.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line, paddingTop: space.md },
   lastDot: { width: 10, height: 10, borderRadius: 5, marginTop: 3 },
   flex: { flex: 1, gap: 2 },
   actions: { flexDirection: 'row', gap: space.sm },

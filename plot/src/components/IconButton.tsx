@@ -10,7 +10,7 @@ type Props = {
   icon: LucideIcon;
   label: string;
   onPress: () => void;
-  tone?: 'plain' | 'surface' | 'glass' | 'primary' | 'onPrimary';
+  tone?: 'plain' | 'surface' | 'glass' | 'primary' | 'onPrimary' | 'dark';
   size?: number;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -22,6 +22,7 @@ const tones = {
   glass: { bg: colors.glass, fg: colors.ink },
   primary: { bg: colors.primary, fg: colors.white },
   onPrimary: { bg: colors.primaryInk, fg: colors.white },
+  dark: { bg: colors.ink, fg: colors.white },
 };
 
 /** Botón solo con icono: siempre lleva accessibilityLabel y 44×44 mínimo. */

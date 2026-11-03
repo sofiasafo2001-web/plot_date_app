@@ -93,7 +93,7 @@ export default function Report() {
                   tapLight();
                   setReason(r);
                 }}
-                style={[styles.reason, { borderColor: on ? colors.primary : colors.line, backgroundColor: on ? colors.primarySoft : colors.bg }]}
+                style={[styles.reason, { borderColor: on ? colors.ink : colors.line, backgroundColor: on ? colors.pink : colors.bg }]}
                 scaleTo={0.99}
               >
                 <Txt variant="headline" style={styles.flex}>
@@ -134,10 +134,10 @@ const styles = StyleSheet.create({
   reasons: { gap: space.sm, marginTop: space.sm },
   reason: { flexDirection: 'row', alignItems: 'center', minHeight: hit + 8, paddingHorizontal: space.lg, borderRadius: radius.button, borderWidth: 1.5 },
   radio: { width: 24, height: 24, borderRadius: 12, borderWidth: 2, borderColor: colors.line, alignItems: 'center', justifyContent: 'center' },
-  radioOn: { backgroundColor: colors.primary, borderColor: colors.primary },
+  radioOn: { backgroundColor: colors.ink, borderColor: colors.ink },
   flex: { flex: 1 },
   footer: { flexDirection: 'row', gap: space.sm, paddingHorizontal: gutter, paddingTop: space.md, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },
   thanks: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: gutter, gap: space.md },
-  badge: { width: 88, height: 88, borderRadius: 44, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center', marginBottom: space.md },
+  badge: { width: 88, height: 88, borderRadius: 44, backgroundColor: colors.info, alignItems: 'center', justifyContent: 'center', marginBottom: space.md },
   thanksActions: { alignSelf: 'stretch', gap: space.sm, marginTop: space.xl },
 });

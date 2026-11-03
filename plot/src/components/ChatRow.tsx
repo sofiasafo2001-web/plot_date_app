@@ -92,7 +92,7 @@ export function ChatRow({ person, conversation, common, onPress, onMute, onDelet
               {conversation.muted ? <BellOff size={14} color={colors.text3} accessibilityLabel="Silenciada" /> : null}
             </View>
             {last ? (
-              <Txt variant="footnote" color={unread ? colors.primaryInk : colors.text3}>
+              <Txt variant="footnote" color={unread ? colors.flirtInk : colors.text3}>
                 {shortTime(last.createdAt)}
               </Txt>
             ) : null}
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 1 },
   shrink: { flexShrink: 1 },
   bold: { fontFamily: fonts.semibold },
-  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.primary },
+  dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.flirt },
   actions: { flexDirection: 'row' },
   action: { width: 84, alignItems: 'center', justifyContent: 'center', gap: 4 },
 });

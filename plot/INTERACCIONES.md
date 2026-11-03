@@ -63,15 +63,17 @@ El mensaje «Ya hay X personas cerca con 3 intereses en común» se calcula con 
 
 | Elemento | Resultado |
 |---|---|
-| Descubrir / Chats / Perfil | Cambia de pestaña (háptica ligera). |
-| Publicar (botón violeta) | Abre el modal Crear publicación (no cambia de pestaña). |
+| Descubrir / Guardados / Chats / Perfil | Cambia de pestaña (háptica ligera). La activa va en rojo. |
+| Guardados | Lista de perfiles guardados con su última publicación y cuántas ha subido desde que los guardaste. El marcador negro los quita (toast con «Deshacer»). |
+| Publicar | Ya no está en la barra: se hace desde **Perfil** (botón «Publicar algo» o el **+** rojo de la cabecera). |
+| Marcador junto al nombre (perfil de otra persona) | Guarda o quita el perfil de Guardados, con toast y «Deshacer». |
 | Badge en Chats | Suma de no leídos (sin silenciados) + solicitudes visibles. Se actualiza en vivo. |
 
 ## 7. Descubrir (`app/(tabs)/discover.tsx`)
 
 | Elemento | Resultado |
 |---|---|
-| Filtros (icono deslizadores; violeta si hay filtros) | Abre la hoja de Filtros. |
+| Filtros (icono deslizadores; negro si hay filtros) | Abre la hoja de Filtros. |
 | Para ti / Música / Deporte / Comida / Lugares / Cultura | Filtra la lista por categoría y reordena por intereses en común de esa categoría. |
 | Quitar filtros (solo con filtros activos) | Restablece filtros, toast. |
 | Tirar hacia abajo | Spinner y reordena las recomendaciones, toast «Recomendaciones actualizadas». |
@@ -204,7 +206,7 @@ La lista baja sola al último mensaje, al llegar «escribiendo…» y al abrir e
 
 | Elemento | Resultado |
 |---|---|
-| Chips para romper el hielo | Rellenan el campo de texto (el elegido se ve en violeta). |
+| Chips para romper el hielo | Rellenan el campo de texto (el elegido se ve en rosa fuerte). |
 | Publicación (2 últimas) | La cita o la quita («Citar» / «Citada»). |
 | Enviar | Crea la conversación en Conversaciones y sigue como la sección 16. |
 

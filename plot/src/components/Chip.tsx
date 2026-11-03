@@ -2,7 +2,7 @@ import { Check } from 'lucide-react-native';
 import { StyleSheet, View } from 'react-native';
 
 import { categoryOf } from '@/data/catalog';
-import { categories, colors, radius, space, type CategoryId } from '@/theme';
+import { categories, colors, type CategoryId } from '@/theme';
 import { tapLight } from '@/utils/haptics';
 
 import { PressableScale } from './PressableScale';
@@ -18,13 +18,18 @@ type Props = {
   showCheck?: boolean;
 };
 
-/** Chip de interés con el color de su categoría. Texto en ink sobre sólido (regla de contraste). */
+/**
+ * Etiqueta de interés. Esquinas suaves en lugar de cápsula para no recargar.
+ * - Seleccionable: crema sin marcar, rosa de marca marcada (con check).
+ * - Informativa: color de su categoría si es en común, solo borde si no.
+ * Texto siempre en negro sobre color (contraste).
+ */
 export function Chip({ label, solid, category, onPress, size = 'md', showCheck }: Props) {
   const cat = categories[category ?? categoryOf(label)];
   const content = (
     <>
       {showCheck && solid ? <Check size={14} color={colors.ink} strokeWidth={2.4} /> : null}
-      <Txt variant={size === 'sm' ? 'footnoteStrong' : 'subheadStrong'} color={solid ? colors.ink : cat.ink}>
+      <Txt variant={size === 'sm' ? 'footnoteStrong' : 'subheadStrong'} color={colors.ink}>
         {label}
       </Txt>
     </>
@@ -32,7 +37,11 @@ export function Chip({ label, solid, category, onPress, size = 'md', showCheck }
   const style = [
     styles.base,
     size === 'sm' ? styles.sm : styles.md,
-    { backgroundColor: solid ? cat.solid : cat.soft },
+    onPress
+      ? { backgroundColor: solid ? colors.pink : colors.surface }
+      : solid
+        ? { backgroundColor: cat.solid }
+        : styles.outline,
   ];
   if (!onPress) {
     return <View style={style}>{content}</View>;
@@ -59,9 +68,10 @@ export function ChipRow({ children }: { children: React.ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  base: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: radius.chip, alignSelf: 'flex-start' },
+  base: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: 10, alignSelf: 'flex-start' },
+  outline: { borderWidth: 1, borderColor: colors.line },
   md: { paddingHorizontal: 14, paddingVertical: 8 },
-  sm: { paddingHorizontal: 10, paddingVertical: 5 },
+  sm: { paddingHorizontal: 9, paddingVertical: 4 },
   touch: { minHeight: 40 },
-  row: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm },
+  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
 });

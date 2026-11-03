@@ -20,7 +20,7 @@ type Props = {
   bordered?: boolean;
 };
 
-/** Avatar con iniciales sobre color de categoría. Anillo violeta si está verificado. */
+/** Avatar con iniciales sobre color de categoría. Anillo azul (confianza) si está verificado. */
 export function Avatar({ name, color, size = 56, verified, badge, bordered, photoId }: Props) {
   const [failed, setFailed] = useState(false);
   const photo = photoId && !failed ? avatarPhotos[photoId] : undefined;
@@ -45,7 +45,7 @@ export function Avatar({ name, color, size = 56, verified, badge, bordered, phot
           height: outer,
           borderRadius: outer / 2,
           borderWidth: ring,
-          borderColor: verified ? colors.primary : colors.transparent,
+          borderColor: verified ? colors.info : colors.transparent,
           backgroundColor: bordered ? colors.white : colors.transparent,
         },
       ]}
@@ -66,7 +66,7 @@ export function Avatar({ name, color, size = 56, verified, badge, bordered, phot
       </View>
       {verified && badge ? (
         <View style={[styles.badge, size === 88 ? styles.badgeLg : styles.badgeSm]}>
-          <BadgeCheck size={size === 88 ? 22 : 16} color={colors.white} fill={colors.primary} strokeWidth={2} />
+          <BadgeCheck size={size === 88 ? 22 : 16} color={colors.white} fill={colors.info} strokeWidth={2} />
         </View>
       ) : null}
     </View>

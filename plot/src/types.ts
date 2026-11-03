@@ -26,7 +26,22 @@ export type Post = {
   visibility: Visibility;
 };
 
-export type Person = {
+/** ¿Qué te gustaría encontrar aquí? */
+export type LookingFor = 'serious' | 'slow' | 'noExpectations' | 'casual' | 'oneOff' | 'flow';
+
+/** Respuestas abiertas y la intención, que se muestran bajo la bio. */
+export type AboutFields = {
+  /** ¿De dónde eres? */
+  origin: string;
+  /** ¿De qué trabajas? */
+  job: string;
+  lookingFor: LookingFor;
+};
+
+/** Perfil guardado y cuándo lo guardaste (para contar lo que ha subido después). */
+export type SavedProfile = { id: string; at: string };
+
+export type Person = AboutFields & {
   id: string;
   name: string;
   age: number;
@@ -44,7 +59,7 @@ export type Person = {
   hiddenFromDiscover?: boolean;
 };
 
-export type Me = {
+export type Me = AboutFields & {
   name: string;
   age: number;
   hood: string;

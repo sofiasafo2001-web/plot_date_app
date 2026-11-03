@@ -48,7 +48,7 @@ export default function Interests() {
         ))}
       </ScrollView>
       <View style={styles.footer}>
-        <Txt variant="subheadStrong" color={missing > 0 ? colors.text2 : colors.primaryInk} align="center" accessibilityLiveRegion="polite">
+        <Txt variant="subheadStrong" color={missing > 0 ? colors.text2 : colors.success} align="center" accessibilityLiveRegion="polite">
           {counter}
         </Txt>
         <Button

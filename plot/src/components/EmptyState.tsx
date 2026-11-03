@@ -12,7 +12,7 @@ export function EmptyState({ icon: Icon, title, text, actionLabel, onAction }: P
   return (
     <View style={styles.wrap}>
       <View style={styles.icon}>
-        <Icon size={30} color={colors.primary} />
+        <Icon size={28} color={colors.ink} />
       </View>
       <Txt variant="title2" align="center">
         {title}
@@ -27,5 +27,5 @@ export function EmptyState({ icon: Icon, title, text, actionLabel, onAction }: P
 
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center', gap: space.md, paddingVertical: space.xxxl, paddingHorizontal: space.xl },
-  icon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.primarySoft, alignItems: 'center', justifyContent: 'center' },
+  icon: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center' },
 });

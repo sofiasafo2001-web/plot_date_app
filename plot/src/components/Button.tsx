@@ -25,11 +25,11 @@ type Props = {
 
 const palette: Record<ButtonVariant, { bg: string; fg: string; border?: string }> = {
   primary: { bg: colors.primary, fg: colors.white },
-  secondary: { bg: colors.primarySoft, fg: colors.primaryInk },
+  secondary: { bg: colors.surface, fg: colors.ink },
   dark: { bg: colors.ink, fg: colors.white },
   text: { bg: colors.transparent, fg: colors.primaryInk },
   danger: { bg: colors.dangerSoft, fg: colors.dangerInk },
-  light: { bg: colors.white, fg: colors.primaryInk },
+  light: { bg: colors.white, fg: colors.ink },
 };
 
 export function Button({
@@ -63,9 +63,9 @@ export function Button({
         styles.base,
         {
           minHeight: height,
-          backgroundColor: disabled ? colors.line : p.bg,
+          backgroundColor: disabled ? colors.surface : p.bg,
           paddingHorizontal: variant === 'text' ? space.sm : size === 'sm' ? space.lg : space.xl,
-          borderRadius: size === 'lg' ? radius.button + 1 : radius.button - 1,
+          borderRadius: radius.pill,
         },
         flex && styles.flex,
         style,

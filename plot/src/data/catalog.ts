@@ -1,5 +1,5 @@
 import type { CategoryId } from '@/theme';
-import type { Activity, AppId, Place, Song } from '@/types';
+import type { Activity, AppId, LookingFor, Place, Song } from '@/types';
 
 /** Intereses disponibles, agrupados por categoría. */
 export const interestCatalog: Record<CategoryId, string[]> = {
@@ -79,3 +79,15 @@ export const places: Place[] = [
 export const songById = (id?: string) => songs.find((s) => s.id === id);
 export const activityById = (id?: string) => activities.find((a) => a.id === id);
 export const placeById = (id?: string) => places.find((p) => p.id === id);
+
+/** Opciones de «¿Qué te gustaría encontrar aquí?», en este orden. */
+export const lookingForOptions: { value: LookingFor; label: string }[] = [
+  { value: 'serious', label: 'Algo serio' },
+  { value: 'slow', label: 'Una relación, sin prisas' },
+  { value: 'noExpectations', label: 'Citas sin expectativas' },
+  { value: 'casual', label: 'Algo casual' },
+  { value: 'oneOff', label: 'Encuentros puntuales' },
+  { value: 'flow', label: 'Dejar que fluya' },
+];
+
+export const lookingForLabel = Object.fromEntries(lookingForOptions.map((o) => [o.value, o.label])) as Record<LookingFor, string>;

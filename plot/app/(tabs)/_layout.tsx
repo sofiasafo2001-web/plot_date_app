@@ -10,7 +10,7 @@ export default function TabsLayout() {
       screenOptions={{ headerShown: false, sceneStyle: { backgroundColor: colors.bg } }}
     >
       <Tabs.Screen name="discover" />
-      <Tabs.Screen name="publish" />
+      <Tabs.Screen name="saved" />
       <Tabs.Screen name="chats" />
       <Tabs.Screen name="profile" />
     </Tabs>

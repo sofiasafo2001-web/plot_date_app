@@ -197,7 +197,7 @@ export default function Chats() {
                     }}
                     style={styles.see}
                   >
-                    <Txt variant="subheadStrong" color={colors.primaryInk}>
+                    <Txt variant="subheadStrong" color={colors.info}>
                       {showHidden ? 'Ocultar' : 'Ver'}
                     </Txt>
                   </PressableScale>

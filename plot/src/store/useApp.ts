@@ -12,6 +12,7 @@ import type {
   Me,
   Message,
   Post,
+  SavedProfile,
   Settings,
 } from '@/types';
 import { uid } from '@/utils/id';
@@ -32,6 +33,8 @@ type PersistedState = {
   posts: Post[];
   conversations: Record<string, Conversation>;
   blocked: string[];
+  /** Perfiles guardados, el más reciente primero. */
+  saved: SavedProfile[];
   apps: Record<AppId, boolean>;
   settings: Settings;
   filters: DiscoverFilters;
@@ -75,6 +78,9 @@ type Actions = {
 
   block: (personId: string) => void;
   unblock: (personId: string) => void;
+
+  /** Guarda o quita un perfil de Guardados. Devuelve true si queda guardado. */
+  toggleSaved: (personId: string) => boolean;
 };
 
 export type AppState = PersistedState & RuntimeState & Actions;
@@ -90,6 +96,7 @@ function initialData(): PersistedState {
     posts: seed.posts,
     conversations: seed.conversations,
     blocked: [],
+    saved: seed.saved,
     apps: { spotify: true, strava: true, maps: false, photos: false },
     settings: { ...defaultSettings },
     filters: { ...defaultFilters },
@@ -235,12 +242,26 @@ export const useApp = create<AppState>()(
         }));
       },
       unblock: (personId) => set((s) => ({ blocked: s.blocked.filter((id) => id !== personId) })),
+
+      toggleSaved: (personId) => {
+        const isSaved = get().saved.some((x) => x.id === personId);
+        set((s) => ({
+          saved: isSaved
+            ? s.saved.filter((x) => x.id !== personId)
+            : [{ id: personId, at: new Date().toISOString() }, ...s.saved],
+        }));
+        return !isSaved;
+      },
     }),
     {
       name: 'plot-demo',
-      // v2: categoría Restaurantes, más publicaciones y fotos reales. Al subir de versión se carga la demo nueva.
-      version: 2,
-      migrate: () => initialData(),
+      // v3: perfiles guardados y campos «de dónde eres», «de qué trabajas» y «qué buscas».
+      // Al subir de versión se carga la demo nueva, pero se mantiene la sesión iniciada.
+      version: 3,
+      migrate: (persisted) => ({
+        ...initialData(),
+        loggedIn: !!(persisted as Partial<PersistedState> | undefined)?.loggedIn,
+      }),
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s): PersistedState => ({
         loggedIn: s.loggedIn,
@@ -249,6 +270,7 @@ export const useApp = create<AppState>()(
         posts: s.posts,
         conversations: s.conversations,
         blocked: s.blocked,
+        saved: s.saved,
         apps: s.apps,
         settings: s.settings,
         filters: s.filters,

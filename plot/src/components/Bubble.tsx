@@ -23,7 +23,7 @@ type Props = {
 export function Bubble({ message, quoted, status, onLongPress }: Props) {
   const mine = message.from === 'me';
   const a = message.attachment;
-  const fg = mine ? colors.white : colors.ink;
+  const fg = colors.ink;
   const q = questionById(message.questionId);
   const topicLabel = q ? (q.topic === 'general' ? 'Primera cita' : categories[q.topic].label) : undefined;
   return (
@@ -40,7 +40,7 @@ export function Bubble({ message, quoted, status, onLongPress }: Props) {
         style={[styles.bubble, mine ? styles.mine : styles.theirs, a && styles.withMedia]}
       >
         {topicLabel ? (
-          <View style={[styles.topic, { backgroundColor: q && q.topic !== 'general' ? categories[q.topic].solid : colors.primarySoft }]}>
+          <View style={[styles.topic, { backgroundColor: q && q.topic !== 'general' ? categories[q.topic].solid : colors.surface }]}>
             <Sparkles size={12} color={colors.ink} />
             <Txt variant="caption" color={colors.ink}>
               {topicLabel.toUpperCase()}
@@ -48,7 +48,7 @@ export function Bubble({ message, quoted, status, onLongPress }: Props) {
           </View>
         ) : null}
         {quoted ? (
-          <View style={[styles.quote, { backgroundColor: mine ? colors.primaryInk : colors.surface }]}>
+          <View style={[styles.quote, { backgroundColor: mine ? 'rgba(255,255,255,0.55)' : colors.surface }]}>
             <CornerDownRight size={14} color={mine ? colors.onPrimaryMuted : colors.text2} />
             <Txt variant="footnote" color={mine ? colors.onPrimaryMuted : colors.text2} numberOfLines={2} style={styles.flex}>
               {quoted.authorId === 'me' ? 'Tu publicación' : 'Su publicación'}: {postSummary(quoted)}
@@ -73,7 +73,7 @@ export function Bubble({ message, quoted, status, onLongPress }: Props) {
         </Txt>
       </PressableScale>
       {status ? (
-        <Txt variant="caption" color={status === 'Leído' ? colors.primaryInk : colors.text3} style={styles.status}>
+        <Txt variant="caption" color={status === 'Leído' ? colors.info : colors.text3} style={styles.status}>
           {status}
         </Txt>
       ) : null}
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
   right: { alignSelf: 'flex-end', alignItems: 'flex-end' },
   bubble: { paddingHorizontal: space.md, paddingVertical: space.sm, borderRadius: radius.card - 4, gap: 4 },
   withMedia: { padding: 4, width: 264 },
-  mine: { backgroundColor: colors.primary, borderBottomRightRadius: 6 },
-  theirs: { backgroundColor: colors.bg, borderBottomLeftRadius: 6, borderWidth: 1, borderColor: colors.line },
+  mine: { backgroundColor: colors.pink, borderBottomRightRadius: 6 },
+  theirs: { backgroundColor: colors.surface, borderBottomLeftRadius: 6 },
   quote: { flexDirection: 'row', gap: 6, padding: space.sm, borderRadius: 12, alignItems: 'flex-start' },
   flex: { flex: 1 },
   topic: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999 },

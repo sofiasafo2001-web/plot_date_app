@@ -1,3 +1,4 @@
+import { CircleAlert } from 'lucide-react-native';
 import { useState, type ComponentRef, type ReactNode, type Ref } from 'react';
 import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
@@ -14,10 +15,10 @@ type Props = TextInputProps & {
   ref?: Ref<ComponentRef<typeof TextInput>>;
 };
 
-/** Campo de texto con label, foco violeta y mensaje de error. */
+/** Campo de texto sobre crema, foco en negro y error con icono y texto (no solo color). */
 export function Input({ label, error, hint, right, left, style, onFocus, onBlur, multiline, ref, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
-  const borderColor = error ? colors.danger : focused ? colors.primary : colors.line;
+  const borderColor = error ? colors.danger : focused ? colors.ink : colors.surface;
   return (
     <View style={styles.wrap}>
       {label ? (
@@ -54,9 +55,12 @@ export function Input({ label, error, hint, right, left, style, onFocus, onBlur,
         {right ? <View style={styles.adorn}>{right}</View> : null}
       </View>
       {error ? (
-        <Txt variant="footnoteStrong" color={colors.dangerInk} accessibilityLiveRegion="polite" accessibilityRole="alert">
-          {error}
-        </Txt>
+        <View style={styles.error}>
+          <CircleAlert size={16} color={colors.dangerInk} strokeWidth={2.2} />
+          <Txt variant="footnoteStrong" color={colors.dangerInk} accessibilityLiveRegion="polite" accessibilityRole="alert">
+            {error}
+          </Txt>
+        </View>
       ) : hint ? (
         <Txt variant="footnote" color={colors.text3}>
           {hint}
@@ -68,6 +72,7 @@ export function Input({ label, error, hint, right, left, style, onFocus, onBlur,
 
 const styles = StyleSheet.create({
   wrap: { gap: 6 },
+  error: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   adorn: { flexShrink: 0 },
   field: {
     flexDirection: 'row',

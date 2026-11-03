@@ -1,19 +1,20 @@
 import { router } from 'expo-router';
 import { SearchX, SlidersHorizontal } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
-import { FlatList, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
 import { PersonCard } from '@/components/PersonCard';
 import { PressableScale } from '@/components/PressableScale';
+import { TextTabs } from '@/components/TextTabs';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
 import { people } from '@/data/seed';
 import { defaultFilters, useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
-import { categories, categoryOrder, cardGap, colors, gutter, radius, space } from '@/theme';
+import { categories, categoryOrder, cardGap, colors, gutter, space } from '@/theme';
 import { tapLight } from '@/utils/haptics';
 import { filtersActive, rankPeople, type DiscoverTab } from '@/utils/rank';
 
@@ -70,36 +71,13 @@ export default function Discover() {
               subtitle={`${list.length} ${list.length === 1 ? 'persona afín' : 'personas afines'} cerca de ${me.hood}`}
               right={
                 <View>
-                  <IconButton icon={SlidersHorizontal} label="Filtros" onPress={() => router.push('/filters')} tone={active ? 'primary' : 'surface'} />
+                  <IconButton icon={SlidersHorizontal} label="Filtros" onPress={() => router.push('/filters')} tone={active ? 'dark' : 'surface'} />
                 </View>
               }
             />
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabs} accessibilityRole="tablist">
-              {tabs.map((t) => {
-                const on = t.value === tab;
-                const cat = t.value === 'forYou' ? null : categories[t.value];
-                return (
-                  <PressableScale
-                    key={t.value}
-                    accessibilityRole="tab"
-                    accessibilityState={{ selected: on }}
-                    accessibilityLabel={t.label}
-                    onPress={() => {
-                      tapLight();
-                      setTab(t.value);
-                    }}
-                    style={[
-                      styles.tab,
-                      { backgroundColor: on ? (cat ? cat.solid : colors.ink) : cat ? cat.soft : colors.surface },
-                    ]}
-                  >
-                    <Txt variant="subheadStrong" color={on ? (cat ? colors.ink : colors.white) : cat ? cat.ink : colors.ink}>
-                      {t.label}
-                    </Txt>
-                  </PressableScale>
-                );
-              })}
-            </ScrollView>
+            <View style={styles.tabs}>
+              <TextTabs tabs={tabs} value={tab} onChange={setTab} />
+            </View>
             {active ? (
               <View style={styles.activeRow}>
                 <Txt variant="footnote" color={colors.text2} style={styles.flex}>
@@ -115,7 +93,7 @@ export default function Discover() {
                   }}
                   style={styles.clear}
                 >
-                  <Txt variant="footnoteStrong" color={colors.primaryInk}>
+                  <Txt variant="footnoteStrong" color={colors.info}>
                     Quitar filtros
                   </Txt>
                 </PressableScale>
@@ -148,8 +126,7 @@ export default function Discover() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   list: { paddingBottom: space.xxl },
-  tabs: { paddingHorizontal: gutter, gap: space.sm, paddingBottom: space.md },
-  tab: { minHeight: 40, paddingHorizontal: 16, borderRadius: radius.chip, justifyContent: 'center' },
+  tabs: { paddingBottom: space.md },
   activeRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: gutter, paddingBottom: space.md, gap: space.sm },
   flex: { flex: 1 },
   clear: { minHeight: 44, justifyContent: 'center', paddingHorizontal: space.sm },

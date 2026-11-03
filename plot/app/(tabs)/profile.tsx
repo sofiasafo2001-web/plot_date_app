@@ -1,8 +1,10 @@
 import { router } from 'expo-router';
-import { Eye, ImagePlus, MapPin, Pencil, Settings } from 'lucide-react-native';
+import { Eye, ImagePlus, MapPin, Pencil, Plus, Settings } from 'lucide-react-native';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AboutList } from '@/components/AboutList';
+import { Aura, auraFor } from '@/components/Aura';
 import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { Chip, ChipRow } from '@/components/Chip';
@@ -26,16 +28,25 @@ export default function MyProfile() {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <LargeHeader title="Perfil" right={<IconButton icon={Settings} label="Ajustes" onPress={() => router.push('/settings')} />} />
+        <LargeHeader
+          title="Perfil"
+          right={
+            <>
+              <IconButton icon={Plus} label="Publicar" tone="primary" onPress={() => router.push('/compose')} />
+              <IconButton icon={Settings} label="Ajustes" onPress={() => router.push('/settings')} />
+            </>
+          }
+        />
         <View style={styles.head}>
-          <Avatar photoId="me" name={me.name} color={me.color} size={88} verified badge />
+          <Aura palette={auraFor('me', me.color)} />
+          <Avatar photoId="me" name={me.name} color={me.color} size={88} verified badge bordered />
           <View style={styles.flex}>
             <Txt variant="title1">
               {me.name}, {me.age}
             </Txt>
             <View style={styles.meta}>
-              <MapPin size={15} color={colors.text2} />
-              <Txt variant="subhead" color={colors.text2}>
+              <MapPin size={15} color={colors.ink} />
+              <Txt variant="subhead" color={colors.ink}>
                 {me.hood}, Barcelona
               </Txt>
             </View>
@@ -43,25 +54,25 @@ export default function MyProfile() {
         </View>
         <View style={styles.section}>
           <Txt variant="body">{me.bio}</Txt>
+          <AboutList about={me} own />
           <ChipRow>
             {me.interests.map((i) => (
               <Chip key={i} label={i} solid size="sm" />
             ))}
           </ChipRow>
-          <View style={styles.note}>
-            <Txt variant="footnoteStrong" color={colors.primaryInk} align="center">
-              Sin likes ni seguidores. Solo lo que te gusta.
-            </Txt>
-          </View>
+          <Button label="Publicar algo" icon={Plus} onPress={() => router.push('/compose')} accessibilityHint="Comparte una foto, un estado, una canción, una ruta o un sitio" />
           <View style={styles.actions}>
             <Button label="Editar perfil" icon={Pencil} variant="secondary" size="md" flex onPress={() => router.push('/edit-profile')} />
-            <Button label="Ver como otros" icon={Eye} variant="dark" size="md" flex onPress={() => router.push({ pathname: '/person/[id]', params: { id: 'me' } })} />
+            <Button label="Cómo me ven" icon={Eye} variant="dark" size="md" flex onPress={() => router.push({ pathname: '/person/[id]', params: { id: 'me' } })} />
           </View>
+          <Txt variant="footnote" color={colors.text3} align="center">
+            Sin likes ni seguidores. Guardar a alguien es privado: nadie sabe que le has guardado.
+          </Txt>
         </View>
 
         <View style={styles.gridHead}>
           <Txt variant="title2">Mis publicaciones</Txt>
-          <Txt variant="footnote" color={colors.text3}>
+          <Txt variant="subhead" color={colors.text3}>
             {mine.length}
           </Txt>
         </View>
@@ -87,11 +98,10 @@ export default function MyProfile() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingBottom: space.xxl },
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.lg, paddingHorizontal: gutter },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.lg, marginHorizontal: gutter, padding: space.lg, borderRadius: radius.cardLg, overflow: 'hidden' },
   flex: { flex: 1 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   section: { paddingHorizontal: gutter, paddingTop: space.lg, gap: space.md },
-  note: { backgroundColor: colors.primarySoft, borderRadius: radius.button, paddingVertical: space.md, paddingHorizontal: space.lg },
   actions: { flexDirection: 'row', gap: space.sm },
   gridHead: { flexDirection: 'row', alignItems: 'baseline', gap: space.sm, paddingHorizontal: gutter, paddingTop: space.xl, paddingBottom: space.md },
   grid: { paddingHorizontal: gutter, gap: 4 },

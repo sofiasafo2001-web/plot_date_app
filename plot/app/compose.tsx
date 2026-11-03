@@ -15,7 +15,7 @@ import { Txt } from '@/components/Txt';
 import { activities, categoryOf, places, songs } from '@/data/catalog';
 import { useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
-import { categories, colors, gutter, hit, radius, space, type CategoryId } from '@/theme';
+import { categories, colors, gutter, radius, space, type CategoryId } from '@/theme';
 import type { PostType, Visibility } from '@/types';
 import { confirm } from '@/utils/confirm';
 import { notifySuccess, tapLight, tapMedium } from '@/utils/haptics';
@@ -133,10 +133,10 @@ export default function Compose() {
                 accessibilityState={{ selected: on }}
                 accessibilityLabel={t.label}
                 onPress={() => changeType(t.value)}
-                style={[styles.type, { backgroundColor: on ? cat.solid : cat.soft }]}
+                style={[styles.type, { backgroundColor: on ? cat.solid : colors.surface }]}
               >
-                <Icon size={18} color={on ? colors.ink : cat.ink} />
-                <Txt variant="subheadStrong" color={on ? colors.ink : cat.ink}>
+                <Icon size={22} color={colors.ink} />
+                <Txt variant="footnoteStrong" color={colors.ink}>
                   {t.label}
                 </Txt>
               </PressableScale>
@@ -162,8 +162,8 @@ export default function Compose() {
                 }}
                 style={styles.picker}
               >
-                <ImageIcon size={32} color={colors.primary} />
-                <Txt variant="headline" color={colors.primaryInk}>
+                <ImageIcon size={32} color={colors.ink} />
+                <Txt variant="headline" color={colors.ink}>
                   Elegir del carrete
                 </Txt>
                 <Txt variant="footnote" color={colors.text2}>
@@ -299,7 +299,7 @@ function SelectRow({ title, subtitle, icon: Icon, cat, selected, onPress }: { ti
         onPress();
       }}
       scaleTo={0.99}
-      style={[styles.row, { borderColor: selected ? colors.primary : colors.line, backgroundColor: selected ? colors.primarySoft : colors.bg }]}
+      style={[styles.row, { borderColor: selected ? colors.ink : colors.line, backgroundColor: selected ? colors.pink : colors.bg }]}
     >
       <View style={[styles.rowIcon, { backgroundColor: c.solid }]}>
         <Icon size={20} color={colors.ink} />
@@ -310,7 +310,7 @@ function SelectRow({ title, subtitle, icon: Icon, cat, selected, onPress }: { ti
           {subtitle}
         </Txt>
       </View>
-      {selected ? <Check size={22} color={colors.primary} strokeWidth={2.6} /> : null}
+      {selected ? <Check size={22} color={colors.ink} strokeWidth={2.6} /> : null}
     </PressableScale>
   );
 }
@@ -321,9 +321,9 @@ const styles = StyleSheet.create({
   publish: { paddingRight: space.sm },
   body: { paddingTop: space.lg, gap: space.xl },
   types: { paddingHorizontal: gutter, gap: space.sm },
-  type: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: hit, paddingHorizontal: space.lg, borderRadius: radius.chip },
+  type: { alignItems: 'center', justifyContent: 'center', gap: 6, width: 86, height: 78, borderRadius: radius.tile },
   form: { paddingHorizontal: gutter, gap: space.md },
-  picker: { alignItems: 'center', justifyContent: 'center', gap: space.sm, aspectRatio: 4 / 3, borderRadius: radius.card, borderWidth: 2, borderStyle: 'dashed', borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  picker: { alignItems: 'center', justifyContent: 'center', gap: space.sm, aspectRatio: 4 / 3, borderRadius: radius.card, borderWidth: 2, borderStyle: 'dashed', borderColor: colors.text3, backgroundColor: colors.surface },
   section: { paddingHorizontal: gutter, gap: space.md },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.md, borderRadius: radius.tile, borderWidth: 1.5 },
   rowIcon: { width: 44, height: 44, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },

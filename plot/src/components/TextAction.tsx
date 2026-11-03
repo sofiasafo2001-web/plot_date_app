@@ -19,7 +19,7 @@ export function TextAction({ label, onPress, strong, disabled }: { label: string
       }}
       style={styles.action}
     >
-      <Txt variant={strong ? 'headline' : 'body'} color={disabled ? colors.text3 : colors.primary}>
+      <Txt variant={strong ? 'headline' : 'body'} color={disabled ? colors.text3 : colors.primaryInk}>
         {label}
       </Txt>
     </PressableScale>

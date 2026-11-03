@@ -48,7 +48,7 @@ type RowProps = {
   right?: ReactNode;
 };
 
-export function Row({ label, detail, value, icon: Icon, iconBg = colors.primarySoft, onPress, chevron, checked, destructive, right }: RowProps) {
+export function Row({ label, detail, value, icon: Icon, iconBg = colors.surface, onPress, chevron, checked, destructive, right }: RowProps) {
   const content = (
     <>
       {Icon ? (
@@ -72,7 +72,7 @@ export function Row({ label, detail, value, icon: Icon, iconBg = colors.primaryS
         </Txt>
       ) : null}
       {right}
-      {checked ? <Check size={20} color={colors.primary} strokeWidth={2.6} /> : null}
+      {checked ? <Check size={20} color={colors.ink} strokeWidth={2.6} /> : null}
       {chevron ? <ChevronRight size={18} color={colors.text3} /> : null}
     </>
   );
