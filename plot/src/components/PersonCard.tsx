@@ -1,10 +1,11 @@
 import { router } from 'expo-router';
-import { BadgeCheck } from 'lucide-react-native';
+import { BadgeCheck, Search } from 'lucide-react-native';
 import { StyleSheet, View } from 'react-native';
 
 import { shared } from '@/store/selectors';
 import { colors, radius, space } from '@/theme';
 import type { Person, Post } from '@/types';
+import type { SearchMatch } from '@/utils/search';
 
 import { Button } from './Button';
 import { Chip, ChipRow } from './Chip';
@@ -15,18 +16,23 @@ import { Txt } from './Txt';
 
 const MAX_COMMON = 4;
 
-type Props = { person: Person; myInterests: string[]; posts: Post[] };
+type Props = {
+  person: Person;
+  myInterests: string[];
+  posts: Post[];
+  /** Si viene de una búsqueda: por qué aparece. */
+  match?: SearchMatch;
+};
 
 /**
  * Tarjeta de Descubrir (modo oscuro): foto grande arriba con el marcador de guardar,
- * nombre, lo que tenéis en común y, en rosa, por qué os parecéis.
+ * nombre, lo que tenéis en común y, en rosa, su bio.
  */
-export function PersonCard({ person, myInterests }: Props) {
+export function PersonCard({ person, myInterests, match }: Props) {
   const common = shared(myInterests, person.interests);
   const shown = common.slice(0, MAX_COMMON);
   const openProfile = () => router.push({ pathname: '/person/[id]', params: { id: person.id } });
   const write = () => router.push({ pathname: '/chat/[id]', params: { id: person.id } });
-  const why = person.reason ? { label: `Por qué ${person.name}`, text: person.reason } : { label: 'Bio', text: person.bio };
 
   return (
     <PressableScale
@@ -56,6 +62,18 @@ export function PersonCard({ person, myInterests }: Props) {
           </Txt>
         </View>
 
+        {match ? (
+          <View style={styles.match}>
+            <Search size={15} color={colors.dark.text} />
+            <Txt variant="subhead" color={colors.dark.text} numberOfLines={2} style={styles.shrink}>
+              <Txt variant="subheadStrong" color={colors.dark.text}>
+                {match.label}:{' '}
+              </Txt>
+              {match.text}
+            </Txt>
+          </View>
+        ) : null}
+
         {shown.length ? (
           <View style={styles.block}>
             <Txt variant="caption" color={colors.dark.text2}>
@@ -71,10 +89,10 @@ export function PersonCard({ person, myInterests }: Props) {
 
         <View style={styles.why}>
           <Txt variant="caption" color={colors.ink}>
-            {why.label.toUpperCase()}
+            BIO
           </Txt>
           <Txt variant="body" color={colors.ink}>
-            {why.text}
+            {person.bio}
           </Txt>
         </View>
 
@@ -88,13 +106,14 @@ export function PersonCard({ person, myInterests }: Props) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.dark.card, borderRadius: radius.cardLg, borderWidth: StyleSheet.hairlineWidth, borderColor: colors.dark.line, padding: space.md },
+  card: { backgroundColor: colors.dark.card, borderRadius: radius.cardLg, borderWidth: 1, borderColor: colors.dark.line, padding: space.md },
   photo: { width: '100%', aspectRatio: 1.65, borderRadius: radius.card - 4 },
   save: { position: 'absolute', top: space.sm, right: space.sm },
   body: { paddingHorizontal: space.xs, paddingTop: space.lg, paddingBottom: space.xs, gap: space.lg },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   shrink: { flexShrink: 1 },
   block: { gap: space.sm },
+  match: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.dark.chip, borderRadius: radius.button, paddingHorizontal: space.md, paddingVertical: space.sm },
   why: { backgroundColor: colors.pink, borderRadius: radius.card - 6, padding: space.lg, gap: 6 },
   actions: { flexDirection: 'row', gap: space.sm },
 });

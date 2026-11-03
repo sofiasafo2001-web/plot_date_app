@@ -192,7 +192,7 @@ export const people: Person[] = [
     km: 2.0,
     verified: false,
     bio: 'Cocinero en un bar de tapas. En mis días libres, surf en la Barceloneta o lo que haya.',
-    interests: ['Cocinar', 'Surf', 'Vermut', 'Rap', 'Playa'],
+    interests: ['Cocinar', 'Surf', 'Vermut', 'Rap', 'Playa', 'Videojuegos'],
     apps: ['maps'],
     color: 'food',
     reason: 'Los dos cocináis por placer y no perdonáis un buen vermut.',
@@ -319,6 +319,8 @@ function buildPosts(): Post[] {
     { id: 'pa4', authorId: 'paula', type: 'photo', photoLabel: 'Foto · Calles de Gràcia', text: 'Mi barrio a las ocho de la mañana.', createdAt: days(4), category: 'places', visibility: 'everyone' },
     { id: 'se4', authorId: 'sergi', type: 'place', placeId: 'p11', text: 'Donde ceno cuando no cocino yo.', createdAt: days(2), category: 'food', tag: 'Vermut', visibility: 'everyone' },
     { id: 'se5', authorId: 'sergi', type: 'place', placeId: 'p8', text: 'Aquí me encontraréis si hay olas.', createdAt: days(8), category: 'places', tag: 'Playa', visibility: 'everyone' },
+    { id: 'i6', authorId: 'irene', type: 'status', text: 'Releyendo «Tokio blues» en el tren. Murakami nunca falla.', createdAt: days(5), category: 'culture', tag: 'Libros', visibility: 'everyone' },
+    { id: 'se6', authorId: 'sergi', type: 'status', text: 'Mario Kart después del cierre de cocina. Acepto retos.', createdAt: days(4), category: 'culture', tag: 'Videojuegos', visibility: 'everyone' },
     { id: 'i5', authorId: 'irene', type: 'photo', photoLabel: 'Foto · Brunch de domingo', text: 'Brunch antes de la Filmoteca.', createdAt: days(6), category: 'food', visibility: 'everyone' },
   ];
 }

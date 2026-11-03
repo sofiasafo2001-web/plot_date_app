@@ -8,7 +8,7 @@ export const interestCatalog: Record<CategoryId, string[]> = {
   food: ['Cocinar', 'Brunch', 'Vermut', 'Ramen', 'Vino natural', 'Café de especialidad', 'Mercados', 'Veggie'],
   // Montaña va con Lugares (lima), como en la guía de marca.
   places: ['Montaña', 'Playa', 'Pirineo', 'Escapadas', 'Terrazas', 'Costa Brava', 'Miradores', 'Camping', 'Barrios'],
-  culture: ['Cine', 'Libros', 'Museos', 'Teatro', 'Fotografía', 'Diseño', 'Cómics', 'Podcasts'],
+  culture: ['Cine', 'Libros', 'Museos', 'Teatro', 'Fotografía', 'Diseño', 'Cómics', 'Podcasts', 'Videojuegos'],
 };
 
 const interestToCategory: Record<string, CategoryId> = Object.fromEntries(

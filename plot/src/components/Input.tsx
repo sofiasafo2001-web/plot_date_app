@@ -1,6 +1,6 @@
 import { CircleAlert } from 'lucide-react-native';
 import { useState, type ComponentRef, type ReactNode, type Ref } from 'react';
-import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
+import { Platform, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
 import { colors, fonts, radius, space } from '@/theme';
 
@@ -89,6 +89,14 @@ const styles = StyleSheet.create({
   },
   multiline: { alignItems: 'flex-start', paddingVertical: space.sm },
   pill: { borderRadius: 999, paddingHorizontal: space.lg },
-  input: { flex: 1, fontFamily: fonts.regular, fontSize: 17, color: colors.ink, paddingVertical: 12 },
+  input: {
+    flex: 1,
+    fontFamily: fonts.regular,
+    fontSize: 17,
+    color: colors.ink,
+    paddingVertical: 12,
+    // En la versión web, sin el recuadro de foco del navegador: el foco ya lo marca el borde del campo.
+    ...(Platform.OS === 'web' ? ({ outlineStyle: 'none' } as object) : null),
+  },
   inputMultiline: { minHeight: 96, textAlignVertical: 'top', paddingTop: 6 },
 });

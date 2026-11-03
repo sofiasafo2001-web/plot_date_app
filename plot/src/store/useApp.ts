@@ -255,9 +255,9 @@ export const useApp = create<AppState>()(
     }),
     {
       name: 'plot-demo',
-      // v3: perfiles guardados y campos «de dónde eres», «de qué trabajas» y «qué buscas».
+      // v4: publicaciones nuevas (libro y videojuego) para probar el buscador de Descubrir.
       // Al subir de versión se carga la demo nueva, pero se mantiene la sesión iniciada.
-      version: 3,
+      version: 4,
       migrate: (persisted) => ({
         ...initialData(),
         loggedIn: !!(persisted as Partial<PersistedState> | undefined)?.loggedIn,

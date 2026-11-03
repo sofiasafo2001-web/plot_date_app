@@ -74,6 +74,7 @@ El mensaje «Ya hay X personas cerca con 3 intereses en común» se calcula con 
 | Elemento | Resultado |
 |---|---|
 | Filtros (icono deslizadores; negro si hay filtros) | Abre la hoja de Filtros. |
+| Buscador (bajo el título) | Busca en intereses, publicaciones (libros, canciones, sitios…), bio y trabajo, sin tildes ni mayúsculas. Mira en todas las categorías y cada tarjeta dice por qué aparece («Le gusta: Ciclismo», «Ha publicado: …»). Sin resultados: «Borrar búsqueda». |
 | Para ti / Música / Deporte / Comida / Lugares / Cultura | Filtra la lista por categoría y reordena por intereses en común de esa categoría. |
 | Quitar filtros (solo con filtros activos) | Restablece filtros, toast. |
 | Tirar hacia abajo | Spinner y reordena las recomendaciones, toast «Recomendaciones actualizadas». |

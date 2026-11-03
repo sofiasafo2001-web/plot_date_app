@@ -84,7 +84,6 @@ export default function PersonProfile() {
 
   const common = isMe ? profile.interests : shared(me.interests, profile.interests);
   const rest = isMe ? [] : others(me.interests, profile.interests);
-  const reason = !isMe && person?.reason ? person.reason : undefined;
   const write = (quote?: string) =>
     router.push({ pathname: '/chat/[id]', params: quote ? { id, quote } : { id } });
 
@@ -120,7 +119,16 @@ export default function PersonProfile() {
             </Txt>
           </View>
 
-          <View style={styles.block}>
+          <View style={styles.why}>
+            <Txt variant="caption" color={colors.ink}>
+              {isMe ? 'TU BIO' : 'BIO'}
+            </Txt>
+            <Txt variant="body" color={colors.ink}>
+              {profile.bio}
+            </Txt>
+          </View>
+
+          <View style={styles.panel}>
             <Txt variant="caption" color={colors.dark.text2}>
               {isMe ? 'TUS INTERESES' : 'EN COMÚN CONTIGO'}
             </Txt>
@@ -137,29 +145,15 @@ export default function PersonProfile() {
             )}
           </View>
 
-          <View style={styles.why}>
-            <Txt variant="caption" color={colors.ink}>
-              {reason ? `POR QUÉ ${profile.name.toUpperCase()}` : 'BIO'}
-            </Txt>
-            <Txt variant="body" color={colors.ink}>
-              {reason ?? profile.bio}
-            </Txt>
-          </View>
-
           <View style={styles.block}>
             <Txt variant="caption" color={colors.dark.text2}>
               {isMe ? 'SOBRE TI' : `SOBRE ${profile.name.toUpperCase()}`}
             </Txt>
-            {reason ? (
-              <Txt variant="body" color={colors.dark.text}>
-                {profile.bio}
-              </Txt>
-            ) : null}
             <AboutList about={profile} own={isMe} dark />
           </View>
 
           {rest.length ? (
-            <View style={styles.block}>
+            <View style={styles.panel}>
               <Txt variant="caption" color={colors.dark.text2}>
                 TAMBIÉN LE GUSTA
               </Txt>
@@ -172,7 +166,7 @@ export default function PersonProfile() {
           ) : null}
 
           {profile.apps.length ? (
-            <View style={styles.block}>
+            <View style={styles.panel}>
               <Txt variant="caption" color={colors.dark.text2}>
                 APPS CONECTADAS
               </Txt>
@@ -278,12 +272,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: radius.cardLg,
     paddingHorizontal: gutter,
     paddingTop: space.xl,
-    gap: space.xl,
+    gap: space.lg,
   },
   preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.pink, padding: space.md, borderRadius: radius.button },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   shrink: { flexShrink: 1 },
   block: { gap: space.md },
+  panel: { gap: space.md, backgroundColor: colors.dark.card, borderRadius: radius.card - 4, padding: space.lg },
   why: { backgroundColor: colors.pink, borderRadius: radius.card - 6, padding: space.lg, gap: 6 },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.lg },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: space.sm },

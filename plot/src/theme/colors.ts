@@ -62,14 +62,15 @@ export const colors = {
   success: '#4F5500',
   successSoft: '#F4F7C2',
 
-  /** Modo oscuro (Descubrir y perfil de otra persona). */
+  /** Modo oscuro (Descubrir y perfil de otra persona). Contraste de tarjeta sobre fondo marcado. */
   dark: {
-    bg: brand.graphite,
-    card: '#1F1E1C',
-    chip: '#2B2A27',
-    line: '#34322F',
+    /** Grafito suavizado: oscuro pero no negro, para que las tarjetas se distingan. */
+    bg: '#232120',
+    card: '#34312D',
+    chip: '#46423D',
+    line: '#4A4640',
     text: '#FFFFFF',
-    text2: '#A9A59D',
+    text2: '#C2BDB4',
   },
 
   /** Velo oscuro para fondos de hojas y modales. */
