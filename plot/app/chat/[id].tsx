@@ -291,7 +291,7 @@ export default function Conversation() {
               onChangeText={setText}
               placeholder={isEmpty ? `Escribe a ${person.name}…` : 'Mensaje'}
               placeholderTextColor={colors.text3}
-              selectionColor={colors.primary}
+              selectionColor={colors.brandRed}
               style={styles.input}
               multiline
               submitBehavior="submit"

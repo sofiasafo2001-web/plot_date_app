@@ -89,12 +89,12 @@ export function IdCard({ id, name, age, verified, color, place, common, commonLa
       {highlight ? (
         <View style={styles.highlight}>
           <View style={styles.hlHead}>
-            <Sparkles size={14} color={colors.primaryInk} />
-            <Txt variant="caption" color={colors.primaryInk}>
+            <Sparkles size={14} color={colors.pink} />
+            <Txt variant="caption" color={colors.onRed}>
               {highlight.label.toUpperCase()}
             </Txt>
           </View>
-          <Txt variant="subhead" color={colors.ink}>
+          <Txt variant="subheadStrong" color={colors.onRed}>
             {highlight.text}
           </Txt>
         </View>
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   divider: { height: StyleSheet.hairlineWidth, backgroundColor: colors.line, marginVertical: space.xs },
   more: { alignSelf: 'center' },
-  highlight: { backgroundColor: colors.primarySoft, borderRadius: radius.card - 6, padding: space.md, gap: 4 },
+  highlight: { backgroundColor: colors.brandRed, borderRadius: radius.card - 6, padding: space.md, gap: 4 },
   hlHead: { flexDirection: 'row', alignItems: 'center', gap: 6 },
 });

@@ -37,8 +37,8 @@ export function Input({ label, error, hint, right, left, style, onFocus, onBlur,
         <TextInput
           ref={ref}
           placeholderTextColor={colors.text3}
-          selectionColor={colors.primary}
-          cursorColor={colors.primary}
+          selectionColor={colors.brandRed}
+          cursorColor={colors.brandRed}
           multiline={multiline}
           maxFontSizeMultiplier={1.8}
           onFocus={(e) => {

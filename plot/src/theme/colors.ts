@@ -1,18 +1,18 @@
 /**
- * Paleta de marca PLOT.
+ * Paleta de marca PLOT: rebelde y cercana, como el logo (rosa sobre rojo).
  *
- * - Frambuesa #E01F66 (añadido): la acción principal. Botones, pestaña activa, cursor, interruptores.
- *   Es el rosa fuerte oscurecido lo justo para llevar texto blanco (4,6:1) y suena a app de citas.
- * - Rosa claro #FFB7EF: superficie de marca. Burbujas propias, opciones marcadas, bienvenida.
- * - Rosa fuerte #FF4987: ligoteo. Burbuja de flirt, primer mensaje, corazón de «qué busca».
- * - Rojo #E0070F: el del logotipo y lo que reclama atención (avisos de no leídos, errores).
- * - Azul #0043D8: confianza e información (verificado, enlaces, seguridad). Se usa poco.
- * - Crema #F9F7F0: el «gris» cálido. Tarjetas, campos y hojas, siempre con borde suave.
- * - Lima, amarillo y celeste: solo como color de categoría y en las auras, con texto negro.
+ * - Rojo #E0070F: el color de la marca. Aparece en grande y sin miedo, pero nunca en botones:
+ *   títulos de pantalla, pestaña activa, el «por qué» de cada perfil, la bienvenida, avisos.
+ * - Rosa #FFB7EF: el rosa del logo. Botones principales (texto negro), burbujas propias,
+ *   opciones marcadas e interruptores. Rosa y rojo juntos son la firma de PLOT.
+ * - Negro: botones secundarios y texto. Da el punto bold.
+ * - Rosa fuerte #FF4987: ligoteo (burbuja de flirt, primer mensaje, corazón).
+ * - Azul #0043D8: confianza (verificado, enlaces, seguridad). Muy poco.
+ * - Crema #F9F7F0: tarjetas y campos.
+ * - Lima, amarillo y celeste: categorías, siempre con texto negro.
  */
 export const brand = {
   red: '#E0070F',
-  raspberry: '#E01F66',
   pink: '#FFB7EF',
   hotPink: '#FF4987',
   blue: '#0043D8',
@@ -33,12 +33,15 @@ export const colors = {
   bg: '#FFFFFF',
   white: '#FFFFFF',
 
-  /** Acción principal (frambuesa). Texto blanco encima. */
-  primary: brand.raspberry,
-  /** Frambuesa oscuro para texto sobre blanco o rosa claro. */
-  primaryInk: '#A8104B',
-  /** Rojo del logotipo y de los avisos (no leídos). */
+  /** Acción principal: el rosa del logo, con texto negro encima. */
+  primary: brand.pink,
+  onPrimary: '#121110',
+  /** Rojo oscuro para textos de acción sobre blanco o rosa (enlaces de barra, «Guardar»). */
+  primaryInk: '#B0000A',
+  /** Rojo del logotipo: títulos, pestaña activa, bloques destacados, avisos. Nunca botones. */
   brandRed: brand.red,
+  /** Texto sobre rojo: blanco (5:1). El rosa sobre rojo solo en tamaños grandes o en el logo. */
+  onRed: '#FFFFFF',
   /** Rosa de marca: seleccionados, burbujas propias, bienvenida. */
   pink: brand.pink,
   /** Rosa muy suave para bloques informativos grandes. */

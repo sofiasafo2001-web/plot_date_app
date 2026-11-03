@@ -31,7 +31,7 @@ export function AppConnectRow({ app, connected, connecting, onPress }: Props) {
         style={[styles.btn, connected ? styles.btnOn : styles.btnOff]}
       >
         {connecting ? (
-          <ActivityIndicator color={colors.primary} />
+          <ActivityIndicator color={colors.brandRed} />
         ) : connected ? (
           <View style={styles.inline}>
             <Txt variant="subheadStrong" color={colors.ink}>

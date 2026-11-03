@@ -58,7 +58,7 @@ export default function Login() {
         </View>
         <View style={styles.body}>
           <View style={styles.lock}>
-            <Lock size={26} color={colors.primary} />
+            <Lock size={26} color={colors.pink} />
           </View>
           <Txt variant="largeTitle" accessibilityRole="header">
             Hola de nuevo
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   top: { paddingHorizontal: gutter, paddingTop: space.sm },
   body: { flex: 1, paddingHorizontal: gutter, paddingTop: space.xl, gap: space.sm },
-  lock: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.primarySoft, alignItems: 'center', justifyContent: 'center', marginBottom: space.md },
+  lock: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.brandRed, alignItems: 'center', justifyContent: 'center', marginBottom: space.md },
   field: { marginTop: space.xl },
   footer: { paddingHorizontal: gutter, paddingBottom: space.md },
 });

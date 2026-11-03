@@ -64,7 +64,7 @@ export default function Discover() {
         keyExtractor={(p) => p.id}
         contentContainerStyle={styles.list}
         ItemSeparatorComponent={() => <View style={{ height: cardGap }} />}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} colors={[colors.primary]} />}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.brandRed} colors={[colors.brandRed]} />}
         ListHeaderComponent={
           <View>
             <LargeHeader

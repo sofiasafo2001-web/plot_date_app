@@ -20,7 +20,7 @@ const tones = {
   plain: { bg: colors.transparent, fg: colors.ink },
   surface: { bg: colors.fill, fg: colors.ink },
   glass: { bg: colors.glass, fg: colors.ink },
-  primary: { bg: colors.primary, fg: colors.white },
+  primary: { bg: colors.primary, fg: colors.onPrimary },
   onPrimary: { bg: colors.primaryInk, fg: colors.white },
   dark: { bg: colors.ink, fg: colors.white },
 };

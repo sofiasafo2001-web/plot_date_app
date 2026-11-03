@@ -45,9 +45,9 @@ export default function Filters() {
               if (v !== draft.maxKm) tapLight();
               patch({ maxKm: v });
             }}
-            minimumTrackTintColor={colors.primary}
+            minimumTrackTintColor={colors.brandRed}
             maximumTrackTintColor={colors.line}
-            thumbTintColor={colors.primary}
+            thumbTintColor={colors.brandRed}
             style={styles.slider}
           />
           <View style={styles.rowBetween}>
@@ -88,7 +88,7 @@ export default function Filters() {
               tapLight();
               patch({ verifiedOnly: v });
             }}
-            trackColor={{ true: colors.primary, false: colors.line }}
+            trackColor={{ true: colors.brandRed, false: colors.line }}
             ios_backgroundColor={colors.line}
           />
         </View>

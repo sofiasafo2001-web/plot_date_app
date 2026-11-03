@@ -24,7 +24,7 @@ type Props = {
 };
 
 const palette: Record<ButtonVariant, { bg: string; fg: string; border?: string }> = {
-  primary: { bg: colors.primary, fg: colors.white },
+  primary: { bg: colors.primary, fg: colors.onPrimary },
   secondary: { bg: colors.fill, fg: colors.ink },
   dark: { bg: colors.ink, fg: colors.white },
   text: { bg: colors.transparent, fg: colors.primaryInk },

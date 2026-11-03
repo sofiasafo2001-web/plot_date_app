@@ -109,7 +109,7 @@ export function SwitchRow({ label, detail, value, onChange, icon, iconBg }: { la
             tapLight();
             onChange(v);
           }}
-          trackColor={{ true: colors.primary, false: colors.line }}
+          trackColor={{ true: colors.brandRed, false: colors.line }}
           ios_backgroundColor={colors.line}
         />
       }

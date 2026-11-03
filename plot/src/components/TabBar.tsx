@@ -20,7 +20,7 @@ const meta: Record<string, { label: string; icon: LucideIcon }> = {
 /** Espacio que deben dejar al final las pantallas con pestañas, porque la barra flota encima. */
 export const TAB_BAR_SPACE = 132;
 
-/** Barra de pestañas flotante, clara y translúcida. La pestaña activa va en frambuesa (la acción de marca). */
+/** Barra de pestañas flotante, clara y translúcida. La pestaña activa va en rojo de marca con el icono en rosa, como el logo. */
 export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const badge = useChatBadge();
@@ -49,7 +49,7 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
               scaleTo={0.92}
             >
               <View style={[styles.icon, focused && styles.iconOn]}>
-                <Icon size={21} color={focused ? colors.white : colors.text2} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.white : 'none'} />
+                <Icon size={21} color={focused ? colors.pink : colors.text2} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.pink : 'none'} />
                 {showBadge ? (
                   <View style={styles.badge}>
                     <Txt variant="caption" color={colors.white} maxFontSizeMultiplier={1.1}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3, minHeight: hit + 6 },
   icon: { width: 52, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
-  iconOn: { backgroundColor: colors.primary },
+  iconOn: { backgroundColor: colors.brandRed },
   badge: {
     position: 'absolute',
     top: -4,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     paddingHorizontal: 5,
-    backgroundColor: colors.brandRed,
+    backgroundColor: colors.ink,
     borderWidth: 2,
     borderColor: colors.white,
     alignItems: 'center',

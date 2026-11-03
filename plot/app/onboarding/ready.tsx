@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.md },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  banner: { backgroundColor: colors.ink, borderRadius: radius.card, padding: space.lg },
+  banner: { backgroundColor: colors.brandRed, borderRadius: radius.card, padding: space.lg },
   footer: { paddingHorizontal: gutter, paddingBottom: space.sm, gap: space.sm },
 });

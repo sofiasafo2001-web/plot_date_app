@@ -17,7 +17,7 @@ type Props<T extends string> = {
 };
 
 /**
- * Pestañas de texto: solo la activa lleva fondo (negro). Sustituye a la fila de pastillas
+ * Pestañas de texto: solo la activa lleva fondo (rojo de marca). Sustituye a la fila de pastillas
  * de colores para que la pantalla respire.
  */
 export function TextTabs<T extends string>({ tabs, value, onChange, inset = gutter }: Props<T>) {
@@ -62,5 +62,5 @@ export function TextTabs<T extends string>({ tabs, value, onChange, inset = gutt
 const styles = StyleSheet.create({
   row: { gap: 2 },
   tab: { minHeight: 40, paddingHorizontal: 14, borderRadius: 20, justifyContent: 'center' },
-  on: { backgroundColor: colors.ink },
+  on: { backgroundColor: colors.brandRed },
 });

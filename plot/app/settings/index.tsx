@@ -84,7 +84,7 @@ export default function SettingsScreen() {
             right={
               <View style={styles.appRight}>
                 <AppGlyph app={a} size={28} />
-                {connecting[a] ? <ActivityIndicator color={colors.primary} style={styles.spinner} /> : null}
+                {connecting[a] ? <ActivityIndicator color={colors.brandRed} style={styles.spinner} /> : null}
               </View>
             }
             onPress={() => toggle(a)}

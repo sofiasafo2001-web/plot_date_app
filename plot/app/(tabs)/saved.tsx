@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Aura, auraFor } from '@/components/Aura';
 import { Avatar } from '@/components/Avatar';
 import { EmptyState } from '@/components/EmptyState';
 import { postSummary, postTypeLabel } from '@/components/PostCard';
@@ -92,18 +91,17 @@ function SavedCard({ row, onUnsave }: { row: Row; onUnsave: () => void }) {
       style={styles.card}
     >
       <View style={styles.head}>
-        <Aura palette={auraFor(person.id, person.color)} />
         <Avatar photoId={person.id} name={person.name} color={person.color} size={56} verified={person.verified} />
         <View style={styles.flex}>
-          <Txt variant="title2" numberOfLines={1}>
+          <Txt variant="title2" color={colors.onRed} numberOfLines={1}>
             {person.name}, {person.age}
           </Txt>
-          <Txt variant="footnote" color={colors.ink} numberOfLines={1}>
+          <Txt variant="footnote" color={colors.onRed} numberOfLines={1}>
             {person.job} · {lookingForLabel[person.lookingFor]}
           </Txt>
         </View>
         <PressableScale accessibilityRole="button" accessibilityLabel={`Quitar a ${person.name} de Guardados`} onPress={onUnsave} hitSlop={8} style={styles.save}>
-          <Bookmark size={20} color={colors.white} fill={colors.white} />
+          <Bookmark size={20} color={colors.ink} fill={colors.ink} />
         </PressableScale>
       </View>
 
@@ -144,9 +142,9 @@ const styles = StyleSheet.create({
   list: { paddingBottom: TAB_BAR_SPACE },
   sep: { height: space.md },
   card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, overflow: 'hidden' },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, backgroundColor: colors.brandRed },
   flex: { flex: 1 },
-  save: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
+  save: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.pink, alignItems: 'center', justifyContent: 'center' },
   body: { paddingHorizontal: space.lg, paddingTop: space.md, paddingBottom: space.lg, gap: 6 },
   lastHead: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   dot: { width: 8, height: 8, borderRadius: 4 },

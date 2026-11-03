@@ -3,6 +3,8 @@ import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
 import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
 import { Inter_700Bold } from '@expo-google-fonts/inter/700Bold';
+import { Unbounded_800ExtraBold } from '@expo-google-fonts/unbounded/800ExtraBold';
+import { Unbounded_900Black } from '@expo-google-fonts/unbounded/900Black';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -33,6 +35,8 @@ export default function RootLayout() {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
+    Unbounded_800ExtraBold,
+    Unbounded_900Black,
   });
   const hydrated = useApp((s) => s.hydrated);
   const loggedIn = useApp((s) => s.loggedIn);
@@ -53,7 +57,7 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false,
               contentStyle: { backgroundColor: colors.bg },
-              headerTintColor: colors.primary,
+              headerTintColor: colors.ink,
               headerTitleStyle: { fontFamily: fonts.semibold, color: colors.ink },
               headerLargeTitleStyle: { fontFamily: fonts.display, color: colors.ink },
               headerBackButtonDisplayMode: 'minimal',
