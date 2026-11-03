@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native';
 
 import { colors, radius, space, type CategoryId } from '@/theme';
 
-import { Aura, auraFor } from './Aura';
 import { Chip, ChipRow } from './Chip';
 import { ProfilePhoto } from './ProfilePhoto';
 import { Txt } from './Txt';
@@ -36,17 +35,13 @@ type Props = {
 
 /**
  * Perfil en formato «carné»: foto en retrato a la izquierda, nombre y lo que tenéis
- * en común a la derecha, y debajo el porqué de la recomendación. Un toque de aura en la esquina.
+ * en común a la derecha, y debajo el porqué de la recomendación.
  */
 export function IdCard({ id, name, age, verified, color, place, common, commonLabel, highlight, photoAction, children, asHeader, maxCommon = MAX_COMMON }: Props) {
   const shown = common.slice(0, maxCommon);
   const more = common.length - shown.length;
   return (
     <View style={styles.card}>
-      <View style={styles.corner} pointerEvents="none">
-        <Aura palette={auraFor(id, color)} />
-      </View>
-
       <View style={styles.top}>
         <View style={styles.photoCol}>
           <ProfilePhoto id={id} name={name} color={color} style={styles.photo} />
@@ -120,7 +115,6 @@ const styles = StyleSheet.create({
     gap: space.md,
     overflow: 'hidden',
   },
-  corner: { position: 'absolute', top: -70, right: -70, width: 190, height: 190, borderRadius: 95, overflow: 'hidden', opacity: 0.75 },
   top: { flexDirection: 'row', gap: space.md },
   photoCol: { width: '42%' },
   photo: { width: '100%', aspectRatio: 3 / 4, borderRadius: radius.card - 4 },
