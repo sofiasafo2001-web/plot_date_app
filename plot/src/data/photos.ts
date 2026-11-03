@@ -10,16 +10,16 @@ const u = (id: string, w = 900): ImageSourcePropType => ({
 
 /** Retratos de perfil. */
 export const avatarPhotos: Record<string, ImageSourcePropType> = {
-  me: u('1507003211169-0a1dd7228f2d', 300),
-  laia: u('1494790108377-be9c29b29330', 300),
-  nerea: u('1438761681033-6461ffad8d80', 300),
-  alex: u('1500648767791-00dcc994a43e', 300),
-  clara: u('1544005313-94ddf0286df2', 300),
-  jordi: u('1506794778202-cad84cf45f1d', 300),
-  paula: u('1534528741775-53994a69daeb', 300),
-  sergi: u('1472099645785-5658abf4ff4e', 300),
-  irene: u('1517841905240-472988babdf9', 300),
-  dani: u('1539571696357-5a69c17a67c6', 300),
+  me: u('1507003211169-0a1dd7228f2d', 600),
+  laia: u('1494790108377-be9c29b29330', 600),
+  nerea: u('1438761681033-6461ffad8d80', 600),
+  alex: u('1500648767791-00dcc994a43e', 600),
+  clara: u('1544005313-94ddf0286df2', 600),
+  jordi: u('1506794778202-cad84cf45f1d', 600),
+  paula: u('1534528741775-53994a69daeb', 600),
+  sergi: u('1472099645785-5658abf4ff4e', 600),
+  irene: u('1517841905240-472988babdf9', 600),
+  dani: u('1539571696357-5a69c17a67c6', 600),
 };
 
 /** Foto de cada publicación de ejemplo (paisajes, rutas, restaurantes, conciertos…). */

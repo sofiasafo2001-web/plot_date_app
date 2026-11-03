@@ -66,7 +66,7 @@ El mensaje «Ya hay X personas cerca con 3 intereses en común» se calcula con 
 | Descubrir / Guardados / Chats / Perfil | Cambia de pestaña (háptica ligera). La activa va en frambuesa. |
 | Guardados | Lista de perfiles guardados con su última publicación y cuántas ha subido desde que los guardaste. El marcador negro los quita (toast con «Deshacer»). |
 | Publicar | Ya no está en la barra: se hace desde **Perfil** (botón «Publicar algo» o el **+** frambuesa de la cabecera). |
-| Marcador junto al nombre (perfil de otra persona) | Guarda o quita el perfil de Guardados, con toast y «Deshacer». |
+| Marcador sobre la foto (ficha de perfil y tarjeta de Descubrir) | Guarda o quita el perfil de Guardados, con toast y «Deshacer». |
 | Badge en Chats | Suma de no leídos (sin silenciados) + solicitudes visibles. Se actualiza en vivo. |
 
 ## 7. Descubrir (`app/(tabs)/discover.tsx`)

@@ -1,17 +1,16 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { BadgeCheck, ChevronLeft, Ellipsis, Eye, MapPin, MessageCircle, UserX } from 'lucide-react-native';
+import { ChevronLeft, Ellipsis, Eye, MessageCircle, UserX } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AboutList } from '@/components/AboutList';
 import { AppGlyph } from '@/components/AppGlyph';
-import { Aura, auraFor } from '@/components/Aura';
-import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
 import { Chip, ChipRow } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
+import { IdCard } from '@/components/IdCard';
 import { PostCard } from '@/components/PostCard';
 import { SafetySheet } from '@/components/SafetySheet';
 import { FlirtBubble } from '@/components/FlirtBubble';
@@ -21,7 +20,7 @@ import { Txt } from '@/components/Txt';
 import { appInfo, appOrder } from '@/data/catalog';
 import { others, personById, postsOf, shared } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
-import { categories, categoryOrder, colors, gutter, radius, space, type CategoryId } from '@/theme';
+import { categories, categoryOrder, colors, gutter, hit, radius, space, type CategoryId } from '@/theme';
 import type { AppId, Post } from '@/types';
 
 type Filter = 'all' | CategoryId;
@@ -83,19 +82,13 @@ export default function PersonProfile() {
 
   const common = isMe ? profile.interests : shared(me.interests, profile.interests);
   const rest = isMe ? [] : others(me.interests, profile.interests);
+  const reason = !isMe && person?.reason ? person.reason : undefined;
   const write = (quote?: string) =>
     router.push({ pathname: '/chat/[id]', params: quote ? { id, quote } : { id } });
 
   return (
     <View style={styles.root}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 + insets.bottom }}>
-        <View style={[styles.cover, { height: 200 + insets.top }]}>
-          <Aura palette={auraFor(isMe ? 'me' : id, profile.color)} />
-        </View>
-        <View style={styles.avatar}>
-          <Avatar photoId={id} name={profile.name} color={profile.color} size={88} verified={profile.verified} badge bordered />
-        </View>
-
+      <ScrollView contentContainerStyle={{ paddingTop: insets.top + hit + space.md, paddingBottom: 120 + insets.bottom }}>
         <View style={styles.body}>
           {isMe ? (
             <View style={styles.preview}>
@@ -105,52 +98,41 @@ export default function PersonProfile() {
               </Txt>
             </View>
           ) : null}
-          <View style={styles.titleRow}>
-            <View style={styles.nameRow}>
-              <Txt variant="title1" accessibilityRole="header" style={styles.shrink}>
-                {profile.name}, {profile.age}
-              </Txt>
-              {profile.verified ? <BadgeCheck size={22} color={colors.white} fill={colors.info} accessibilityLabel="Perfil verificado" /> : null}
-            </View>
-            {!isMe ? <SaveButton personId={id} name={profile.name} /> : null}
-          </View>
-          <View style={styles.meta}>
-            <MapPin size={15} color={colors.text2} />
-            <Txt variant="subhead" color={colors.text2}>
-              {profile.hood}
-              {profile.km !== undefined && !isMe ? ` · a ${profile.km.toLocaleString('es-ES')} km` : ''}
-              {isMe ? (showDistance ? ' · se muestra tu distancia' : ' · distancia oculta') : ''}
-            </Txt>
-          </View>
-          <Txt variant="body">{profile.bio}</Txt>
-          <AboutList about={profile} own={isMe} />
 
-          <View style={styles.common}>
-            <Txt variant="headline">{isMe ? 'Tus intereses' : 'En común contigo'}</Txt>
-            {common.length ? (
+          <IdCard
+            asHeader
+            id={isMe ? 'me' : id}
+            name={profile.name}
+            age={profile.age}
+            verified={profile.verified}
+            color={profile.color}
+            place={
+              profile.hood +
+              (profile.km !== undefined && !isMe ? ` · a ${profile.km.toLocaleString('es-ES')} km` : '') +
+              (isMe ? (showDistance ? ' · distancia visible' : ' · distancia oculta') : '')
+            }
+            common={common}
+            commonLabel={isMe ? 'Tus intereses' : 'En común contigo'}
+            highlight={reason ? { label: `Por qué ${profile.name}`, text: reason } : { label: 'Bio', text: profile.bio }}
+            photoAction={!isMe ? <SaveButton personId={id} name={profile.name} onPhoto /> : undefined}
+          />
+
+          <View style={styles.section}>
+            <Txt variant="headline">{isMe ? 'Sobre ti' : `Sobre ${profile.name}`}</Txt>
+            {reason ? <Txt variant="body">{profile.bio}</Txt> : null}
+            <AboutList about={profile} own={isMe} />
+          </View>
+
+          {rest.length ? (
+            <View style={styles.section}>
+              <Txt variant="headline">También le gusta</Txt>
               <ChipRow>
-                {common.map((i) => (
-                  <Chip key={i} label={i} solid />
+                {rest.map((i) => (
+                  <Chip key={i} label={i} />
                 ))}
               </ChipRow>
-            ) : (
-              <Txt variant="subhead" color={colors.text2}>
-                Aún no compartís intereses. Quizá descubras algo nuevo.
-              </Txt>
-            )}
-            {rest.length ? (
-              <>
-                <Txt variant="footnoteStrong" color={colors.text2} style={styles.also}>
-                  También le gusta…
-                </Txt>
-                <ChipRow>
-                  {rest.map((i) => (
-                    <Chip key={i} label={i} />
-                  ))}
-                </ChipRow>
-              </>
-            ) : null}
-          </View>
+            </View>
+          ) : null}
 
           {profile.apps.length ? (
             <View style={styles.section}>
@@ -196,9 +178,10 @@ export default function PersonProfile() {
         </View>
       </ScrollView>
 
+      <View style={[styles.topBg, { height: insets.top + hit + space.sm }]} />
       <View style={[styles.topBar, { top: insets.top + space.xs }]}>
-        <IconButton icon={ChevronLeft} label="Volver" tone="glass" onPress={() => router.back()} />
-        {!isMe ? <IconButton icon={Ellipsis} label="Más opciones: silenciar, bloquear o reportar" tone="glass" onPress={() => setSafety(true)} /> : null}
+        <IconButton icon={ChevronLeft} label="Volver" onPress={() => router.back()} />
+        {!isMe ? <IconButton icon={Ellipsis} label="Más opciones: silenciar, bloquear o reportar" onPress={() => setSafety(true)} /> : null}
       </View>
 
       <View style={[styles.sticky, { paddingBottom: Math.max(insets.bottom, space.md) }]}>
@@ -240,16 +223,8 @@ export default function PersonProfile() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  cover: { overflow: 'hidden' },
-  avatar: { marginTop: -44, marginLeft: gutter },
-  body: { paddingHorizontal: gutter, paddingTop: space.md, gap: space.md },
+  body: { paddingHorizontal: gutter, gap: space.md },
   preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.pink, padding: space.md, borderRadius: radius.button },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: space.md },
-  nameRow: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6 },
-  shrink: { flexShrink: 1 },
-  meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: -space.sm },
-  common: { gap: space.md, marginTop: space.sm },
-  also: { marginTop: space.xs },
   section: { gap: space.md, marginTop: space.md },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.lg },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
@@ -257,5 +232,6 @@ const styles = StyleSheet.create({
   tabsScroll: { marginHorizontal: -gutter },
   flex: { flex: 1 },
   topBar: { position: 'absolute', left: gutter, right: gutter, flexDirection: 'row', justifyContent: 'space-between' },
+  topBg: { position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: 'rgba(255,255,255,0.9)' },
   sticky: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: gutter, paddingTop: space.md, backgroundColor: colors.bg, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },
 });

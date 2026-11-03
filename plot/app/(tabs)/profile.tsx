@@ -1,22 +1,20 @@
 import { router } from 'expo-router';
-import { Eye, ImagePlus, MapPin, Pencil, Plus, Settings } from 'lucide-react-native';
+import { Eye, ImagePlus, Pencil, Plus, Settings } from 'lucide-react-native';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AboutList } from '@/components/AboutList';
-import { Aura, auraFor } from '@/components/Aura';
-import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/Button';
-import { Chip, ChipRow } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
+import { IdCard } from '@/components/IdCard';
 import { PostTile } from '@/components/PostTile';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
 import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { postsOf } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
-import { colors, gutter, radius, space } from '@/theme';
+import { colors, gutter, space } from '@/theme';
 import type { Post } from '@/types';
 
 export default function MyProfile() {
@@ -38,29 +36,20 @@ export default function MyProfile() {
             </>
           }
         />
-        <View style={styles.head}>
-          <Aura palette={auraFor('me', me.color)} />
-          <Avatar photoId="me" name={me.name} color={me.color} size={88} verified badge bordered />
-          <View style={styles.flex}>
-            <Txt variant="title1">
-              {me.name}, {me.age}
-            </Txt>
-            <View style={styles.meta}>
-              <MapPin size={15} color={colors.ink} />
-              <Txt variant="subhead" color={colors.ink}>
-                {me.hood}, Barcelona
-              </Txt>
-            </View>
-          </View>
-        </View>
         <View style={styles.section}>
-          <Txt variant="body">{me.bio}</Txt>
+          <IdCard
+            id="me"
+            name={me.name}
+            age={me.age}
+            verified
+            color={me.color}
+            place={`${me.hood}, Barcelona`}
+            common={me.interests}
+            commonLabel="Tus intereses"
+            maxCommon={8}
+            highlight={{ label: 'Tu bio', text: me.bio }}
+          />
           <AboutList about={me} own />
-          <ChipRow>
-            {me.interests.map((i) => (
-              <Chip key={i} label={i} solid size="sm" />
-            ))}
-          </ChipRow>
           <Button label="Publicar algo" icon={Plus} onPress={() => router.push('/compose')} accessibilityHint="Comparte una foto, un estado, una canción, una ruta o un sitio" />
           <View style={styles.actions}>
             <Button label="Editar perfil" icon={Pencil} variant="secondary" size="md" flex onPress={() => router.push('/edit-profile')} />
@@ -99,9 +88,6 @@ export default function MyProfile() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingBottom: TAB_BAR_SPACE },
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.lg, marginHorizontal: gutter, padding: space.lg, borderRadius: radius.cardLg, overflow: 'hidden' },
-  flex: { flex: 1 },
-  meta: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   section: { paddingHorizontal: gutter, paddingTop: space.lg, gap: space.md },
   actions: { flexDirection: 'row', gap: space.sm },
   gridHead: { flexDirection: 'row', alignItems: 'baseline', gap: space.sm, paddingHorizontal: gutter, paddingTop: space.xl, paddingBottom: space.md },

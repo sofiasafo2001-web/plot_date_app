@@ -8,10 +8,10 @@ import { tapMedium } from '@/utils/haptics';
 
 import { PressableScale } from './PressableScale';
 
-type Props = { personId: string; name: string };
+type Props = { personId: string; name: string; /** Sobre una foto: fondo de cristal claro. */ onPhoto?: boolean };
 
 /** Marcador para guardar un perfil y verlo luego en la pestaña Guardados. */
-export function SaveButton({ personId, name }: Props) {
+export function SaveButton({ personId, name, onPhoto }: Props) {
   const saved = useApp((s) => s.saved.some((x) => x.id === personId));
   const toggleSaved = useApp((s) => s.toggleSaved);
   return (
@@ -29,7 +29,7 @@ export function SaveButton({ personId, name }: Props) {
           undo: () => toggleSaved(personId),
         });
       }}
-      style={[styles.base, saved ? styles.on : styles.off]}
+      style={[styles.base, saved ? styles.on : onPhoto ? styles.glass : styles.off]}
     >
       <Bookmark size={21} color={saved ? colors.white : colors.ink} fill={saved ? colors.white : 'none'} strokeWidth={2} />
     </PressableScale>
@@ -40,4 +40,5 @@ const styles = StyleSheet.create({
   base: { width: hit, height: hit, borderRadius: hit / 2, alignItems: 'center', justifyContent: 'center' },
   on: { backgroundColor: colors.ink },
   off: { backgroundColor: colors.fill },
+  glass: { backgroundColor: colors.glass },
 });
