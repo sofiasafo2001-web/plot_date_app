@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, justifyContent: 'flex-end' },
   backdrop: { backgroundColor: colors.scrim },
   sheet: {
-    backgroundColor: colors.bg,
+    backgroundColor: colors.card,
     borderTopLeftRadius: radius.cardLg,
     borderTopRightRadius: radius.cardLg,
     overflow: 'hidden',

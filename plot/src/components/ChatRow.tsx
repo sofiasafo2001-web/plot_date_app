@@ -3,14 +3,14 @@ import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ReanimatedSwipeable, { type SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable';
 
-import { categoryOf } from '@/data/catalog';
-import { categories, colors, fonts, gutter, space } from '@/theme';
+import { colors, fonts, gutter, space } from '@/theme';
 import type { Conversation, Person } from '@/types';
 import { tapLight } from '@/utils/haptics';
 import { messagePreview } from '@/utils/messages';
 import { shortTime } from '@/utils/time';
 
 import { Avatar } from './Avatar';
+import { Chip } from './Chip';
 import { PressableScale } from './PressableScale';
 import { Txt } from './Txt';
 
@@ -29,8 +29,6 @@ export function ChatRow({ person, conversation, common, onPress, onMute, onDelet
   const last = conversation.messages[conversation.messages.length - 1];
   const mine = last?.from === 'me';
   const unread = conversation.unread > 0;
-  const first = common[0];
-  const cat = first ? categories[categoryOf(first)] : undefined;
 
   const actions = () => (
     <View style={styles.actions}>
@@ -92,7 +90,7 @@ export function ChatRow({ person, conversation, common, onPress, onMute, onDelet
               {conversation.muted ? <BellOff size={14} color={colors.text3} accessibilityLabel="Silenciada" /> : null}
             </View>
             {last ? (
-              <Txt variant="footnote" color={unread ? colors.flirtInk : colors.text3}>
+              <Txt variant={unread ? 'footnoteStrong' : 'footnote'} color={unread ? colors.ink : colors.text3}>
                 {shortTime(last.createdAt)}
               </Txt>
             ) : null}
@@ -104,10 +102,12 @@ export function ChatRow({ person, conversation, common, onPress, onMute, onDelet
             </Txt>
             {unread ? <View style={[styles.dot, conversation.muted && { backgroundColor: colors.text3 }]} accessibilityLabel="Sin leer" /> : null}
           </View>
-          {first && cat ? (
-            <Txt variant="footnoteStrong" color={cat.ink} numberOfLines={1}>
-              Os une: {common.slice(0, 2).join(' · ')}
-            </Txt>
+          {common.length ? (
+            <View style={styles.chips} accessibilityLabel={`Os une: ${common.slice(0, 2).join(', ')}`}>
+              {common.slice(0, 2).map((i) => (
+                <Chip key={i} label={i} solid size="sm" />
+              ))}
+            </View>
           ) : null}
         </View>
       </PressableScale>
@@ -117,11 +117,12 @@ export function ChatRow({ person, conversation, common, onPress, onMute, onDelet
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingHorizontal: gutter, paddingVertical: space.md, backgroundColor: colors.bg },
-  flex: { flex: 1, gap: 2 },
+  flex: { flex: 1, gap: 3 },
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 1 },
   shrink: { flexShrink: 1 },
-  bold: { fontFamily: fonts.semibold },
+  bold: { fontFamily: fonts.bold },
+  chips: { flexDirection: 'row', gap: 6, marginTop: 6 },
   dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.brandRed },
   actions: { flexDirection: 'row' },
   action: { width: 84, alignItems: 'center', justifyContent: 'center', gap: 4 },

@@ -4,9 +4,10 @@ import type { Activity, AppId, LookingFor, Place, Song } from '@/types';
 /** Intereses disponibles, agrupados por categoría. */
 export const interestCatalog: Record<CategoryId, string[]> = {
   music: ['Indie', 'Vinilos', 'Techno', 'Jazz', 'Conciertos', 'Rap', 'Pop', 'Flamenco'],
-  sport: ['Running', 'Montaña', 'Escalada', 'Ciclismo', 'Yoga', 'Surf', 'Pádel', 'Natación'],
+  sport: ['Running', 'Escalada', 'Ciclismo', 'Yoga', 'Surf', 'Pádel', 'Natación'],
   food: ['Cocinar', 'Brunch', 'Vermut', 'Ramen', 'Vino natural', 'Café de especialidad', 'Mercados', 'Veggie'],
-  places: ['Playa', 'Pirineo', 'Escapadas', 'Terrazas', 'Costa Brava', 'Miradores', 'Camping', 'Barrios'],
+  // Montaña va con Lugares (lima), como en la guía de marca.
+  places: ['Montaña', 'Playa', 'Pirineo', 'Escapadas', 'Terrazas', 'Costa Brava', 'Miradores', 'Camping', 'Barrios'],
   culture: ['Cine', 'Libros', 'Museos', 'Teatro', 'Fotografía', 'Diseño', 'Cómics', 'Podcasts'],
 };
 

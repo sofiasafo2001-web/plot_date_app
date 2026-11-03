@@ -48,7 +48,7 @@ export default function Welcome() {
         </Animated.View>
 
         <View style={styles.actions}>
-          <Button label="Crear cuenta" onPress={() => router.push('/onboarding')} />
+          <Button label="Crear cuenta" variant="light" onPress={() => router.push('/onboarding')} />
           <Button label="Ya tengo cuenta" variant="dark" onPress={() => router.push('/login')} />
           <View style={styles.legal}>
             <Txt variant="footnote" color={colors.white} align="center">

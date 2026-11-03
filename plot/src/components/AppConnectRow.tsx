@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   flex: { flex: 1, gap: 2 },
   btn: { minHeight: hit - 6, minWidth: 116, paddingHorizontal: space.md, borderRadius: radius.chip, alignItems: 'center', justifyContent: 'center' },
   btnOff: { backgroundColor: colors.ink },
-  btnOn: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line },
+  btnOn: { backgroundColor: colors.bg },
   inline: { flexDirection: 'row', alignItems: 'center', gap: 4 },
 });

@@ -6,21 +6,21 @@ import { colors, space } from '@/theme';
 import { Button } from './Button';
 import { Txt } from './Txt';
 
-type Props = { icon: LucideIcon; title: string; text: string; actionLabel?: string; onAction?: () => void };
+type Props = { icon: LucideIcon; title: string; text: string; actionLabel?: string; onAction?: () => void; dark?: boolean };
 
-export function EmptyState({ icon: Icon, title, text, actionLabel, onAction }: Props) {
+export function EmptyState({ icon: Icon, title, text, actionLabel, onAction, dark }: Props) {
   return (
     <View style={styles.wrap}>
       <View style={styles.icon}>
-        <Icon size={28} color={colors.pink} />
+        <Icon size={28} color={colors.white} />
       </View>
-      <Txt variant="title2" align="center">
+      <Txt variant="title2" align="center" color={dark ? colors.dark.text : colors.ink}>
         {title}
       </Txt>
-      <Txt variant="subhead" color={colors.text2} align="center">
+      <Txt variant="subhead" color={dark ? colors.dark.text2 : colors.text2} align="center">
         {text}
       </Txt>
-      {actionLabel && onAction ? <Button label={actionLabel} onPress={onAction} variant="secondary" size="md" /> : null}
+      {actionLabel && onAction ? <Button label={actionLabel} onPress={onAction} variant={dark ? 'outlineLight' : 'outline'} size="md" /> : null}
     </View>
   );
 }

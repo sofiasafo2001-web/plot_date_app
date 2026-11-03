@@ -27,6 +27,6 @@ export function TypingBubble() {
 }
 
 const styles = StyleSheet.create({
-  bubble: { alignSelf: 'flex-start', flexDirection: 'row', gap: 5, paddingHorizontal: space.lg, paddingVertical: 14, borderRadius: radius.card - 4, borderBottomLeftRadius: 6, backgroundColor: colors.bg, borderWidth: 1, borderColor: colors.line },
+  bubble: { alignSelf: 'flex-start', flexDirection: 'row', gap: 5, paddingHorizontal: space.lg, paddingVertical: 14, borderRadius: radius.card - 4, borderBottomLeftRadius: 6, backgroundColor: colors.card },
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.text3 },
 });

@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   group: { gap: 6, paddingHorizontal: gutter },
   title: { paddingHorizontal: space.lg },
   footer: { paddingHorizontal: space.lg },
-  card: { backgroundColor: colors.bg, borderRadius: radius.tile + 2, overflow: 'hidden' },
+  card: { backgroundColor: colors.card, borderRadius: radius.tile + 2, overflow: 'hidden' },
   sep: { height: StyleSheet.hairlineWidth, backgroundColor: colors.line, marginLeft: space.lg },
   row: { flexDirection: 'row', alignItems: 'center', gap: space.md, minHeight: hit + 8, paddingHorizontal: space.lg, paddingVertical: space.sm },
   icon: { width: 32, height: 32, borderRadius: 9, alignItems: 'center', justifyContent: 'center' },

@@ -1,20 +1,21 @@
 import { router } from 'expo-router';
-import { Eye, ImagePlus, Pencil, Plus, Settings } from 'lucide-react-native';
+import { BadgeCheck, Eye, ImagePlus, Pencil, Plus, Settings } from 'lucide-react-native';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AboutList } from '@/components/AboutList';
 import { Button } from '@/components/Button';
+import { Chip, ChipRow } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
-import { IdCard } from '@/components/IdCard';
 import { PostTile } from '@/components/PostTile';
+import { ProfilePhoto } from '@/components/ProfilePhoto';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
 import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { postsOf } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
-import { colors, gutter, space } from '@/theme';
+import { colors, gutter, radius, space } from '@/theme';
 import type { Post } from '@/types';
 
 export default function MyProfile() {
@@ -29,30 +30,50 @@ export default function MyProfile() {
       <ScrollView contentContainerStyle={styles.scroll}>
         <LargeHeader
           title="Perfil"
+          subtitle="Así te ven"
           right={
             <>
-              <IconButton icon={Plus} label="Publicar" tone="primary" onPress={() => router.push('/compose')} />
+              <IconButton icon={Plus} label="Publicar" tone="dark" onPress={() => router.push('/compose')} />
               <IconButton icon={Settings} label="Ajustes" onPress={() => router.push('/settings')} />
             </>
           }
         />
         <View style={styles.section}>
-          <IdCard
-            id="me"
-            name={me.name}
-            age={me.age}
-            verified
-            color={me.color}
-            place={`${me.hood}, Barcelona`}
-            common={me.interests}
-            commonLabel="Tus intereses"
-            maxCommon={8}
-            highlight={{ label: 'Tu bio', text: me.bio }}
-          />
+          <View style={styles.head}>
+            <ProfilePhoto id="me" name={me.name} color={me.color} style={styles.photo} />
+            <View style={styles.flex}>
+              <View style={styles.nameRow}>
+                <Txt variant="title1" style={styles.shrink}>
+                  {me.name}, {me.age}
+                </Txt>
+                <BadgeCheck size={22} color={colors.white} fill={colors.info} accessibilityLabel="Perfil verificado" />
+              </View>
+              <Txt variant="subhead" color={colors.text2}>
+                {me.hood}, Barcelona
+              </Txt>
+            </View>
+          </View>
+
+          <View style={styles.block}>
+            <Txt variant="caption" color={colors.text2}>
+              TUS INTERESES
+            </Txt>
+            <ChipRow>
+              {me.interests.map((i) => (
+                <Chip key={i} label={i} solid size="sm" />
+              ))}
+            </ChipRow>
+          </View>
+
+          <View style={styles.bio}>
+            <Txt variant="caption">TU BIO</Txt>
+            <Txt variant="body">{me.bio}</Txt>
+          </View>
+
           <AboutList about={me} own />
-          <Button label="Publicar algo" icon={Plus} onPress={() => router.push('/compose')} accessibilityHint="Comparte una foto, un estado, una canción, una ruta o un sitio" />
+
           <View style={styles.actions}>
-            <Button label="Editar perfil" icon={Pencil} variant="secondary" size="md" flex onPress={() => router.push('/edit-profile')} />
+            <Button label="Editar perfil" icon={Pencil} variant="outline" size="md" flex onPress={() => router.push('/edit-profile')} />
             <Button label="Cómo me ven" icon={Eye} variant="dark" size="md" flex onPress={() => router.push({ pathname: '/person/[id]', params: { id: 'me' } })} />
           </View>
           <Txt variant="footnote" color={colors.text3} align="center">
@@ -88,7 +109,14 @@ export default function MyProfile() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   scroll: { paddingBottom: TAB_BAR_SPACE },
-  section: { paddingHorizontal: gutter, paddingTop: space.lg, gap: space.md },
+  section: { paddingHorizontal: gutter, gap: space.lg },
+  head: { flexDirection: 'row', alignItems: 'flex-end', gap: space.lg },
+  photo: { width: 126, height: 126, borderRadius: radius.tile },
+  flex: { flex: 1, gap: 2, paddingBottom: space.xs },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  shrink: { flexShrink: 1 },
+  block: { gap: space.sm },
+  bio: { backgroundColor: colors.pink, borderRadius: radius.card - 4, padding: space.lg, gap: 6 },
   actions: { flexDirection: 'row', gap: space.sm },
   gridHead: { flexDirection: 'row', alignItems: 'baseline', gap: space.sm, paddingHorizontal: gutter, paddingTop: space.xl, paddingBottom: space.md },
   grid: { paddingHorizontal: gutter, gap: 4 },

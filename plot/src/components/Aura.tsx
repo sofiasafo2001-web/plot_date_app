@@ -14,23 +14,23 @@ export type AuraPalette = { base: string; blobs: [string, string, string] };
 const palettes: Record<CategoryId, [AuraPalette, AuraPalette]> = {
   music: [
     { base: brand.pink, blobs: [brand.hotPink, brand.yellow, brand.sky] },
-    { base: brand.cream, blobs: [brand.hotPink, brand.blue, brand.pink] },
+    { base: brand.bone, blobs: [brand.hotPink, brand.blue, brand.pink] },
   ],
   sport: [
-    { base: brand.cream, blobs: [brand.lime, brand.sky, brand.hotPink] },
-    { base: brand.lime, blobs: [brand.yellow, brand.sky, brand.cream] },
+    { base: brand.bone, blobs: [brand.lime, brand.sky, brand.hotPink] },
+    { base: brand.lime, blobs: [brand.yellow, brand.sky, brand.bone] },
   ],
   food: [
-    { base: brand.cream, blobs: [brand.yellow, brand.hotPink, brand.pink] },
-    { base: brand.yellow, blobs: [brand.hotPink, brand.lime, brand.cream] },
+    { base: brand.bone, blobs: [brand.yellow, brand.hotPink, brand.pink] },
+    { base: brand.yellow, blobs: [brand.hotPink, brand.lime, brand.bone] },
   ],
   places: [
-    { base: brand.sky, blobs: [brand.blue, brand.lime, brand.cream] },
-    { base: brand.cream, blobs: [brand.sky, brand.pink, brand.blue] },
+    { base: brand.sky, blobs: [brand.blue, brand.lime, brand.bone] },
+    { base: brand.bone, blobs: [brand.sky, brand.pink, brand.blue] },
   ],
   culture: [
-    { base: brand.pink, blobs: [brand.blue, brand.sky, brand.cream] },
-    { base: brand.cream, blobs: [brand.pink, brand.hotPink, brand.sky] },
+    { base: brand.pink, blobs: [brand.blue, brand.sky, brand.bone] },
+    { base: brand.bone, blobs: [brand.pink, brand.hotPink, brand.sky] },
   ],
 };
 

@@ -10,7 +10,7 @@ type Props = {
   icon: LucideIcon;
   label: string;
   onPress: () => void;
-  tone?: 'plain' | 'surface' | 'glass' | 'primary' | 'onPrimary' | 'dark';
+  tone?: 'plain' | 'surface' | 'glass' | 'primary' | 'onPrimary' | 'dark' | 'outlineLight' | 'glassDark';
   size?: number;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -18,7 +18,9 @@ type Props = {
 
 const tones = {
   plain: { bg: colors.transparent, fg: colors.ink },
-  surface: { bg: colors.fill, fg: colors.ink },
+  surface: { bg: colors.transparent, fg: colors.ink, border: colors.ink },
+  outlineLight: { bg: colors.transparent, fg: colors.white, border: colors.white },
+  glassDark: { bg: colors.glassDark, fg: colors.white },
   glass: { bg: colors.glass, fg: colors.ink },
   primary: { bg: colors.primary, fg: colors.onPrimary },
   onPrimary: { bg: colors.primaryInk, fg: colors.white },
@@ -38,7 +40,7 @@ export function IconButton({ icon: Icon, label, onPress, tone = 'surface', size 
         tapLight();
         onPress();
       }}
-      style={[styles.base, { backgroundColor: disabled ? colors.line : t.bg }, style]}
+      style={[styles.base, { backgroundColor: disabled ? colors.line : t.bg }, 'border' in t && { borderWidth: 1.5, borderColor: t.border }, style]}
     >
       <Icon size={size} color={disabled ? colors.text3 : t.fg} />
     </PressableScale>

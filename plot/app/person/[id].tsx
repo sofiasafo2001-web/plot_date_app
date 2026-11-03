@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { ChevronLeft, Ellipsis, Eye, MessageCircle, UserX } from 'lucide-react-native';
+import { BadgeCheck, ChevronLeft, Ellipsis, Eye, MessageCircle, UserX } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AboutList } from '@/components/AboutList';
@@ -10,8 +10,9 @@ import { Button } from '@/components/Button';
 import { Chip, ChipRow } from '@/components/Chip';
 import { EmptyState } from '@/components/EmptyState';
 import { IconButton } from '@/components/IconButton';
-import { IdCard } from '@/components/IdCard';
 import { PostCard } from '@/components/PostCard';
+import { ProfilePhoto } from '@/components/ProfilePhoto';
+import { StatusBarStyle } from '@/components/StatusBarStyle';
 import { SafetySheet } from '@/components/SafetySheet';
 import { FlirtBubble } from '@/components/FlirtBubble';
 import { SaveButton } from '@/components/SaveButton';
@@ -20,7 +21,7 @@ import { Txt } from '@/components/Txt';
 import { appInfo, appOrder } from '@/data/catalog';
 import { others, personById, postsOf, shared } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
-import { categories, categoryOrder, colors, gutter, hit, radius, space, type CategoryId } from '@/theme';
+import { categories, categoryOrder, colors, gutter, radius, space, type CategoryId } from '@/theme';
 import type { AppId, Post } from '@/types';
 
 type Filter = 'all' | CategoryId;
@@ -35,6 +36,7 @@ const matches = (p: Post, f: Filter) => f === 'all' || p.category === f;
 export default function PersonProfile() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
+  const { height } = useWindowDimensions();
   const me = useApp((s) => s.me);
   const myApps = useApp((s) => s.apps);
   const posts = useApp((s) => s.posts);
@@ -86,10 +88,15 @@ export default function PersonProfile() {
   const write = (quote?: string) =>
     router.push({ pathname: '/chat/[id]', params: quote ? { id, quote } : { id } });
 
+  const heroH = Math.round(Math.min(height * 0.52, 460));
+
   return (
     <View style={styles.root}>
-      <ScrollView contentContainerStyle={{ paddingTop: insets.top + hit + space.md, paddingBottom: 120 + insets.bottom }}>
-        <View style={styles.body}>
+      <StatusBarStyle style="light" />
+      <ScrollView contentContainerStyle={{ paddingBottom: 120 + insets.bottom }}>
+        <ProfilePhoto id={isMe ? 'me' : id} name={profile.name} color={profile.color} style={{ height: heroH + 28 }} />
+
+        <View style={styles.sheet}>
           {isMe ? (
             <View style={styles.preview}>
               <Eye size={16} color={colors.ink} />
@@ -99,59 +106,96 @@ export default function PersonProfile() {
             </View>
           ) : null}
 
-          <IdCard
-            asHeader
-            id={isMe ? 'me' : id}
-            name={profile.name}
-            age={profile.age}
-            verified={profile.verified}
-            color={profile.color}
-            place={
-              profile.hood +
-              (profile.km !== undefined && !isMe ? ` · a ${profile.km.toLocaleString('es-ES')} km` : '') +
-              (isMe ? (showDistance ? ' · distancia visible' : ' · distancia oculta') : '')
-            }
-            common={common}
-            commonLabel={isMe ? 'Tus intereses' : 'En común contigo'}
-            highlight={reason ? { label: `Por qué ${profile.name}`, text: reason } : { label: 'Bio', text: profile.bio }}
-            photoAction={!isMe ? <SaveButton personId={id} name={profile.name} onPhoto /> : undefined}
-          />
+          <View>
+            <View style={styles.nameRow}>
+              <Txt variant="title1" color={colors.dark.text} accessibilityRole="header" style={styles.shrink}>
+                {profile.name}, {profile.age}
+              </Txt>
+              {profile.verified ? <BadgeCheck size={22} color={colors.white} fill={colors.info} accessibilityLabel="Perfil verificado" /> : null}
+            </View>
+            <Txt variant="subhead" color={colors.dark.text2}>
+              {profile.hood}
+              {profile.km !== undefined && !isMe ? ` · a ${profile.km.toLocaleString('es-ES')} km` : ''}
+              {isMe ? (showDistance ? ' · distancia visible' : ' · distancia oculta') : ''}
+            </Txt>
+          </View>
 
-          <View style={styles.section}>
-            <Txt variant="headline">{isMe ? 'Sobre ti' : `Sobre ${profile.name}`}</Txt>
-            {reason ? <Txt variant="body">{profile.bio}</Txt> : null}
-            <AboutList about={profile} own={isMe} />
+          <View style={styles.block}>
+            <Txt variant="caption" color={colors.dark.text2}>
+              {isMe ? 'TUS INTERESES' : 'EN COMÚN CONTIGO'}
+            </Txt>
+            {common.length ? (
+              <ChipRow>
+                {common.map((i) => (
+                  <Chip key={i} label={i} solid size="sm" dark />
+                ))}
+              </ChipRow>
+            ) : (
+              <Txt variant="subhead" color={colors.dark.text2}>
+                Aún no compartís intereses. Quizá descubras algo nuevo.
+              </Txt>
+            )}
+          </View>
+
+          <View style={styles.why}>
+            <Txt variant="caption" color={colors.ink}>
+              {reason ? `POR QUÉ ${profile.name.toUpperCase()}` : 'BIO'}
+            </Txt>
+            <Txt variant="body" color={colors.ink}>
+              {reason ?? profile.bio}
+            </Txt>
+          </View>
+
+          <View style={styles.block}>
+            <Txt variant="caption" color={colors.dark.text2}>
+              {isMe ? 'SOBRE TI' : `SOBRE ${profile.name.toUpperCase()}`}
+            </Txt>
+            {reason ? (
+              <Txt variant="body" color={colors.dark.text}>
+                {profile.bio}
+              </Txt>
+            ) : null}
+            <AboutList about={profile} own={isMe} dark />
           </View>
 
           {rest.length ? (
-            <View style={styles.section}>
-              <Txt variant="headline">También le gusta</Txt>
+            <View style={styles.block}>
+              <Txt variant="caption" color={colors.dark.text2}>
+                TAMBIÉN LE GUSTA
+              </Txt>
               <ChipRow>
                 {rest.map((i) => (
-                  <Chip key={i} label={i} />
+                  <Chip key={i} label={i} size="sm" dark />
                 ))}
               </ChipRow>
             </View>
           ) : null}
 
           {profile.apps.length ? (
-            <View style={styles.section}>
-              <Txt variant="headline">Apps conectadas</Txt>
+            <View style={styles.block}>
+              <Txt variant="caption" color={colors.dark.text2}>
+                APPS CONECTADAS
+              </Txt>
               <View style={styles.apps}>
                 {profile.apps.map((a) => (
                   <View key={a} style={styles.appItem}>
                     <AppGlyph app={a} size={32} />
-                    <Txt variant="subheadStrong">{appInfo[a].name}</Txt>
+                    <Txt variant="subheadStrong" color={colors.dark.text}>
+                      {appInfo[a].name}
+                    </Txt>
                   </View>
                 ))}
               </View>
             </View>
           ) : null}
 
-          <View style={styles.section}>
-            <Txt variant="headline">Publicaciones</Txt>
+          <View style={styles.block}>
+            <Txt variant="caption" color={colors.dark.text2}>
+              PUBLICACIONES
+            </Txt>
             <View style={styles.tabsScroll}>
               <TextTabs
+                dark
                 tabs={filterTabs.map((t) => ({
                   ...t,
                   count: t.value === 'all' ? theirPosts.length : theirPosts.filter((p) => p.category === t.value).length,
@@ -170,7 +214,7 @@ export default function PersonProfile() {
                 />
               ))
             ) : (
-              <Txt variant="subhead" color={colors.text2} style={styles.emptyPosts}>
+              <Txt variant="subhead" color={colors.dark.text2} style={styles.emptyPosts}>
                 {filter === 'all' ? 'Todavía no ha publicado nada.' : `Aún no ha publicado nada de ${categories[filter].label.toLowerCase()}. Pregúntale tú.`}
               </Txt>
             )}
@@ -178,15 +222,19 @@ export default function PersonProfile() {
         </View>
       </ScrollView>
 
-      <View style={[styles.topBg, { height: insets.top + hit + space.sm }]} />
       <View style={[styles.topBar, { top: insets.top + space.xs }]}>
-        <IconButton icon={ChevronLeft} label="Volver" onPress={() => router.back()} />
-        {!isMe ? <IconButton icon={Ellipsis} label="Más opciones: silenciar, bloquear o reportar" onPress={() => setSafety(true)} /> : null}
+        <IconButton icon={ChevronLeft} label="Volver" tone="glassDark" onPress={() => router.back()} />
+        {!isMe ? (
+          <View style={styles.topRight}>
+            <SaveButton personId={id} name={profile.name} onDark />
+            <IconButton icon={Ellipsis} label="Más opciones: silenciar, bloquear o reportar" tone="glassDark" onPress={() => setSafety(true)} />
+          </View>
+        ) : null}
       </View>
 
       <View style={[styles.sticky, { paddingBottom: Math.max(insets.bottom, space.md) }]}>
         {isMe ? (
-          <Button label="Volver a mi perfil" variant="dark" onPress={() => router.back()} />
+          <Button label="Volver a mi perfil" variant="light" onPress={() => router.back()} />
         ) : (
           <Button
             label={filter === 'all' ? `Iniciar chat con ${profile.name}` : `Iniciar chat · ${categories[filter].label}`}
@@ -222,16 +270,27 @@ export default function PersonProfile() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.bg },
-  body: { paddingHorizontal: gutter, gap: space.md },
+  root: { flex: 1, backgroundColor: colors.dark.bg },
+  sheet: {
+    marginTop: -28,
+    backgroundColor: colors.dark.bg,
+    borderTopLeftRadius: radius.cardLg,
+    borderTopRightRadius: radius.cardLg,
+    paddingHorizontal: gutter,
+    paddingTop: space.xl,
+    gap: space.xl,
+  },
   preview: { flexDirection: 'row', alignItems: 'center', gap: space.sm, backgroundColor: colors.pink, padding: space.md, borderRadius: radius.button },
-  section: { gap: space.md, marginTop: space.md },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  shrink: { flexShrink: 1 },
+  block: { gap: space.md },
+  why: { backgroundColor: colors.pink, borderRadius: radius.card - 6, padding: space.lg, gap: 6 },
   apps: { flexDirection: 'row', flexWrap: 'wrap', gap: space.lg },
   appItem: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   emptyPosts: { paddingVertical: space.lg },
   tabsScroll: { marginHorizontal: -gutter },
   flex: { flex: 1 },
   topBar: { position: 'absolute', left: gutter, right: gutter, flexDirection: 'row', justifyContent: 'space-between' },
-  topBg: { position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: 'rgba(255,255,255,0.9)' },
-  sticky: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: gutter, paddingTop: space.md, backgroundColor: colors.bg, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line },
+  topRight: { flexDirection: 'row', gap: space.sm },
+  sticky: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: gutter, paddingTop: space.md, backgroundColor: colors.dark.bg, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.dark.line },
 });

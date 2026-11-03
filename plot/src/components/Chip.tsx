@@ -10,46 +10,54 @@ import { Txt } from './Txt';
 
 type Props = {
   label: string;
-  /** Sólido = seleccionado o en común. Suave = no seleccionado. */
+  /** Informativa: en común (relleno) o no (solo borde). Seleccionable: marcada. */
   solid?: boolean;
   category?: CategoryId;
   onPress?: () => void;
   size?: 'sm' | 'md';
   showCheck?: boolean;
+  /** Sobre fondo grafito. */
+  dark?: boolean;
 };
 
 /**
- * Etiqueta de interés. Esquinas suaves en lugar de cápsula para no recargar.
- * - Seleccionable: crema sin marcar, rosa de marca marcada (con check).
- * - Informativa: color de su categoría si es en común, solo borde si no.
- * Texto siempre en negro sobre color (contraste).
+ * Etiqueta de interés: cápsula con un punto del color de su categoría.
+ * - Informativa: blanca (o grafito claro en modo oscuro); solo borde si no es en común.
+ * - Seleccionable: blanca sin marcar, grafito con texto blanco marcada.
  */
-export function Chip({ label, solid, category, onPress, size = 'md', showCheck }: Props) {
+export function Chip({ label, solid, category, onPress, size = 'md', showCheck, dark }: Props) {
   const cat = categories[category ?? categoryOf(label)];
+  const selected = !!onPress && !!solid;
+  const fg = selected || dark ? colors.white : colors.ink;
   const content = (
     <>
-      {showCheck && solid ? <Check size={14} color={colors.ink} strokeWidth={2.4} /> : null}
-      <Txt variant={size === 'sm' ? 'footnoteStrong' : 'subheadStrong'} color={colors.ink}>
+      {showCheck && selected ? (
+        <Check size={14} color={colors.white} strokeWidth={2.6} />
+      ) : (
+        <View style={[styles.dot, { backgroundColor: cat.solid }]} />
+      )}
+      <Txt variant={size === 'sm' ? 'footnoteStrong' : 'subheadStrong'} color={fg}>
         {label}
       </Txt>
     </>
   );
-  const style = [
-    styles.base,
-    size === 'sm' ? styles.sm : styles.md,
-    onPress
-      ? { backgroundColor: solid ? colors.pink : colors.fill }
+  const fill = onPress
+    ? { backgroundColor: selected ? colors.ink : colors.card }
+    : dark
+      ? solid
+        ? { backgroundColor: colors.dark.chip }
+        : styles.outlineDark
       : solid
-        ? { backgroundColor: cat.solid }
-        : styles.outline,
-  ];
+        ? { backgroundColor: colors.card }
+        : styles.outline;
+  const style = [styles.base, size === 'sm' ? styles.sm : styles.md, fill];
   if (!onPress) {
     return <View style={style}>{content}</View>;
   }
   return (
     <PressableScale
       accessibilityRole="checkbox"
-      accessibilityState={{ checked: !!solid }}
+      accessibilityState={{ checked: selected }}
       accessibilityLabel={label}
       onPress={() => {
         tapLight();
@@ -68,10 +76,12 @@ export function ChipRow({ children }: { children: React.ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  base: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: 10, alignSelf: 'flex-start' },
-  outline: { borderWidth: 1, borderColor: colors.line },
+  base: { flexDirection: 'row', alignItems: 'center', gap: 7, borderRadius: 999, alignSelf: 'flex-start' },
   md: { paddingHorizontal: 14, paddingVertical: 8 },
-  sm: { paddingHorizontal: 9, paddingVertical: 4 },
+  sm: { paddingHorizontal: 11, paddingVertical: 6 },
+  dot: { width: 8, height: 8, borderRadius: 4 },
+  outline: { borderWidth: 1, borderColor: colors.line },
+  outlineDark: { borderWidth: 1, borderColor: colors.dark.line },
   touch: { minHeight: 40 },
-  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
+  row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
 });

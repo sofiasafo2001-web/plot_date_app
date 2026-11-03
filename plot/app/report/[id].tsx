@@ -93,7 +93,7 @@ export default function Report() {
                   tapLight();
                   setReason(r);
                 }}
-                style={[styles.reason, { borderColor: on ? colors.ink : colors.line, backgroundColor: on ? colors.pink : colors.bg }]}
+                style={[styles.reason, { borderColor: on ? colors.ink : colors.line, backgroundColor: on ? colors.pink : colors.card }]}
                 scaleTo={0.99}
               >
                 <Txt variant="headline" style={styles.flex}>

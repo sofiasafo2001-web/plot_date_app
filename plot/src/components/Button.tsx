@@ -7,7 +7,7 @@ import { tapLight } from '@/utils/haptics';
 import { PressableScale } from './PressableScale';
 import { Txt } from './Txt';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'dark' | 'text' | 'danger' | 'light';
+export type ButtonVariant = 'primary' | 'secondary' | 'dark' | 'text' | 'danger' | 'light' | 'outline' | 'outlineLight';
 
 type Props = {
   label: string;
@@ -25,11 +25,13 @@ type Props = {
 
 const palette: Record<ButtonVariant, { bg: string; fg: string; border?: string }> = {
   primary: { bg: colors.primary, fg: colors.onPrimary },
-  secondary: { bg: colors.fill, fg: colors.ink },
+  secondary: { bg: colors.card, fg: colors.ink },
   dark: { bg: colors.ink, fg: colors.white },
   text: { bg: colors.transparent, fg: colors.primaryInk },
   danger: { bg: colors.dangerSoft, fg: colors.dangerInk },
   light: { bg: colors.white, fg: colors.ink },
+  outline: { bg: colors.transparent, fg: colors.ink, border: colors.ink },
+  outlineLight: { bg: colors.transparent, fg: colors.white, border: colors.white },
 };
 
 export function Button({
@@ -66,6 +68,8 @@ export function Button({
           backgroundColor: disabled ? colors.fill : p.bg,
           paddingHorizontal: variant === 'text' ? space.sm : size === 'sm' || flex ? space.md : space.xl,
           borderRadius: radius.pill,
+          borderWidth: p.border ? 1.5 : 0,
+          borderColor: p.border,
         },
         flex && styles.flex,
         style,
@@ -76,7 +80,7 @@ export function Button({
       ) : (
         <View style={styles.row}>
           {Icon ? <Icon size={size === 'sm' ? 16 : 19} color={disabled ? colors.text3 : p.fg} /> : null}
-          <Txt variant={size === 'sm' ? 'subheadStrong' : 'headline'} color={disabled ? colors.text3 : p.fg} align="center" style={styles.label}>
+          <Txt variant={size === 'sm' ? 'subheadStrong' : 'button'} color={disabled ? colors.text3 : p.fg} align="center" style={styles.label}>
             {label}
           </Txt>
         </View>

@@ -67,11 +67,11 @@ export function RequestCard({ person, conversation, post, common, onOpenProfile,
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.md, backgroundColor: colors.bg },
+  card: { borderRadius: radius.card, padding: space.lg, gap: space.md, backgroundColor: colors.card },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   flex: { flex: 1 },
   quote: { flexDirection: 'row', gap: space.sm, alignItems: 'flex-start' },
-  bubble: { backgroundColor: colors.fill, borderRadius: radius.tile, borderTopLeftRadius: 6, padding: space.md },
+  bubble: { backgroundColor: colors.bg, borderRadius: radius.tile, borderTopLeftRadius: 6, padding: space.md },
   actions: { flexDirection: 'row', gap: space.sm },
   block: { alignSelf: 'center' },
 });

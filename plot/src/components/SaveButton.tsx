@@ -8,10 +8,17 @@ import { tapMedium } from '@/utils/haptics';
 
 import { PressableScale } from './PressableScale';
 
-type Props = { personId: string; name: string; /** Sobre una foto: fondo de cristal claro. */ onPhoto?: boolean };
+type Props = {
+  personId: string;
+  name: string;
+  /** Sobre una foto: cristal claro. */
+  onPhoto?: boolean;
+  /** Sobre una foto, en la barra superior: cristal oscuro con icono blanco. */
+  onDark?: boolean;
+};
 
 /** Marcador para guardar un perfil y verlo luego en la pestaña Guardados. */
-export function SaveButton({ personId, name, onPhoto }: Props) {
+export function SaveButton({ personId, name, onPhoto, onDark }: Props) {
   const saved = useApp((s) => s.saved.some((x) => x.id === personId));
   const toggleSaved = useApp((s) => s.toggleSaved);
   return (
@@ -29,9 +36,14 @@ export function SaveButton({ personId, name, onPhoto }: Props) {
           undo: () => toggleSaved(personId),
         });
       }}
-      style={[styles.base, saved ? styles.on : onPhoto ? styles.glass : styles.off]}
+      style={[styles.base, saved ? (onDark ? styles.onLight : styles.on) : onDark ? styles.glassDark : onPhoto ? styles.glass : styles.off]}
     >
-      <Bookmark size={21} color={saved ? colors.white : colors.ink} fill={saved ? colors.white : 'none'} strokeWidth={2} />
+      <Bookmark
+        size={21}
+        color={onDark ? (saved ? colors.ink : colors.white) : saved ? colors.white : colors.ink}
+        fill={saved ? (onDark ? colors.ink : colors.white) : 'none'}
+        strokeWidth={2}
+      />
     </PressableScale>
   );
 }
@@ -39,6 +51,8 @@ export function SaveButton({ personId, name, onPhoto }: Props) {
 const styles = StyleSheet.create({
   base: { width: hit, height: hit, borderRadius: hit / 2, alignItems: 'center', justifyContent: 'center' },
   on: { backgroundColor: colors.ink },
-  off: { backgroundColor: colors.fill },
+  off: { backgroundColor: colors.card },
   glass: { backgroundColor: colors.glass },
+  glassDark: { backgroundColor: colors.glassDark },
+  onLight: { backgroundColor: colors.white },
 });

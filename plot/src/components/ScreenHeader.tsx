@@ -5,19 +5,27 @@ import { colors, gutter, space } from '@/theme';
 
 import { Txt } from './Txt';
 
-/** Cabecera de pantalla: título en mayúsculas y rojo de marca, como un cartel. */
-export function LargeHeader({ title, subtitle, right }: { title: string; subtitle?: string; right?: ReactNode }) {
+type Props = {
+  title: string;
+  /** Antetítulo en mayúsculas pequeñas, encima del título (p. ej. «8 personas afines · Gràcia»). */
+  subtitle?: string;
+  right?: ReactNode;
+  dark?: boolean;
+};
+
+/** Cabecera de pantalla: antetítulo en versalitas y título grande en Archivo ExtraBold. */
+export function LargeHeader({ title, subtitle, right, dark }: Props) {
   return (
     <View style={styles.wrap}>
       <View style={styles.flex}>
-        <Txt variant="largeTitle" color={colors.brandRed} accessibilityRole="header" accessibilityLabel={title}>
-          {title.toUpperCase()}
-        </Txt>
         {subtitle ? (
-          <Txt variant="caption" color={colors.text2}>
+          <Txt variant="caption" color={dark ? colors.dark.text2 : colors.text2}>
             {subtitle.toUpperCase()}
           </Txt>
         ) : null}
+        <Txt variant="largeTitle" color={dark ? colors.dark.text : colors.ink} accessibilityRole="header">
+          {title}
+        </Txt>
       </View>
       {right ? <View style={styles.right}>{right}</View> : null}
     </View>
@@ -25,7 +33,7 @@ export function LargeHeader({ title, subtitle, right }: { title: string; subtitl
 }
 
 const styles = StyleSheet.create({
-  wrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: gutter, paddingTop: space.sm, paddingBottom: space.md, gap: space.md },
-  flex: { flex: 1 },
+  wrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: gutter, paddingTop: space.lg, paddingBottom: space.lg, gap: space.md },
+  flex: { flex: 1, gap: 4 },
   right: { flexDirection: 'row', gap: space.sm, paddingBottom: 2 },
 });

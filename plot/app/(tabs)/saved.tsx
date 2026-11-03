@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Bookmark, ChevronRight } from 'lucide-react-native';
+import { ArrowRight, Bookmark } from 'lucide-react-native';
 import { useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,7 +15,7 @@ import { lookingForLabel } from '@/data/catalog';
 import { personById, postsOf } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
-import { categories, colors, gutter, radius, space } from '@/theme';
+import { colors, gutter, radius, space } from '@/theme';
 import type { Person, Post } from '@/types';
 import { tapLight } from '@/utils/haptics';
 import { relative } from '@/utils/time';
@@ -93,15 +93,15 @@ function SavedCard({ row, onUnsave }: { row: Row; onUnsave: () => void }) {
       <View style={styles.head}>
         <Avatar photoId={person.id} name={person.name} color={person.color} size={56} verified={person.verified} />
         <View style={styles.flex}>
-          <Txt variant="title2" color={colors.onRed} numberOfLines={1}>
+          <Txt variant="title2" numberOfLines={1}>
             {person.name}, {person.age}
           </Txt>
-          <Txt variant="footnote" color={colors.onRed} numberOfLines={1}>
+          <Txt variant="subhead" color={colors.text2} numberOfLines={1}>
             {person.job} · {lookingForLabel[person.lookingFor]}
           </Txt>
         </View>
         <PressableScale accessibilityRole="button" accessibilityLabel={`Quitar a ${person.name} de Guardados`} onPress={onUnsave} hitSlop={8} style={styles.save}>
-          <Bookmark size={20} color={colors.ink} fill={colors.ink} />
+          <Bookmark size={19} color={colors.white} fill={colors.white} />
         </PressableScale>
       </View>
 
@@ -109,17 +109,18 @@ function SavedCard({ row, onUnsave }: { row: Row; onUnsave: () => void }) {
         {last ? (
           <>
             <View style={styles.lastHead}>
-              <View style={[styles.dot, { backgroundColor: categories[last.category].solid }]} />
               <Txt variant="caption" color={colors.text2} style={styles.flex}>
                 {postTypeLabel[last.type].toUpperCase()} · {relative(last.createdAt).toUpperCase()}
               </Txt>
               {fresh ? (
-                <Txt variant="caption" color={colors.flirtInk}>
-                  {fresh === 1 ? '1 NUEVA' : `${fresh} NUEVAS`}
-                </Txt>
+                <View style={styles.fresh}>
+                  <Txt variant="caption" color={colors.white}>
+                    {fresh === 1 ? '1 NUEVA' : `${fresh} NUEVAS`}
+                  </Txt>
+                </View>
               ) : null}
             </View>
-            <Txt variant="subhead" numberOfLines={2}>
+            <Txt variant="body" numberOfLines={2}>
               {postSummary(last)}
             </Txt>
           </>
@@ -129,8 +130,8 @@ function SavedCard({ row, onUnsave }: { row: Row; onUnsave: () => void }) {
           </Txt>
         )}
         <View style={styles.more}>
-          <Txt variant="footnoteStrong">Ver perfil</Txt>
-          <ChevronRight size={16} color={colors.ink} />
+          <Txt variant="caption">VER PERFIL</Txt>
+          <ArrowRight size={14} color={colors.ink} strokeWidth={2.2} />
         </View>
       </View>
     </PressableScale>
@@ -141,12 +142,12 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   list: { paddingBottom: TAB_BAR_SPACE },
   sep: { height: space.md },
-  card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
-  head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, backgroundColor: colors.brandRed },
+  card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.card, paddingHorizontal: space.lg, paddingVertical: space.lg },
+  head: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingBottom: space.lg, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: colors.line },
   flex: { flex: 1 },
-  save: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.pink, alignItems: 'center', justifyContent: 'center' },
-  body: { paddingHorizontal: space.lg, paddingTop: space.md, paddingBottom: space.lg, gap: 6 },
+  save: { width: 46, height: 46, borderRadius: 23, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
+  body: { paddingTop: space.lg, gap: space.sm },
   lastHead: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-  more: { flexDirection: 'row', alignItems: 'center', gap: 2, marginTop: space.xs },
+  fresh: { backgroundColor: colors.brandRed, borderRadius: 999, paddingHorizontal: 9, paddingVertical: 4 },
+  more: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: space.sm },
 });

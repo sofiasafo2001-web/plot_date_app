@@ -5,6 +5,7 @@ import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EmptyState } from '@/components/EmptyState';
+import { StatusBarStyle } from '@/components/StatusBarStyle';
 import { IconButton } from '@/components/IconButton';
 import { PersonCard } from '@/components/PersonCard';
 import { PressableScale } from '@/components/PressableScale';
@@ -59,6 +60,7 @@ export default function Discover() {
 
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
+      <StatusBarStyle style="light" />
       <FlatList
         data={list}
         keyExtractor={(p) => p.id}
@@ -69,19 +71,20 @@ export default function Discover() {
           <View>
             <LargeHeader
               title="Descubrir"
-              subtitle={`${list.length} ${list.length === 1 ? 'persona afín' : 'personas afines'} cerca de ${me.hood}`}
+              dark
+              subtitle={`${list.length} ${list.length === 1 ? 'persona afín' : 'personas afines'} · ${me.hood}`}
               right={
                 <View>
-                  <IconButton icon={SlidersHorizontal} label="Filtros" onPress={() => router.push('/filters')} tone={active ? 'dark' : 'surface'} />
+                  <IconButton icon={SlidersHorizontal} label="Filtros" onPress={() => router.push('/filters')} tone={active ? 'glass' : 'outlineLight'} />
                 </View>
               }
             />
             <View style={styles.tabs}>
-              <TextTabs tabs={tabs} value={tab} onChange={setTab} />
+              <TextTabs tabs={tabs} value={tab} onChange={setTab} dark />
             </View>
             {active ? (
               <View style={styles.activeRow}>
-                <Txt variant="footnote" color={colors.text2} style={styles.flex}>
+                <Txt variant="footnote" color={colors.dark.text2} style={styles.flex}>
                   Hasta {filters.maxKm} km · {filters.minAge}–{filters.maxAge} años{filters.verifiedOnly ? ' · solo verificados' : ''}
                 </Txt>
                 <PressableScale
@@ -94,7 +97,7 @@ export default function Discover() {
                   }}
                   style={styles.clear}
                 >
-                  <Txt variant="footnoteStrong" color={colors.info}>
+                  <Txt variant="footnoteStrong" color={colors.dark.text} style={styles.underline}>
                     Quitar filtros
                   </Txt>
                 </PressableScale>
@@ -109,6 +112,7 @@ export default function Discover() {
         )}
         ListEmptyComponent={
           <EmptyState
+            dark
             icon={SearchX}
             title="Nadie cumple estos filtros"
             text="Prueba a ampliar la distancia o el rango de edad, o mira otra categoría."
@@ -125,9 +129,10 @@ export default function Discover() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.bg },
+  root: { flex: 1, backgroundColor: colors.dark.bg },
+  underline: { textDecorationLine: 'underline' },
   list: { paddingBottom: TAB_BAR_SPACE },
-  tabs: { paddingBottom: space.md },
+  tabs: { paddingBottom: space.lg },
   activeRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: gutter, paddingBottom: space.md, gap: space.sm },
   flex: { flex: 1 },
   clear: { minHeight: 44, justifyContent: 'center', paddingHorizontal: space.sm },

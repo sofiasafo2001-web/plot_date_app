@@ -133,7 +133,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   body: { paddingHorizontal: gutter, paddingTop: space.xl, gap: space.xl },
-  section: { gap: space.md, backgroundColor: colors.surface, borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.lg },
+  section: { gap: space.md, backgroundColor: colors.card, borderRadius: radius.card, padding: space.lg },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.md },
   slider: { height: 44 },
   stepper: { flexDirection: 'row', alignItems: 'center', gap: space.md },

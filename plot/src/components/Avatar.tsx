@@ -20,12 +20,13 @@ type Props = {
   bordered?: boolean;
 };
 
-/** Avatar con iniciales sobre color de categoría. Anillo azul (confianza) si está verificado. */
+/** Avatar circular con foto (o iniciales sobre el color de su categoría). */
 export function Avatar({ name, color, size = 56, verified, badge, bordered, photoId }: Props) {
   const [failed, setFailed] = useState(false);
   const photo = photoId && !failed ? avatarPhotos[photoId] : undefined;
-  const ring = verified ? (size === 88 ? 3 : 2) : 0;
-  const gap = verified ? 2 : 0;
+  // Sin anillo: la verificación se indica con el check azul junto al nombre.
+  const ring = 0;
+  const gap = 0;
   const outer = size;
   const inner = size - (ring + gap) * 2;
   const initials = name

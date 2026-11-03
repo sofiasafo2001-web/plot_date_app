@@ -1,10 +1,9 @@
-import { BricolageGrotesque_800ExtraBold } from '@expo-google-fonts/bricolage-grotesque/800ExtraBold';
-import { Inter_400Regular } from '@expo-google-fonts/inter/400Regular';
-import { Inter_500Medium } from '@expo-google-fonts/inter/500Medium';
-import { Inter_600SemiBold } from '@expo-google-fonts/inter/600SemiBold';
-import { Inter_700Bold } from '@expo-google-fonts/inter/700Bold';
-import { Unbounded_800ExtraBold } from '@expo-google-fonts/unbounded/800ExtraBold';
-import { Unbounded_900Black } from '@expo-google-fonts/unbounded/900Black';
+import { Archivo_400Regular } from '@expo-google-fonts/archivo/400Regular';
+import { Archivo_500Medium } from '@expo-google-fonts/archivo/500Medium';
+import { Archivo_600SemiBold } from '@expo-google-fonts/archivo/600SemiBold';
+import { Archivo_700Bold } from '@expo-google-fonts/archivo/700Bold';
+import { Archivo_800ExtraBold } from '@expo-google-fonts/archivo/800ExtraBold';
+import { Archivo_900Black } from '@expo-google-fonts/archivo/900Black';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -30,13 +29,12 @@ const sheet = {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    BricolageGrotesque_800ExtraBold,
-    Inter_400Regular,
-    Inter_500Medium,
-    Inter_600SemiBold,
-    Inter_700Bold,
-    Unbounded_800ExtraBold,
-    Unbounded_900Black,
+    Archivo_400Regular,
+    Archivo_500Medium,
+    Archivo_600SemiBold,
+    Archivo_700Bold,
+    Archivo_800ExtraBold,
+    Archivo_900Black,
   });
   const hydrated = useApp((s) => s.hydrated);
   const loggedIn = useApp((s) => s.loggedIn);
@@ -82,15 +80,15 @@ export default function RootLayout() {
               <Stack.Screen name="report/[id]" options={{ ...sheet, sheetAllowedDetents: [0.85, 1] }} />
               <Stack.Screen
                 name="settings/index"
-                options={{ headerShown: true, title: 'Ajustes', headerLargeTitle: true, contentStyle: { backgroundColor: colors.surface }, headerStyle: { backgroundColor: colors.surface }, headerLargeStyle: { backgroundColor: colors.surface } }}
+                options={{ headerShown: true, title: 'Ajustes', headerLargeTitle: true, contentStyle: { backgroundColor: colors.bg }, headerStyle: { backgroundColor: colors.bg }, headerLargeStyle: { backgroundColor: colors.bg } }}
               />
               <Stack.Screen
                 name="settings/blocked"
-                options={{ headerShown: true, title: 'Usuarios bloqueados', contentStyle: { backgroundColor: colors.surface }, headerStyle: { backgroundColor: colors.surface } }}
+                options={{ headerShown: true, title: 'Usuarios bloqueados', contentStyle: { backgroundColor: colors.bg }, headerStyle: { backgroundColor: colors.bg } }}
               />
               <Stack.Screen
                 name="settings/safety"
-                options={{ headerShown: true, title: 'Centro de seguridad', headerLargeTitle: true, contentStyle: { backgroundColor: colors.surface }, headerStyle: { backgroundColor: colors.surface }, headerLargeStyle: { backgroundColor: colors.surface } }}
+                options={{ headerShown: true, title: 'Centro de seguridad', headerLargeTitle: true, contentStyle: { backgroundColor: colors.bg }, headerStyle: { backgroundColor: colors.bg }, headerLargeStyle: { backgroundColor: colors.bg } }}
               />
             </Stack.Protected>
           </Stack>

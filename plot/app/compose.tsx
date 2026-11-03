@@ -133,7 +133,7 @@ export default function Compose() {
                 accessibilityState={{ selected: on }}
                 accessibilityLabel={t.label}
                 onPress={() => changeType(t.value)}
-                style={[styles.type, { backgroundColor: on ? cat.solid : colors.fill }]}
+                style={[styles.type, { backgroundColor: on ? cat.solid : colors.card }]}
               >
                 <Icon size={22} color={colors.ink} />
                 <Txt variant="footnoteStrong" color={colors.ink}>
@@ -299,7 +299,7 @@ function SelectRow({ title, subtitle, icon: Icon, cat, selected, onPress }: { ti
         onPress();
       }}
       scaleTo={0.99}
-      style={[styles.row, { borderColor: selected ? colors.ink : colors.line, backgroundColor: selected ? colors.pink : colors.bg }]}
+      style={[styles.row, { borderColor: selected ? colors.ink : colors.line, backgroundColor: selected ? colors.pink : colors.card }]}
     >
       <View style={[styles.rowIcon, { backgroundColor: c.solid }]}>
         <Icon size={20} color={colors.ink} />

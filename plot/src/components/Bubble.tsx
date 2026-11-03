@@ -19,11 +19,12 @@ type Props = {
   onLongPress: () => void;
 };
 
-/** Burbuja de chat: las mías en violeta a la derecha, las suyas en blanco a la izquierda. */
+/** Burbuja de chat: las mías en grafito a la derecha, las suyas en blanco a la izquierda. */
 export function Bubble({ message, quoted, status, onLongPress }: Props) {
   const mine = message.from === 'me';
   const a = message.attachment;
-  const fg = colors.ink;
+  const fg = mine ? colors.white : colors.ink;
+  const muted = mine ? 'rgba(255,255,255,0.72)' : colors.text2;
   const q = questionById(message.questionId);
   const topicLabel = q ? (q.topic === 'general' ? 'Primera cita' : categories[q.topic].label) : undefined;
   return (
@@ -48,9 +49,9 @@ export function Bubble({ message, quoted, status, onLongPress }: Props) {
           </View>
         ) : null}
         {quoted ? (
-          <View style={[styles.quote, { backgroundColor: mine ? 'rgba(255,255,255,0.55)' : colors.bg }]}>
-            <CornerDownRight size={14} color={mine ? colors.onPrimaryMuted : colors.text2} />
-            <Txt variant="footnote" color={mine ? colors.onPrimaryMuted : colors.text2} numberOfLines={2} style={styles.flex}>
+          <View style={[styles.quote, { backgroundColor: mine ? 'rgba(255,255,255,0.14)' : colors.bg }]}>
+            <CornerDownRight size={14} color={muted} />
+            <Txt variant="footnote" color={muted} numberOfLines={2} style={styles.flex}>
               {quoted.authorId === 'me' ? 'Tu publicación' : 'Su publicación'}: {postSummary(quoted)}
             </Txt>
           </View>
@@ -68,7 +69,7 @@ export function Bubble({ message, quoted, status, onLongPress }: Props) {
             {message.text}
           </Txt>
         ) : null}
-        <Txt variant="caption" color={mine ? colors.onPrimaryMuted : colors.text3} align="right" style={a ? styles.captionPad : undefined}>
+        <Txt variant="caption" color={mine ? muted : colors.text3} align="right" style={a ? styles.captionPad : undefined}>
           {clock(message.createdAt)}
         </Txt>
       </PressableScale>
@@ -87,8 +88,8 @@ const styles = StyleSheet.create({
   right: { alignSelf: 'flex-end', alignItems: 'flex-end' },
   bubble: { paddingHorizontal: space.md, paddingVertical: space.sm, borderRadius: radius.card - 4, gap: 4 },
   withMedia: { padding: 4, width: 264 },
-  mine: { backgroundColor: colors.pink, borderBottomRightRadius: 6 },
-  theirs: { backgroundColor: colors.fill, borderBottomLeftRadius: 6 },
+  mine: { backgroundColor: colors.ink, borderBottomRightRadius: 6 },
+  theirs: { backgroundColor: colors.card, borderBottomLeftRadius: 6 },
   quote: { flexDirection: 'row', gap: 6, padding: space.sm, borderRadius: 12, alignItems: 'flex-start' },
   flex: { flex: 1 },
   topic: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999 },

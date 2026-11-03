@@ -100,7 +100,7 @@ export default function Ready() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg, overflow: 'hidden' },
   body: { paddingHorizontal: gutter, paddingTop: space.md, gap: space.lg, paddingBottom: space.xl },
-  card: { backgroundColor: colors.surface, borderRadius: radius.cardLg, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
+  card: { backgroundColor: colors.card, borderRadius: radius.cardLg, overflow: 'hidden' },
   inner: { padding: space.lg, gap: space.lg },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, overflow: 'hidden' },
   flex: { flex: 1 },

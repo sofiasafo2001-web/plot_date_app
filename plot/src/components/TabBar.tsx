@@ -20,7 +20,7 @@ const meta: Record<string, { label: string; icon: LucideIcon }> = {
 /** Espacio que deben dejar al final las pantallas con pestañas, porque la barra flota encima. */
 export const TAB_BAR_SPACE = 132;
 
-/** Barra de pestañas flotante, clara y translúcida. La pestaña activa va en rojo de marca con el icono en rosa, como el logo. */
+/** Barra de pestañas flotante, clara y translúcida. La pestaña activa va en una cápsula grafito. */
 export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const badge = useChatBadge();
@@ -49,7 +49,7 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
               scaleTo={0.92}
             >
               <View style={[styles.icon, focused && styles.iconOn]}>
-                <Icon size={21} color={focused ? colors.pink : colors.text2} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.pink : 'none'} />
+                <Icon size={21} color={focused ? colors.white : colors.text2} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.white : 'none'} />
                 {showBadge ? (
                   <View style={styles.badge}>
                     <Txt variant="caption" color={colors.white} maxFontSizeMultiplier={1.1}>
@@ -58,8 +58,8 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
                   </View>
                 ) : null}
               </View>
-              <Txt variant="caption" color={focused ? colors.primaryInk : colors.text2} maxFontSizeMultiplier={1.2}>
-                {m.label}
+              <Txt variant="caption" color={focused ? colors.ink : colors.text2} maxFontSizeMultiplier={1.2} style={styles.label}>
+                {m.label.toUpperCase()}
               </Txt>
             </PressableScale>
           );
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: gutter, right: gutter },
   bar: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.82)',
+    backgroundColor: 'rgba(255, 255, 255, 0.96)',
     borderRadius: 30,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.line,
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 6,
     shadowColor: colors.ink,
     shadowOpacity: 0.1,
@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3, minHeight: hit + 6 },
   icon: { width: 52, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
-  iconOn: { backgroundColor: colors.brandRed },
+  iconOn: { backgroundColor: colors.ink },
+  label: { fontSize: 10, letterSpacing: 1 },
   badge: {
     position: 'absolute',
     top: -4,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     paddingHorizontal: 5,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.brandRed,
     borderWidth: 2,
     borderColor: colors.white,
     alignItems: 'center',

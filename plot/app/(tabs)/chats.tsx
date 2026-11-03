@@ -55,7 +55,7 @@ export default function Chats() {
   };
   const chatList = chats.filter(matchesQuery);
   const reqList = requests.normal.filter(matchesQuery);
-  const unreadTotal = chats.reduce((n, c) => n + (c.muted ? 0 : c.unread), 0);
+  const unreadChats = chats.filter((c) => c.unread > 0 && !c.muted).length;
 
   const open = (id: string) => router.push({ pathname: '/chat/[id]', params: { id } });
 
@@ -95,11 +95,11 @@ export default function Chats() {
 
   const header = (
     <View style={styles.headerWrap}>
-      <LargeHeader title="Chats" />
+      <LargeHeader title="Chats" subtitle={unreadChats ? `${unreadChats} sin leer` : 'Todo al día'} />
       <View style={styles.controls}>
         <Segmented
           options={[
-            { value: 'chats', label: 'Conversaciones', badge: unreadTotal || undefined },
+            { value: 'chats', label: 'Conversaciones' },
             { value: 'requests', label: 'Solicitudes', badge: requests.normal.length || undefined },
           ]}
           value={tab}
@@ -114,6 +114,7 @@ export default function Chats() {
           clearButtonMode="while-editing"
           accessibilityLabel="Buscar chats"
           autoCorrect={false}
+          pill
         />
       </View>
     </View>
@@ -262,18 +263,18 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   headerWrap: { paddingBottom: space.sm },
   controls: { paddingHorizontal: gutter, gap: space.md },
-  sep: { height: StyleSheet.hairlineWidth, backgroundColor: colors.line, marginLeft: gutter + 56 + space.md },
+  sep: { height: StyleSheet.hairlineWidth, backgroundColor: colors.line, marginHorizontal: gutter },
   listPad: { paddingBottom: TAB_BAR_SPACE },
   requests: { paddingHorizontal: gutter, gap: space.md, paddingTop: space.sm },
   flex: { flex: 1 },
-  hidden: { backgroundColor: colors.surface, borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.md, gap: space.md },
+  hidden: { backgroundColor: colors.card, borderRadius: radius.card, padding: space.md, gap: space.md },
   hiddenRow: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   hiddenIcon: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.bg, alignItems: 'center', justifyContent: 'center' },
   see: { minHeight: 44, minWidth: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: space.sm },
   hiddenCard: { backgroundColor: colors.bg, borderRadius: radius.tile + 4, padding: space.md, gap: space.md },
   hiddenHead: { flexDirection: 'row', alignItems: 'center', gap: space.md },
   warn: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  blurBox: { backgroundColor: colors.surface, borderRadius: radius.tile, padding: space.md, overflow: 'hidden', minHeight: 64, justifyContent: 'center' },
+  blurBox: { backgroundColor: colors.bg, borderRadius: radius.tile, padding: space.md, overflow: 'hidden', minHeight: 64, justifyContent: 'center' },
   blurred: { color: colors.transparent, textShadowColor: colors.text2, textShadowRadius: 14, textShadowOffset: { width: 0, height: 0 } },
   tapHint: { position: 'absolute', left: 0, right: 0 },
   actions: { flexDirection: 'row', gap: space.sm },

@@ -117,12 +117,12 @@ export function postSummary(post: Post): string {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.bg, borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.lg, gap: space.md },
+  card: { backgroundColor: colors.card, borderRadius: radius.card, padding: space.lg, gap: space.md },
   bare: { borderWidth: 0, padding: 0 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   lock: { marginLeft: 2 },
   status: { padding: space.lg, borderRadius: radius.tile },
   stack: { gap: space.sm },
   footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm, flexWrap: 'wrap' },
-  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: radius.button, backgroundColor: colors.fill },
+  reply: { flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 44, paddingHorizontal: space.md, borderRadius: radius.button, backgroundColor: colors.bg },
 });

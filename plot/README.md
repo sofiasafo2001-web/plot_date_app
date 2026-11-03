@@ -75,7 +75,7 @@ Vuelve todo al estado inicial: publicaciones, chats, solicitudes, bloqueos, ajus
 | 2:00 | **Escribirle desde una publicación** | En una publicación toca **Responder a esto**. Se abre el chat con la publicación citada. Escribe algo y envía. | Puedes empezar hablando de algo concreto que ha publicado. |
 | 2:20 | **Respuesta automática** | Espera dos segundos: aparece «escribiendo…», luego su respuesta, y «Leído» bajo tu mensaje. Toca **+** y manda una canción. | Mensajes con tarjetas de Spotify, Strava, Maps o fotos. |
 | 2:50 | **Solicitudes** | Vuelve y entra en **Chats › Solicitudes**. Enseña la de Paula (a qué publicación respondió). Toca **Ver** en «1 mensaje oculto por el filtro» y luego toca el mensaje difuminado. | Quien te escribe por primera vez no sabe que lo has leído hasta que respondes. Hay filtro de lenguaje ofensivo. |
-| 3:30 | **Publicar una canción** | Ve a **Perfil** › **Publicar algo** (o el **+** de arriba) › **Canción**, busca «nora», elige una, etiqueta **Indie** y pulsa **Publicar**. | Publicar es tan rápido como compartir una canción. |
+| 3:30 | **Publicar una canción** | Ve a **Perfil** › **+** (arriba a la derecha) › **Canción**, busca «nora», elige una, etiqueta **Indie** y pulsa **Publicar**. | Publicar es tan rápido como compartir una canción. |
 | 4:00 | **Mi perfil** | La canción aparece la primera. Toca **Ver como otros**. | «Sin likes ni seguidores. Solo lo que te gusta». |
 | 4:20 | **Ajustes y bloqueo** | Abre la rueda › **Quién puede escribirme**. Vuelve a un chat, toca **…** › **Bloquear** y confirma. Enséñalo en **Ajustes › Usuarios bloqueados**. | Silenciar, bloquear y reportar están siempre a dos toques. |
 

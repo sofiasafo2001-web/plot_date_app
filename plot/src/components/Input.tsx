@@ -13,12 +13,14 @@ type Props = TextInputProps & {
   right?: ReactNode;
   left?: ReactNode;
   ref?: Ref<ComponentRef<typeof TextInput>>;
+  /** Campo en cápsula sin borde (buscadores). */
+  pill?: boolean;
 };
 
 /** Campo de texto sobre crema, foco en negro y error con icono y texto (no solo color). */
-export function Input({ label, error, hint, right, left, style, onFocus, onBlur, multiline, ref, ...rest }: Props) {
+export function Input({ label, error, hint, right, left, style, onFocus, onBlur, multiline, ref, pill, ...rest }: Props) {
   const [focused, setFocused] = useState(false);
-  const borderColor = error ? colors.danger : focused ? colors.ink : colors.fill;
+  const borderColor = error ? colors.danger : focused ? colors.ink : colors.line;
   return (
     <View style={styles.wrap}>
       {label ? (
@@ -29,8 +31,10 @@ export function Input({ label, error, hint, right, left, style, onFocus, onBlur,
       <View
         style={[
           styles.field,
-          { borderColor, backgroundColor: focused ? colors.bg : colors.fill },
+          { borderColor, backgroundColor: colors.card },
           multiline && styles.multiline,
+          pill && styles.pill,
+          pill && !focused && !error && { borderColor: colors.card },
         ]}
       >
         {left ? <View style={styles.adorn}>{left}</View> : null}
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
   },
   multiline: { alignItems: 'flex-start', paddingVertical: space.sm },
+  pill: { borderRadius: 999, paddingHorizontal: space.lg },
   input: { flex: 1, fontFamily: fonts.regular, fontSize: 17, color: colors.ink, paddingVertical: 12 },
   inputMultiline: { minHeight: 96, textAlignVertical: 'top', paddingTop: 6 },
 });
