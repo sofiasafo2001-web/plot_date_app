@@ -11,6 +11,7 @@ import { postSummary, postTypeLabel } from '@/components/PostCard';
 import { PressableScale } from '@/components/PressableScale';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
+import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { lookingForLabel } from '@/data/catalog';
 import { personById, postsOf } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
@@ -140,7 +141,7 @@ function SavedCard({ row, onUnsave }: { row: Row; onUnsave: () => void }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  list: { paddingBottom: space.xxl },
+  list: { paddingBottom: TAB_BAR_SPACE },
   sep: { height: space.md },
   card: { marginHorizontal: gutter, borderRadius: radius.card, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, overflow: 'hidden' },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.md, padding: space.lg, overflow: 'hidden' },

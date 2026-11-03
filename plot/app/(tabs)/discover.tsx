@@ -11,6 +11,7 @@ import { PressableScale } from '@/components/PressableScale';
 import { TextTabs } from '@/components/TextTabs';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
+import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { people } from '@/data/seed';
 import { defaultFilters, useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
@@ -125,7 +126,7 @@ export default function Discover() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  list: { paddingBottom: space.xxl },
+  list: { paddingBottom: TAB_BAR_SPACE },
   tabs: { paddingBottom: space.md },
   activeRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: gutter, paddingBottom: space.md, gap: space.sm },
   flex: { flex: 1 },

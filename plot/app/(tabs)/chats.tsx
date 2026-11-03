@@ -14,6 +14,7 @@ import { RequestCard } from '@/components/RequestCard';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Segmented } from '@/components/Segmented';
 import { Txt } from '@/components/Txt';
+import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { personById, shared, visibleChats, visibleRequests } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
   headerWrap: { paddingBottom: space.sm },
   controls: { paddingHorizontal: gutter, gap: space.md },
   sep: { height: StyleSheet.hairlineWidth, backgroundColor: colors.line, marginLeft: gutter + 56 + space.md },
-  listPad: { paddingBottom: space.xxl },
+  listPad: { paddingBottom: TAB_BAR_SPACE },
   requests: { paddingHorizontal: gutter, gap: space.md, paddingTop: space.sm },
   flex: { flex: 1 },
   hidden: { backgroundColor: colors.surface, borderRadius: radius.card, borderWidth: 1, borderColor: colors.line, padding: space.md, gap: space.md },

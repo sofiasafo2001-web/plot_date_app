@@ -13,6 +13,7 @@ import { IconButton } from '@/components/IconButton';
 import { PostTile } from '@/components/PostTile';
 import { LargeHeader } from '@/components/ScreenHeader';
 import { Txt } from '@/components/Txt';
+import { TAB_BAR_SPACE } from '@/components/TabBar';
 import { postsOf } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { colors, gutter, radius, space } from '@/theme';
@@ -97,7 +98,7 @@ export default function MyProfile() {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  scroll: { paddingBottom: space.xxl },
+  scroll: { paddingBottom: TAB_BAR_SPACE },
   head: { flexDirection: 'row', alignItems: 'center', gap: space.lg, marginHorizontal: gutter, padding: space.lg, borderRadius: radius.cardLg, overflow: 'hidden' },
   flex: { flex: 1 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4 },

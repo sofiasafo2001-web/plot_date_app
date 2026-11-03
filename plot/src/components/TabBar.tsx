@@ -1,6 +1,6 @@
 import type { BottomTabBarProps } from 'expo-router/tabs';
 import { Bookmark, Compass, MessageCircle, User, type LucideIcon } from 'lucide-react-native';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useChatBadge } from '@/store/selectors';
@@ -17,12 +17,15 @@ const meta: Record<string, { label: string; icon: LucideIcon }> = {
   profile: { label: 'Perfil', icon: User },
 };
 
-/** Barra de pestañas flotante en negro. La pestaña activa va en frambuesa (la acción de marca). */
+/** Espacio que deben dejar al final las pantallas con pestañas, porque la barra flota encima. */
+export const TAB_BAR_SPACE = 132;
+
+/** Barra de pestañas flotante, clara y translúcida. La pestaña activa va en frambuesa (la acción de marca). */
 export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const badge = useChatBadge();
   return (
-    <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, space.md) }]}>
+    <View pointerEvents="box-none" style={[styles.wrap, { bottom: Math.max(insets.bottom, space.md) }]}>
       <View style={styles.bar} accessibilityRole="tablist">
         {state.routes.map((route, index) => {
           const m = meta[route.name];
@@ -46,7 +49,7 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
               scaleTo={0.92}
             >
               <View style={[styles.icon, focused && styles.iconOn]}>
-                <Icon size={21} color={focused ? colors.white : tabMuted} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.white : 'none'} />
+                <Icon size={21} color={focused ? colors.white : colors.text2} strokeWidth={focused ? 2.2 : 1.8} fill={focused && route.name === 'saved' ? colors.white : 'none'} />
                 {showBadge ? (
                   <View style={styles.badge}>
                     <Txt variant="caption" color={colors.white} maxFontSizeMultiplier={1.1}>
@@ -55,7 +58,7 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
                   </View>
                 ) : null}
               </View>
-              <Txt variant="caption" color={focused ? colors.white : tabMuted} maxFontSizeMultiplier={1.2}>
+              <Txt variant="caption" color={focused ? colors.primaryInk : colors.text2} maxFontSizeMultiplier={1.2}>
                 {m.label}
               </Txt>
             </PressableScale>
@@ -66,17 +69,23 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   );
 }
 
-/** Gris cálido sobre negro (7:1). */
-const tabMuted = '#A8A397';
-
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.bg, paddingHorizontal: gutter, paddingTop: space.xs },
+  wrap: { position: 'absolute', left: gutter, right: gutter },
   bar: {
     flexDirection: 'row',
-    backgroundColor: colors.ink,
+    backgroundColor: 'rgba(255, 255, 255, 0.82)',
     borderRadius: 30,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.line,
     paddingVertical: 8,
     paddingHorizontal: 6,
+    shadowColor: colors.ink,
+    shadowOpacity: 0.1,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 8,
+    // Desenfoque del contenido que pasa por debajo (en la versión web).
+    ...(Platform.OS === 'web' ? ({ backdropFilter: 'blur(18px) saturate(160%)' } as object) : null),
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3, minHeight: hit + 6 },
   icon: { width: 52, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     backgroundColor: colors.brandRed,
     borderWidth: 2,
-    borderColor: colors.ink,
+    borderColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
   },
