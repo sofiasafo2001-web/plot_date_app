@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: gutter, right: gutter },
   bar: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.96)',
+    backgroundColor: 'rgba(255, 255, 255, 0.62)',
     borderRadius: 30,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: colors.line,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     elevation: 8,
     // Desenfoque del contenido que pasa por debajo (en la versión web).
-    ...(Platform.OS === 'web' ? ({ backdropFilter: 'blur(18px) saturate(160%)' } as object) : null),
+    ...(Platform.OS === 'web' ? ({ backdropFilter: 'blur(24px) saturate(180%)', WebkitBackdropFilter: 'blur(24px) saturate(180%)' } as object) : null),
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3, minHeight: hit + 6 },
   icon: { width: 52, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
