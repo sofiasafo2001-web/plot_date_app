@@ -69,7 +69,7 @@ export default function Saved() {
           <EmptyState
             icon={Bookmark}
             title="Aún no has guardado a nadie"
-            text="Toca el marcador junto al nombre de un perfil para guardarlo. Aquí verás lo que sube sin tener que escribirle todavía."
+            text="Guarda un perfil con el marcador y sigue su trama sin tener que escribirle todavía. Sin presión. Bueno, un poco. ;)"
             actionLabel="Ir a Descubrir"
             onAction={() => router.navigate('/discover')}
           />

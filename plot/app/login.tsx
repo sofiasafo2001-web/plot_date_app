@@ -30,7 +30,7 @@ export default function Login() {
     if (!password || loading) return;
     if (password !== DEMO_PASSWORD) {
       notifyError();
-      setError('Contraseña incorrecta');
+      setError('Contraseña incorrecta. Prueba otra vez :(');
       if (!reduced) {
         shake.set(withSequence(
           withTiming(-10, { duration: 50 }),
@@ -61,10 +61,10 @@ export default function Login() {
             <Lock size={26} color={colors.pink} />
           </View>
           <Txt variant="largeTitle" accessibilityRole="header">
-            Hola de nuevo
+            Mira quién ha vuelto :)
           </Txt>
           <Txt variant="body" color={colors.text2}>
-            Escribe tu contraseña para entrar en PLOT.
+            Tu contraseña y para dentro. Sin reconocimiento facial: aquí la cara no lo es todo.
           </Txt>
           <Animated.View style={[styles.field, shakeStyle]}>
             <Input

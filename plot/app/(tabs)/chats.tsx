@@ -63,7 +63,7 @@ export default function Chats() {
     const name = personById(c.personId)?.name ?? '';
     const next = !c.muted;
     setMuted(c.personId, next);
-    toast(next ? `${name} silenciada` : `${name} con sonido`, { undo: () => setMuted(c.personId, !next) });
+    toast(next ? `Conversación con ${name} silenciada` : `Conversación con ${name} con sonido`, { undo: () => setMuted(c.personId, !next) });
   };
   const onDelete = (c: Conversation) => {
     setDismissed(c.personId, true);
@@ -95,7 +95,7 @@ export default function Chats() {
 
   const header = (
     <View style={styles.headerWrap}>
-      <LargeHeader title="Chats" subtitle={unreadChats ? `${unreadChats} sin leer` : 'Todo al día'} />
+      <LargeHeader title="Chats" subtitle={unreadChats ? `${unreadChats} sin leer` : 'Todo leído :)'} />
       <View style={styles.controls}>
         <Segmented
           options={[
@@ -148,7 +148,7 @@ export default function Chats() {
             query ? (
               <EmptyState icon={Search} title="Sin resultados" text={`No hay chats que coincidan con «${query}».`} />
             ) : (
-              <EmptyState icon={MessageCircle} title="Aún no hablas con nadie" text="Sin match, sin swipe. Escribe a quien te guste lo que publica." actionLabel="Ir a Descubrir" onAction={() => router.navigate('/discover')} />
+              <EmptyState icon={MessageCircle} title="Aún no hablas con nadie" text="Sin match y sin swipe. Escribe a quien te guste lo que publica: el interés se demuestra escribiendo." actionLabel="Ir a Descubrir" onAction={() => router.navigate('/discover')} />
             )
           }
           contentContainerStyle={styles.listPad}
@@ -178,7 +178,7 @@ export default function Chats() {
               );
             })}
             {reqList.length === 0 && requests.hidden.length === 0 ? (
-              <EmptyState icon={Inbox} title="No tienes solicitudes" text="Cuando alguien te escriba por primera vez, aparecerá aquí." />
+              <EmptyState icon={Inbox} title="No tienes solicitudes" text="Cuando alguien te escriba por primera vez, aparecerá aquí. Paciencia. :)" />
             ) : null}
 
             {requests.hidden.length ? (

@@ -1,10 +1,3 @@
-import { Archivo_400Regular } from '@expo-google-fonts/archivo/400Regular';
-import { Archivo_500Medium } from '@expo-google-fonts/archivo/500Medium';
-import { Archivo_600SemiBold } from '@expo-google-fonts/archivo/600SemiBold';
-import { Archivo_700Bold } from '@expo-google-fonts/archivo/700Bold';
-import { Archivo_800ExtraBold } from '@expo-google-fonts/archivo/800ExtraBold';
-import { Archivo_900Black } from '@expo-google-fonts/archivo/900Black';
-import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { LucideProvider } from 'lucide-react-native';
@@ -15,7 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ToastHost } from '@/components/Toast';
 import { useApp } from '@/store/useApp';
-import { colors, fonts, iconStroke } from '@/theme';
+import { colors, font, iconStroke } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
@@ -28,17 +21,10 @@ const sheet = {
 };
 
 export default function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({
-    Archivo_400Regular,
-    Archivo_500Medium,
-    Archivo_600SemiBold,
-    Archivo_700Bold,
-    Archivo_800ExtraBold,
-    Archivo_900Black,
-  });
   const hydrated = useApp((s) => s.hydrated);
   const loggedIn = useApp((s) => s.loggedIn);
-  const ready = (fontsLoaded || !!fontError) && hydrated;
+  // Helvetica es de sistema: no hay fuentes que cargar, solo esperamos a los datos guardados.
+  const ready = hydrated;
 
   useEffect(() => {
     if (ready) SplashScreen.hideAsync().catch(() => undefined);
@@ -56,8 +42,8 @@ export default function RootLayout() {
               headerShown: false,
               contentStyle: { backgroundColor: colors.bg },
               headerTintColor: colors.ink,
-              headerTitleStyle: { fontFamily: fonts.semibold, color: colors.ink },
-              headerLargeTitleStyle: { fontFamily: fonts.display, color: colors.ink },
+              headerTitleStyle: { ...font.bold, color: colors.ink },
+              headerLargeTitleStyle: { ...font.bold, color: colors.ink },
               headerBackButtonDisplayMode: 'minimal',
               headerShadowVisible: false,
             }}

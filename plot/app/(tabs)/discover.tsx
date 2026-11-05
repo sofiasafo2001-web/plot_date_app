@@ -69,7 +69,7 @@ export default function Discover() {
     setTimeout(() => {
       shuffle();
       setRefreshing(false);
-      toast('Recomendaciones actualizadas');
+      toast('Gente nueva a la vista :)');
     }, 900);
   };
 
@@ -104,7 +104,7 @@ export default function Discover() {
               <Input
                 value={query}
                 onChangeText={setQuery}
-                placeholder="Busca un interés: ciclismo, un libro, videojuegos…"
+                placeholder="Busca un interés, un libro, un plan…"
                 left={<Search size={18} color={colors.text3} />}
                 returnKeyType="search"
                 clearButtonMode="while-editing"
@@ -153,7 +153,7 @@ export default function Discover() {
               dark
               icon={SearchX}
               title={`Nadie habla de «${query.trim()}» todavía`}
-              text="Prueba con otra palabra, o publica tú algo sobre ello: igual hay alguien esperando a que saques el tema."
+              text="Sé tú quien saque el tema: publícalo y a ver quién se anima. ;)"
               actionLabel="Borrar búsqueda"
               onAction={() => setQuery('')}
             />
@@ -161,8 +161,8 @@ export default function Discover() {
             <EmptyState
               dark
               icon={SearchX}
-              title="Nadie cumple estos filtros"
-              text="Prueba a ampliar la distancia o el rango de edad, o mira otra categoría."
+              title="Nadie cumple tantos requisitos :("
+              text="Ni en las pelis. Amplía la distancia o la edad, o mira otra categoría."
               actionLabel="Restablecer filtros"
               onAction={() => {
                 setFilters({ ...defaultFilters });

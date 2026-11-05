@@ -31,7 +31,7 @@ export function SaveButton({ personId, name, onPhoto, onDark }: Props) {
       onPress={() => {
         tapMedium();
         const now = toggleSaved(personId);
-        toast(now ? `${name} está en Guardados` : `${name} ya no está en Guardados`, {
+        toast(now ? `Guardado. Seguirás la trama de ${name} :)` : `${name} ya no está en Guardados`, {
           tone: now ? 'success' : 'default',
           undo: () => toggleSaved(personId),
         });

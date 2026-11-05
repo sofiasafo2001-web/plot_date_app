@@ -142,7 +142,7 @@ export default function SettingsScreen() {
       </Group>
 
       <Txt variant="footnote" color={colors.text3} align="center">
-        PLOT 1.0 · Demo
+        PLOT 1.0 · Demo · Give it a twist
       </Txt>
     </ScrollView>
   );

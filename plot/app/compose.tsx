@@ -108,7 +108,7 @@ export default function Compose() {
     disablePrevention();
     router.back();
     setTimeout(() => router.navigate('/profile'), 50);
-    toast('Publicado', { tone: 'success' });
+    toast('Publicado. Sin likes, como debe ser :)', { tone: 'success' });
   };
 
   return (

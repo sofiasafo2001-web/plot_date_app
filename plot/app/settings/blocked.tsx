@@ -18,7 +18,7 @@ export default function Blocked() {
 
   if (blocked.length === 0) {
     return (
-      <EmptyState icon={Ban} title="No has bloqueado a nadie" text="Si bloqueas a alguien desde su perfil o un chat, aparecerá aquí." />
+      <EmptyState icon={Ban} title="No has bloqueado a nadie" text="Si bloqueas a alguien desde su perfil o un chat, aparecerá aquí. Ojalá siga vacío. :)" />
     );
   }
   return (
@@ -42,7 +42,7 @@ export default function Blocked() {
                 size="sm"
                 onPress={() => {
                   unblock(id);
-                  toast(`${p.name} desbloqueada`, { undo: () => block(id) });
+                  toast(`Has desbloqueado a ${p.name}`, { undo: () => block(id) });
                 }}
               />
             </View>

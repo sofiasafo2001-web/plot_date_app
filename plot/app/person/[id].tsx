@@ -140,7 +140,7 @@ export default function PersonProfile() {
               </ChipRow>
             ) : (
               <Txt variant="subhead" color={colors.dark.text2}>
-                Aún no compartís intereses. Quizá descubras algo nuevo.
+                Nada en común… de momento. Dale un giro. ;)
               </Txt>
             )}
           </View>
@@ -209,7 +209,7 @@ export default function PersonProfile() {
               ))
             ) : (
               <Txt variant="subhead" color={colors.dark.text2} style={styles.emptyPosts}>
-                {filter === 'all' ? 'Todavía no ha publicado nada.' : `Aún no ha publicado nada de ${categories[filter].label.toLowerCase()}. Pregúntale tú.`}
+                {filter === 'all' ? 'Aún no ha publicado nada. Misterio total.' : `Aún no ha publicado nada de ${categories[filter].label.toLowerCase()}. Pregúntale tú.`}
               </Txt>
             )}
           </View>

@@ -18,7 +18,7 @@ import { Txt } from '@/components/Txt';
 import { personById, postsOf, shared } from '@/store/selectors';
 import { useApp } from '@/store/useApp';
 import { toast } from '@/store/useToast';
-import { categories, colors, fonts, gutter, hit, radius, space } from '@/theme';
+import { categories, colors, font, gutter, hit, radius, space } from '@/theme';
 import type { Attachment, Message } from '@/types';
 import { showActions } from '@/utils/confirm';
 import { tapLight, tapMedium } from '@/utils/haptics';
@@ -151,7 +151,7 @@ export default function Conversation() {
         <View style={styles.firstHead}>
           <Sparkles size={18} color={colors.ink} />
           <Txt variant="title2" color={colors.ink} style={styles.flex}>
-            Sin match, sin swipe. Escríbele tú primero
+            Deja de cotillearle el perfil y escríbele. ;)
           </Txt>
         </View>
         {common.length ? (
@@ -162,7 +162,7 @@ export default function Conversation() {
           </>
         ) : (
           <Txt variant="subhead" color={colors.ink}>
-            Aún no compartís intereses. Pregúntale por lo que publica.
+            Aún no compartís intereses. Pregúntale por lo que publica: ahí está la trama.
           </Txt>
         )}
       </View>
@@ -335,5 +335,5 @@ const styles = StyleSheet.create({
   composer: { backgroundColor: colors.card, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.line, paddingHorizontal: space.sm, paddingTop: space.sm, gap: space.xs },
   quoteBar: { flexDirection: 'row', alignItems: 'center', gap: space.sm, paddingLeft: space.md, backgroundColor: colors.primarySoft, borderRadius: radius.button },
   inputRow: { flexDirection: 'row', alignItems: 'flex-end', gap: space.sm },
-  input: { flex: 1, minHeight: hit, maxHeight: 120, borderRadius: 22, backgroundColor: colors.bg, paddingHorizontal: space.lg, paddingTop: 11, paddingBottom: 11, fontFamily: fonts.regular, fontSize: 17, color: colors.ink },
+  input: { flex: 1, minHeight: hit, maxHeight: 120, borderRadius: 22, backgroundColor: colors.bg, paddingHorizontal: space.lg, paddingTop: 11, paddingBottom: 11, ...font.regular, fontSize: 17, color: colors.ink },
 });

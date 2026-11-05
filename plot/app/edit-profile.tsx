@@ -63,7 +63,7 @@ export default function EditProfile() {
     setSaved(true);
     disablePrevention();
     router.back();
-    toast('Perfil actualizado', { tone: 'success' });
+    toast('Perfil actualizado. Así, sin pose :)', { tone: 'success' });
   };
 
   const toggle = (label: string) =>
@@ -78,7 +78,7 @@ export default function EditProfile() {
       </View>
       <ScrollView contentContainerStyle={[styles.body, { paddingBottom: insets.bottom + space.xxl }]} keyboardShouldPersistTaps="handled">
         <Input label="Nombre" value={name} onChangeText={setName} error={nameError} maxLength={30} autoCapitalize="words" returnKeyType="next" />
-        <Input label="Bio" value={bio} onChangeText={(t) => setBio(t.slice(0, BIO_MAX))} multiline hint={`${bio.length}/${BIO_MAX}`} placeholder="Cuéntale a la gente qué te gusta" />
+        <Input label="Bio" value={bio} onChangeText={(t) => setBio(t.slice(0, BIO_MAX))} multiline hint={`${bio.length}/${BIO_MAX}`} placeholder="Lo que piensas, lo que te gusta, cómo eres. Sin pose." />
         <Input label="¿De dónde eres?" value={origin} onChangeText={setOrigin} maxLength={40} autoCapitalize="words" placeholder="Tu ciudad o pueblo" returnKeyType="next" />
         <Input label="¿De qué trabajas?" value={job} onChangeText={setJob} maxLength={50} placeholder="Lo que haces, a tu manera" returnKeyType="done" />
         <View style={styles.section}>

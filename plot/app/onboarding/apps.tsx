@@ -20,7 +20,7 @@ export default function ConnectApps() {
           Conecta tus apps
         </Txt>
         <Txt variant="body" color={colors.text2}>
-          Comparte lo que escuchas, tus rutas y tus sitios. Tú decides qué se publica.
+          Tu racha en Strava dice más de ti que un selfie en el espejo. Tú decides qué se publica.
         </Txt>
         <View style={styles.card}>
           {appOrder.map((app) => (

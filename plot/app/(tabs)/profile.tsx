@@ -77,7 +77,7 @@ export default function MyProfile() {
             <Button label="Cómo me ven" icon={Eye} variant="dark" size="md" flex onPress={() => router.push({ pathname: '/person/[id]', params: { id: 'me' } })} />
           </View>
           <Txt variant="footnote" color={colors.text3} align="center">
-            Sin likes ni seguidores. Guardar a alguien es privado: nadie sabe que le has guardado.
+            Sin likes ni seguidores: aquí nadie publica para aparentar. Y guardar a alguien es privado. ;)
           </Txt>
         </View>
 
@@ -99,7 +99,7 @@ export default function MyProfile() {
             ))}
           </View>
         ) : (
-          <EmptyState icon={ImagePlus} title="Aún no has publicado nada" text="Comparte una canción, una ruta o un sitio que te guste." actionLabel="Crear publicación" onAction={() => router.push('/compose')} />
+          <EmptyState icon={ImagePlus} title="Aún no has publicado nada" text="Sube lo que te dé la gana, como si subes a tu gato. :P" actionLabel="Crear publicación" onAction={() => router.push('/compose')} />
         )}
       </ScrollView>
     </SafeAreaView>

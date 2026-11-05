@@ -30,8 +30,8 @@ export default function Ready() {
 
   const message =
     three > 0
-      ? `Ya hay ${three} ${three === 1 ? 'persona' : 'personas'} cerca con 3 intereses en común`
-      : `Ya hay ${any} ${any === 1 ? 'persona' : 'personas'} cerca con intereses en común`;
+      ? `Ya hay ${three} ${three === 1 ? 'persona' : 'personas'} cerca con 3 intereses en común. Casualidad. O no. ;)`
+      : `Ya hay ${any} ${any === 1 ? 'persona' : 'personas'} cerca con intereses en común. Casualidad. O no. ;)`;
 
   const finish = (thenCompose: boolean) => {
     notifySuccess();

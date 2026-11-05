@@ -2,7 +2,7 @@ import { CircleAlert } from 'lucide-react-native';
 import { useState, type ComponentRef, type ReactNode, type Ref } from 'react';
 import { Platform, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
-import { colors, fonts, radius, space } from '@/theme';
+import { colors, font, radius, space } from '@/theme';
 
 import { Txt } from './Txt';
 
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   pill: { borderRadius: 999, paddingHorizontal: space.lg },
   input: {
     flex: 1,
-    fontFamily: fonts.regular,
+    ...font.regular,
     fontSize: 17,
     color: colors.ink,
     paddingVertical: 12,

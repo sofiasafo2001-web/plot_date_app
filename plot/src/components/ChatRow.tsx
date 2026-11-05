@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ReanimatedSwipeable, { type SwipeableMethods } from 'react-native-gesture-handler/ReanimatedSwipeable';
 
-import { colors, fonts, gutter, space } from '@/theme';
+import { colors, font, gutter, space } from '@/theme';
 import type { Conversation, Person } from '@/types';
 import { tapLight } from '@/utils/haptics';
 import { messagePreview } from '@/utils/messages';
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.sm },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 1 },
   shrink: { flexShrink: 1 },
-  bold: { fontFamily: fonts.bold },
+  bold: { ...font.bold },
   chips: { flexDirection: 'row', gap: 6, marginTop: 6 },
   dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.brandRed },
   actions: { flexDirection: 'row' },

@@ -13,7 +13,7 @@ type Props = {
   dark?: boolean;
 };
 
-/** Cabecera de pantalla: antetítulo en versalitas y título grande en Archivo ExtraBold. */
+/** Cabecera de pantalla: antetítulo en versalitas y título grande en Helvetica Bold. */
 export function LargeHeader({ title, subtitle, right, dark }: Props) {
   return (
     <View style={styles.wrap}>

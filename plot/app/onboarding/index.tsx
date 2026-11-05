@@ -21,7 +21,7 @@ export default function Interests() {
   const counter =
     missing > 0
       ? `${selected.length} de ${MIN} elegidos · te ${missing === 1 ? 'falta' : 'faltan'} ${missing}`
-      : `${selected.length} elegidos · ¡listo!`;
+      : `${selected.length} elegidos · listo :D`;
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom']}>
@@ -31,7 +31,7 @@ export default function Interests() {
           ¿Qué te mueve?
         </Txt>
         <Txt variant="body" color={colors.text2}>
-          Elige al menos 5 cosas. Así te enseñamos gente que comparte lo que te gusta.
+          Elige al menos 5. Esto habla por ti mucho mejor que tu mejor ángulo.
         </Txt>
         {categoryOrder.map((cat) => (
           <View key={cat} style={styles.section}>

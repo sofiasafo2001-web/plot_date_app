@@ -8,14 +8,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { Txt } from '@/components/Txt';
-import { brand, colors, fonts, gutter, space } from '@/theme';
+import { brand, colors, font, gutter, space } from '@/theme';
 
 /** Frases de bienvenida: planteamiento y remate, con guiño. Van rotando. */
 const lines: [string, string][] = [
-  ['Otra app para conocer gente.', 'Pero esta vez, conoce a la gente.'],
-  ['Dating sin postureo.', 'Ni poses, ni filtros, ni swipe infinito.'],
-  ['Aquí una foto no decide', 'quién merece una conversación.'],
-  ['¿Te gusta el vermut? A Laia también.', 'Ya tenéis tema.'],
+  ['Otra app para conocer gente.', 'Pero esta vez, conoce a la gente. ;)'],
+  ['Dating sin postureo.', 'Ni poses, ni filtros, ni casting permanente.'],
+  ['No juzgues el libro', 'por sus seis selfies. :D'],
+  ['Deslizar 300 caras seguidas.', 'Qué romántico. :P'],
+  ['Tu mejor foto', 'no es lo mejor de ti.'],
 ];
 const ROTATE_MS = 3800;
 
@@ -58,7 +59,7 @@ export default function Welcome() {
 
         <Animated.View entering={FadeInDown.delay(200).duration(300)} style={styles.copy}>
           <Txt variant="body" color={colors.white}>
-            Anti-swipe: ves lo que le gusta a la gente y le escribes. Sin match, sin esperar a que te elijan.
+            Aquí no se desliza: ves lo que comparte la gente y le escribes. Sin match, sin esperar a que te elijan. Hazlo por la trama.
           </Txt>
         </Animated.View>
 
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   logo: { width: '100%', aspectRatio: 1000 / 256, marginTop: space.lg },
   hero: { flex: 1, justifyContent: 'center', gap: space.xl },
   lines: { gap: space.md, minHeight: 220, justifyContent: 'center' },
-  setup: { fontFamily: fonts.poster, fontSize: 40, lineHeight: 44, letterSpacing: -1.2 },
+  setup: { ...font.bold, fontSize: 40, lineHeight: 44, letterSpacing: -1.6 },
   punch: { fontSize: 24, lineHeight: 30, letterSpacing: -0.5 },
   dots: { flexDirection: 'row', gap: 6 },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.45)' },
