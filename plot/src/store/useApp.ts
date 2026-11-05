@@ -256,15 +256,13 @@ export const useApp = create<AppState>()(
     {
       name: 'plot-demo',
       // v4: publicaciones nuevas (libro y videojuego) para probar el buscador de Descubrir.
-      // Al subir de versión se carga la demo nueva, pero se mantiene la sesión iniciada.
+      // Al subir de versión se carga la demo nueva.
       version: 4,
-      migrate: (persisted) => ({
-        ...initialData(),
-        loggedIn: !!(persisted as Partial<PersistedState> | undefined)?.loggedIn,
-      }),
+      migrate: () => initialData(),
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s): PersistedState => ({
-        loggedIn: s.loggedIn,
+        // La sesión no se guarda: cada vez que se abre la app empieza en la bienvenida.
+        loggedIn: false,
         onboarded: s.onboarded,
         me: s.me,
         posts: s.posts,
